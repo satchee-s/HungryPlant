@@ -6,6 +6,7 @@ public class DoorController : MonoBehaviour
 {
     Animator anim;
     [SerializeField] bool doorOpen = false;
+    bool canBeOpened;
     private void Start()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -13,15 +14,19 @@ public class DoorController : MonoBehaviour
 
     public void PlayAnimation()
     {
-        if (doorOpen)
+        if (canBeOpened)
         {
-            anim.Play("doorclose");
-            doorOpen = false;
+            if (doorOpen)
+            {
+                anim.Play("doorclose");
+                doorOpen = false;
+            }
+            else if (!doorOpen)
+            {
+                anim.Play("dooropen");
+                doorOpen = true;
+            }
         }
-        else if (!doorOpen)
-        {
-            anim.Play("dooropen");
-            doorOpen = true;
-        }
+        
     }
 }

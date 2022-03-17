@@ -55,10 +55,9 @@ public class InventoryManager : MonoBehaviour
             currentSlot.item = item;
             currentSlot.isFilled = true;
             item.transform.SetParent(currentSlot.slot, false);
-            //currentSlot.UIImage.enabled = true;
             currentSlot.UIImage.sprite = item.inventoryImage;
             item.gameObject.SetActive(false);
-            //Debug.Log("Slot filled");
+            PuzzleManager.itemsInInventory.Add(item.type);
         }
     }
 
