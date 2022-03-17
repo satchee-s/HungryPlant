@@ -54,7 +54,7 @@ public class InventoryManager : MonoBehaviour
         {
             currentSlot.item = item;
             currentSlot.isFilled = true;
-            item.transform.SetParent(currentSlot.slot);
+            item.transform.SetParent(currentSlot.slot, false);
             //currentSlot.UIImage.enabled = true;
             currentSlot.UIImage.sprite = item.inventoryImage;
             item.gameObject.SetActive(false);
@@ -65,7 +65,9 @@ public class InventoryManager : MonoBehaviour
     public void EmptySlot()
     {
         currentSlot.UIImage.sprite = null;
-        currentSlot.item.transform.SetParent(null);
+        currentSlot.item.transform.SetParent(null, false);
+        currentSlot.item.transform.position = currentSlot.slot.position;
+        currentSlot.item.transform.rotation = currentSlot.slot.rotation;
         currentSlot.isFilled = false;
         currentSlot.item.gameObject.SetActive(true);
         currentSlot.item.rbd.AddForce(currentSlot.item.transform.forward * 2, ForceMode.VelocityChange);
