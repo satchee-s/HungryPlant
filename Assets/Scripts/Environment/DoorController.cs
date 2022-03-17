@@ -6,7 +6,7 @@ public class DoorController : MonoBehaviour
 {
     Animator anim;
     [SerializeField] bool doorOpen = false;
-    bool canBeOpened;
+    [HideInInspector] public bool canBeOpened;
     private void Start()
     {
         anim = gameObject.GetComponent<Animator>();

@@ -8,6 +8,7 @@ public class InventoryManager : MonoBehaviour
     public Transform[] inventory = new Transform[3];
     InventorySlot[] slots = new InventorySlot[3];
     public InventorySlot currentSlot;
+    //public List<PuzzleManager.ItemType> itemsInInventory = new List<PuzzleManager.ItemType>();
 
     private void Start()
     {
@@ -70,6 +71,7 @@ public class InventoryManager : MonoBehaviour
         currentSlot.isFilled = false;
         currentSlot.item.gameObject.SetActive(true);
         currentSlot.item.rbd.AddForce(currentSlot.item.transform.forward * 2, ForceMode.VelocityChange);
+        PuzzleManager.itemsInInventory.Remove(currentSlot.item.type);
         currentSlot.item = null;
         //Debug.Log("Slot emptied");
     }

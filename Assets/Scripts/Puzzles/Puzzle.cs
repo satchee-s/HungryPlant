@@ -6,8 +6,14 @@ using UnityEngine.Events;
 public abstract class Puzzle : MonoBehaviour
 {
     public List<PuzzleManager.ItemType> requiredItems = new List<PuzzleManager.ItemType>();
-
     public UnityEvent taskCompleted;
+
+    //InventoryManager manager;
+
+    /*private void Start()
+    {
+        manager = GameObject.Find("PlayerParent").GetComponent<InventoryManager>();
+    }*/
 
     public bool CheckItems()
     {
@@ -23,10 +29,11 @@ public abstract class Puzzle : MonoBehaviour
 
     public virtual void ExecutePuzzle()
     {
+        CheckItems();
         if (CheckItems())
         {
             Debug.Log("You have all the items");
-            //taskCompleted.Invoke();
+            taskCompleted.Invoke();
         }
         else
         {
