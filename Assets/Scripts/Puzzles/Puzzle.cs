@@ -7,14 +7,7 @@ public abstract class Puzzle : MonoBehaviour
 {
     public List<PuzzleManager.ItemType> requiredItems = new List<PuzzleManager.ItemType>();
     public UnityEvent taskCompleted;
-
-    //InventoryManager manager;
-
-    /*private void Start()
-    {
-        manager = GameObject.Find("PlayerParent").GetComponent<InventoryManager>();
-    }*/
-
+    
     public bool CheckItems()
     {
         for (int i = 0; i < requiredItems.Count; i++)

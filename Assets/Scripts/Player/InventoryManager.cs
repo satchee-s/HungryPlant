@@ -33,18 +33,24 @@ public class InventoryManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            //Debug.Log("Slot 1 selected");
             currentSlot = slots[0];
+            currentSlot.isSelected = true;
+            slots[1].isSelected = false;
+            slots[2].isSelected = false;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            //Debug.Log("Slot 2 selected");
             currentSlot = slots[1];
+            currentSlot.isSelected = true;
+            slots[0].isSelected = false;
+            slots[2].isSelected = false;
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            //Debug.Log("Slot 3 selected");
             currentSlot = slots[2];
+            currentSlot.isSelected = true;
+            slots[0].isSelected = false;
+            slots[1].isSelected = false;
         }
     }
 
@@ -73,7 +79,6 @@ public class InventoryManager : MonoBehaviour
         currentSlot.item.rbd.AddForce(currentSlot.item.transform.forward * 2, ForceMode.VelocityChange);
         PuzzleManager.itemsInInventory.Remove(currentSlot.item.type);
         currentSlot.item = null;
-        //Debug.Log("Slot emptied");
     }
 
     public void SlotManager(Item item)

@@ -9,6 +9,7 @@ public class RaycastController : MonoBehaviour
     Item item;
     InventoryManager inventory;
     Ray ray;
+    float timer = 0f;
 
     private void Start()
     {
@@ -48,7 +49,7 @@ public class RaycastController : MonoBehaviour
             }
             else
             {
-                if (Physics.Raycast(ray, out hit, 2f))
+                if (Physics.Raycast(ray, out hit, 4f))
                 //if (Physics.SphereCast(ray, 2f, out hit))
                 {
                     item = hit.transform.GetComponent<Item>();

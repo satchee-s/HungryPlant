@@ -755,6 +755,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   controller: {fileID: 1852463524}
+  requriedTime: 4
+  startPuzzle: 0
 --- !u!65 &1534155509
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1146,7 +1148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorOpen: 0
-  canBeOpened: 0
+  isNotBarricaded: 0
 --- !u!1 &1858583195
 GameObject:
   m_ObjectHideFlags: 0
