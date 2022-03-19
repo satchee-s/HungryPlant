@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         Jump();
         Crouch();
-        velocity.y += gravity * Time.deltaTime;
+        velocity.y += gravity *Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 
@@ -41,13 +41,14 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Movement()
     {
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayerMask);
         if (isGrounded && velocity.y < 0)
             velocity.y = -1f;
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
-        Vector3 move = (transform.right * x + transform.forward * z).normalized;
+        Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * finalSpeed * Time.deltaTime);
     }
     private void Crouch()
