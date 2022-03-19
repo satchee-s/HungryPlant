@@ -6,6 +6,7 @@ public class DoorController : MonoBehaviour
 {
     Animator anim;
     [SerializeField] bool doorOpen = false;
+    [HideInInspector] public bool isNotBarricaded = true;
     private void Start()
     {
         anim = gameObject.GetComponent<Animator>();
@@ -13,18 +14,19 @@ public class DoorController : MonoBehaviour
 
     public void PlayAnimation()
     {
-        if (doorOpen)
+        if (isNotBarricaded)
         {
-            anim.Play("DoorClose");
-            doorOpen = false;
-            Debug.Log("Door close animation");
+            if (doorOpen)
+            {
+                anim.Play("doorclose");
+                doorOpen = false;
+            }
+            else if (!doorOpen)
+            {
+                anim.Play("dooropen");
+                doorOpen = true;
+            }
         }
-        else if (!doorOpen)
-        {
-            anim.Play("DoorOpen");
-            doorOpen = true;
-            Debug.Log("Door open animation");
-
-        }
+        
     }
 }

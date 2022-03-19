@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class RaycastController : MonoBehaviour
 {
@@ -10,6 +9,7 @@ public class RaycastController : MonoBehaviour
     Item item;
     InventoryManager inventory;
     Ray ray;
+    float timer = 0f;
 
     private void Start()
     {
@@ -26,7 +26,11 @@ public class RaycastController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                if (hit.collider.tag == "Door")
+                if (hit.collider.tag == "Puzzle")
+                {
+                    hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
+                }
+                else if (hit.collider.tag == "Door")
                 {
                     hit.collider.gameObject.GetComponent<DoorController>().PlayAnimation();
                 }
@@ -45,13 +49,12 @@ public class RaycastController : MonoBehaviour
             }
             else
             {
-                if (Physics.Raycast(ray, out hit, 2f))
+                if (Physics.Raycast(ray, out hit, 4f))
                 //if (Physics.SphereCast(ray, 2f, out hit))
                 {
                     item = hit.transform.GetComponent<Item>();
                     if (item != null)
                     {
-                        Debug.Log("Item detected");
                         inventory.SlotManager(item);
                     }
                 }
