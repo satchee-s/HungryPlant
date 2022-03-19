@@ -1,0 +1,93 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Pathfinding : MonoBehaviour
+{
+    Node currentNode;
+    Node[] allNodes;
+    [SerializeField] Node targetNode;
+    Node startingNode;
+    List <Node> open = new List <Node> ();
+    List <Node> final = new List <Node> ();
+    private void Start()
+    {
+        allNodes = GameObject.FindObjectsOfType<Node>();
+        FindPath();
+    }
+    Node FindClosestNode(Vector3 position) //is this a good idea
+    {
+        Node closestNode = null;
+        float closestDistance = Mathf.Infinity;
+        foreach (Node node in allNodes)
+        {
+            float distance = CalculateCost(node.Position, position);
+
+            if (distance < closestDistance)
+            {
+                closestNode = node;
+                closestDistance = distance;
+            }
+        }
+        return closestNode;
+    }
+     
+    float CalculateCost(Vector3 nodeA, Vector3 nodeB)
+    {
+        return Mathf.Abs(nodeA.x - nodeB.x) + Mathf.Abs(nodeA.z - nodeB.z);
+    }
+    void FindPath()
+    {
+        bool containsInOpen;
+        startingNode = FindClosestNode(transform.position);
+        open.Add(startingNode);
+
+        while (true)
+        {
+            open.Sort();
+            currentNode = open[0];
+            open.Remove(currentNode);
+            currentNode.isVisited = true;
+            if (currentNode == targetNode)
+            {
+                FinalPath(targetNode);
+                break;
+            }
+            for (int i = 0; i < currentNode.neighbours.Count; i++)
+            {
+                containsInOpen = open.Contains(currentNode.neighbours[i]);
+                if (currentNode.neighbours[i].isVisited == true)
+                    continue;
+                currentNode.neighbours[i].gCost = (int)CalculateCost(currentNode.neighbours[i].Position, startingNode.Position);
+                currentNode.neighbours[i].hCost = (int)CalculateCost(currentNode.neighbours[i].Position, targetNode.Position);
+                if (currentNode.neighbours[i].hCost < currentNode.hCost || !containsInOpen)
+                {
+                    currentNode.neighbours[i].parent = currentNode;
+                    if (!containsInOpen)
+                        open.Add(currentNode.neighbours[i]);
+                }
+            }
+            //neighbourNodes.Clear();
+        }
+    }
+
+    void FinalPath(Node node)
+    {
+        final.Add(node);
+        while (true)
+        {
+            final.Add(node.parent);
+            node = final[final.Count - 1];
+            if (final[final.Count - 1] == startingNode)
+            {
+                //enemy.gameObject.GetComponent<AIMovement>().OnPathFound(final);
+                Debug.Log("Found path");
+                for (int i = 0; i < final.Count; i++)
+                {
+                    Debug.Log(final[i].name);
+                }
+                break;
+            }
+        }
+    }
+}
