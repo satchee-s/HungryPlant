@@ -7,6 +7,8 @@ public class Item : MonoBehaviour
 {
     public Rigidbody rbd;
     public Sprite inventoryImage;
+    public PuzzleManager.ItemType type;
+
     void Start()
     {
         rbd = GetComponent<Rigidbody>();

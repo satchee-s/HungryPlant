@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PuzzleManager
 {
-    public enum PuzzleState { NotStarted, InProgress, Completed};
-    //public List<string> finishedPuzzles = new List<string>();
-    public List<GameObject> requiredItems = new List<GameObject>();
-    public List<GameObject> usedItems = new List<GameObject>();
+    public enum ItemType { Key, Nails, Planks, Hammer, Lighter, Gasoline, Bucket, VideoTape };
+    public static List<ItemType> itemsInInventory = new List<ItemType>();
 }
