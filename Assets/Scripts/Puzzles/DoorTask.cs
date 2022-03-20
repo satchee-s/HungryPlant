@@ -25,7 +25,7 @@ public class DoorTask : Puzzle
     public void LockDoor()
     {
         startPuzzle = true;
-        subtitle.DisplaySubtitle("The Door has been locked");
+        subtitle.DisplaySubtitle("The Door has been locked", 5, .1f);
         controller.Lock(true);
     }
 }
