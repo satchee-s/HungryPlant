@@ -6,8 +6,8 @@ using UnityEngine.Events;
 public abstract class Puzzle : MonoBehaviour
 {
     public List<PuzzleManager.ItemType> requiredItems = new List<PuzzleManager.ItemType>();
-    public UnityEvent taskCompleted;
-    
+    public UnityEvent taskCompleted;    
+
     public bool CheckItems()
     {
         for (int i = 0; i < requiredItems.Count; i++)

@@ -26,13 +26,17 @@ public class RaycastController : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                if (hit.collider.tag == "Door")
+                {
+                    hit.collider.gameObject.GetComponent<DoorController>().PlayAnimation();
+                    Debug.Log("Door Interaction");
+                }
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
                 if (hit.collider.tag == "Puzzle")
                 {
                     hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
-                }
-                else if (hit.collider.tag == "Door")
-                {
-                    hit.collider.gameObject.GetComponent<DoorController>().PlayAnimation();
                 }
             }
         }
