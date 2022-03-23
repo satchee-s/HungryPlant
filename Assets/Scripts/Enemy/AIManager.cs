@@ -5,7 +5,9 @@ using UnityEngine;
 public class AIManager : MonoBehaviour
 {
     public State currentState;
-    public State Patrol, Capture, Chase, Search;
+    public State roamingBehavior, captureBehavior, chaseBehavior, searchBehavior;
+    //public Transform plant;
+    //public Pathfinding pathfinding;
 
     public void SetMovement (State state)
     {
@@ -14,7 +16,10 @@ public class AIManager : MonoBehaviour
 
     private void Start()
     {
-        currentState = Patrol;
+        currentState = roamingBehavior;
+        //SetMovement(currentState);
+        //pathfinding.allNodes = GameObject.FindObjectsOfType<Node>();
+        //pathfinding = GetComponent<Pathfinding>();
     }
 
     private void Update()

@@ -5,17 +5,14 @@ using UnityEngine;
 public class Pathfinding : MonoBehaviour
 {
     Node currentNode;
-    Node[] allNodes;
-    [SerializeField] Node targetNode;
-    Node startingNode;
+    public Node[] allNodes;
     List <Node> open = new List <Node> ();
-    List <Node> final = new List <Node> ();
+    [HideInInspector] public List <Node> final = new List <Node> ();
     private void Start()
     {
         allNodes = GameObject.FindObjectsOfType<Node>();
-        FindPath();
     }
-    Node FindClosestNode(Vector3 position) //is this a good idea
+    public Node FindClosestNode(Vector3 position) //raycast to find closest node instead?
     {
         Node closestNode = null;
         float closestDistance = Mathf.Infinity;
@@ -36,10 +33,9 @@ public class Pathfinding : MonoBehaviour
     {
         return Mathf.Abs(nodeA.x - nodeB.x) + Mathf.Abs(nodeA.z - nodeB.z);
     }
-    void FindPath()
+    public void FindPath(Node startingNode, Node targetNode)
     {
         bool containsInOpen;
-        startingNode = FindClosestNode(transform.position);
         open.Add(startingNode);
 
         while (true)
@@ -50,7 +46,7 @@ public class Pathfinding : MonoBehaviour
             currentNode.isVisited = true;
             if (currentNode == targetNode)
             {
-                FinalPath(targetNode);
+                FinalPath(targetNode, startingNode);
                 break;
             }
             for (int i = 0; i < currentNode.neighbours.Count; i++)
@@ -67,27 +63,39 @@ public class Pathfinding : MonoBehaviour
                         open.Add(currentNode.neighbours[i]);
                 }
             }
-            //neighbourNodes.Clear();
         }
     }
 
-    void FinalPath(Node node)
+    void FinalPath(Node endNode, Node startNode)
     {
-        final.Add(node);
+        final.Add(endNode);
         while (true)
         {
-            final.Add(node.parent);
-            node = final[final.Count - 1];
-            if (final[final.Count - 1] == startingNode)
+            final.Add(endNode.parent);
+            endNode = final[final.Count - 1];
+            if (final[final.Count - 1] == startNode)
             {
                 //enemy.gameObject.GetComponent<AIMovement>().OnPathFound(final);
-                Debug.Log("Found path");
-                for (int i = 0; i < final.Count; i++)
-                {
-                    Debug.Log(final[i].name);
-                }
+                //Debug.Log("Found path");
                 break;
             }
+        }
+        //final.Reverse();
+        /*for (int i = 0; i < final.Count; i++)
+        {
+            Debug.Log(final[i].name);
+        }*/
+    }
+
+    public Node GetRandomNode(Node node)
+    {
+        Node newNode = allNodes[Random.Range(0, allNodes.Length - 1)];
+        while (true)
+        {
+            if (node != newNode && !node.neighbours.Contains(newNode))
+                return newNode;
+            else
+                newNode = allNodes[Random.Range(0, allNodes.Length - 1)];
         }
     }
 }

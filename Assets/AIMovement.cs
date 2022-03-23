@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class AIMovement : MonoBehaviour
 {
-    
+    public float movementSpeed;
 }

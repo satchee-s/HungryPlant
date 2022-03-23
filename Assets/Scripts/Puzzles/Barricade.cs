@@ -8,6 +8,8 @@ public class Barricade : Puzzle
     [SerializeField] float requriedTime;
     float timer = 0f;
     [SerializeField] bool startPuzzle = false;
+    InventoryManager manager;
+    Item item;
     //add buffer/way to check how long you do the task for
 
     public override void ExecutePuzzle()
