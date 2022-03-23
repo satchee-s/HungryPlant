@@ -8,6 +8,7 @@ public class InventoryManager : MonoBehaviour
     public Transform[] inventory = new Transform[3];
     InventorySlot[] slots = new InventorySlot[3];
     public InventorySlot currentSlot;
+    bool hasBucket;
     //public List<PuzzleManager.ItemType> itemsInInventory = new List<PuzzleManager.ItemType>();
 
     private void Start()
