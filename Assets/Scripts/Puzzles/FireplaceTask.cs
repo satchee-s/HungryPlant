@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireplaceTask : MonoBehaviour
+public class FireplaceTask : Puzzle
 {
-    public bool isBucketFilled;
+    /*public bool isBucketFilled;
     public GameObject fire;
     //public GameObject extinguishedFireSmoke;
     //public GameObject deskDrawerKey;
@@ -19,5 +19,13 @@ public class FireplaceTask : MonoBehaviour
             //Instantiate(deskDrawerKey);
             //extinguishedFireSound.Play();
         }
+    }*/
+
+    public override void ExecutePuzzle()
+    {
+        base.ExecutePuzzle();
     }
+
+    // need a way to remove items after they've been used
+
 }

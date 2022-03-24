@@ -8,17 +8,11 @@ public class Tap : Puzzle
     public GameObject water;
 
     [SerializeField] Sprite filledBucketSprite;
+    [SerializeField] Sprite originalImage;
 
     bool isWaterRunning;
     bool hasBucket;
-
-    Item item;
-
-    private void Start()
-    {
-        requiredItems.Add(PuzzleManager.ItemType.Bucket);
-
-    }
+    public InventoryManager inventoryManager;
     void Update()
     {
         if (hasBucket)
@@ -43,14 +37,7 @@ public class Tap : Puzzle
     }
     public void HasBucket()
     {
-        hasBucket = CheckItems();
-        if (hasBucket)
-        {
-            //item = PuzzleManager.itemsInInventory.Find(requiredItems[0].GetType);
-            //item = PuzzleManager.itemsInInventory[0];
-            item.type = PuzzleManager.ItemType.FilledBucket;
-            item.inventoryImage = filledBucketSprite;
-        }
-                
+        SwapItem(PuzzleManager.ItemType.Bucket, PuzzleManager.ItemType.FilledBucket);
+        inventoryManager.ReplaceImage(originalImage, filledBucketSprite);
     }
 }

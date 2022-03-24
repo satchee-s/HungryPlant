@@ -9,7 +9,7 @@ public class RaycastController : MonoBehaviour
     Item item;
     InventoryManager inventory;
     Ray ray;
-    float timer = 0f;
+    //float timer = 0f;
 
     private void Start()
     {
@@ -29,7 +29,6 @@ public class RaycastController : MonoBehaviour
                 if (hit.collider.tag == "Door")
                 {
                     hit.collider.gameObject.GetComponent<DoorController>().PlayAnimation();
-                    Debug.Log("Door Interaction");
                 }
             }
             if (Input.GetMouseButtonDown(1))

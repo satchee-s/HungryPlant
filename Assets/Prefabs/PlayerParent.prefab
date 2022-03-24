@@ -43,8 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf5eeff819bda43b5a7cfdce8406c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIBorder: {fileID: 0}
   UIImage: {fileID: 0}
   slot: {fileID: 1361732741261649782}
+  imageInInventory: {fileID: 0}
   isSelected: 0
   isFilled: 0
   item: {fileID: 0}
@@ -91,8 +93,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf5eeff819bda43b5a7cfdce8406c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIBorder: {fileID: 0}
   UIImage: {fileID: 0}
   slot: {fileID: 1361732741306926785}
+  imageInInventory: {fileID: 0}
   isSelected: 0
   isFilled: 0
   item: {fileID: 0}
@@ -312,7 +316,6 @@ GameObject:
   - component: {fileID: 1361732742384947730}
   - component: {fileID: 1361732742384947729}
   - component: {fileID: 1361732742384947740}
-  - component: {fileID: 1361732742384947741}
   - component: {fileID: 2080154114525136974}
   m_Layer: 0
   m_Name: Main Camera
@@ -406,18 +409,6 @@ MonoBehaviour:
   hidingMaxRotation: 20
   hidingMinRotation: -20
   isHiding: 0
---- !u!114 &1361732742384947741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1361732742384947728}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f39c9e8ff5a8df46a08337604410d18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2080154114525136974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -494,8 +485,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aacf5eeff819bda43b5a7cfdce8406c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UIBorder: {fileID: 0}
   UIImage: {fileID: 0}
   slot: {fileID: 1361732742465877831}
+  imageInInventory: {fileID: 0}
   isSelected: 0
   isFilled: 0
   item: {fileID: 0}
