@@ -12,7 +12,7 @@ public class Tap : Puzzle
 
     bool isWaterRunning;
     bool hasBucket;
-    public InventoryManager inventoryManager;
+    //public InventoryManager inventoryManager;
     void Update()
     {
         if (hasBucket)

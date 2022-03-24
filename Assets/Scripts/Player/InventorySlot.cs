@@ -18,11 +18,11 @@ public class InventorySlot : MonoBehaviour
         animator = UIBorder.GetComponent<Animator>();
     }
 
-    /*private void Update()
+    private void Update()
     {
         if (animator.GetBool("Selected") != isSelected)
         {
             animator.SetBool("Selected", isSelected);
         }
-    }*/
+    }
 }

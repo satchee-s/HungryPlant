@@ -6,8 +6,9 @@ using UnityEngine.Events;
 public abstract class Puzzle : MonoBehaviour
 {
     public List<PuzzleManager.ItemType> requiredItems = new List<PuzzleManager.ItemType>();
-    public UnityEvent taskCompleted;    
-
+    public UnityEvent taskCompleted;
+    protected InventoryManager inventoryManager;
+    protected SubtitleSystem subtitle;
     public bool CheckItems()
     {
         for (int i = 0; i < requiredItems.Count; i++)
@@ -18,6 +19,11 @@ public abstract class Puzzle : MonoBehaviour
             }
         }
         return true;
+    }
+    private void Start()
+    {
+        inventoryManager = GameObject.Find("PlayerParent").GetComponent<InventoryManager>();
+        subtitle = FindObjectOfType<SubtitleSystem>();
     }
 
     public virtual void ExecutePuzzle()
@@ -30,7 +36,7 @@ public abstract class Puzzle : MonoBehaviour
         }
         else
         {
-            //Debug.Log("You don't have all the items yet");
+            subtitle.DisplaySubtitle("You don't have all the items yet");
         }
     }
 
