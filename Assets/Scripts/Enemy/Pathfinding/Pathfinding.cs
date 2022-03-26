@@ -85,6 +85,9 @@ public class Pathfinding : MonoBehaviour
         {
             Debug.Log(final[i].name);
         }*/
+        open.Clear();
+        foreach (Node node in allNodes)
+            node.isVisited = false;
     }
 
     public Node GetRandomNode(Node node)

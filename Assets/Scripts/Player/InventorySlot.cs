@@ -6,6 +6,7 @@ public class InventorySlot : MonoBehaviour
     public GameObject UIBorder;
     public Image UIImage;
     public Transform slot;
+    [HideInInspector] public Sprite imageInInventory;
     [HideInInspector] public bool isSelected;
     [HideInInspector] public bool isFilled;
     [HideInInspector] public Item item;

@@ -8,6 +8,7 @@ public class InventoryManager : MonoBehaviour
     public Transform[] inventory = new Transform[3];
     InventorySlot[] slots = new InventorySlot[3];
     public InventorySlot currentSlot;
+    //bool hasBucket;
     //public List<PuzzleManager.ItemType> itemsInInventory = new List<PuzzleManager.ItemType>();
 
     private void Start()
@@ -16,17 +17,6 @@ public class InventoryManager : MonoBehaviour
         slots[1] = inventory[1].GetComponent<InventorySlot>();
         slots[2] = inventory[2].GetComponent<InventorySlot>();
         currentSlot = slots[0];
-    }
-    InventorySlot FindEmpty()
-    {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i].isFilled == false)
-            {
-                return slots[i];
-            }
-        }
-        return null;
     }
 
     public void SelectSlot() //called in update
@@ -54,9 +44,10 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    void FillSlot(Item item)
+    void FillSlot(Item item, int slotIndex)
     {
-        currentSlot = FindEmpty();
+        //currentSlot = FindEmpty();//do you need to re-find an empty slot
+        currentSlot = slots[slotIndex];
         if (currentSlot != null)
         {
             currentSlot.item = item;
@@ -87,10 +78,22 @@ public class InventoryManager : MonoBehaviour
         {
             if (slots[i].isFilled == false)
             {
-                FillSlot(item);
+                FillSlot(item, i);
                 break;
             }
         }
 
+    }
+
+    public void ReplaceImage(Sprite inventoryImage, Sprite replacementImage)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].UIImage.sprite == inventoryImage)
+            {
+                slots[i].UIImage.sprite = replacementImage;
+                break;
+            }
+        }
     }
 }

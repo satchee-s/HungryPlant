@@ -26,30 +26,25 @@ public class Patrol : State
         pathfinding.FindPath(targetNode, startingNode);
         travelPath = pathfinding.final;
         targetIndex = 0;
-        currentNode = travelPath[targetIndex].Position;
+        currentNode = new Vector3(travelPath[targetIndex].Position.x, plant.position.y, travelPath[targetIndex].Position.z);
         hasPath = true;
-        //FollowPath();
     }
 
     void FollowPath()
     {
-        //targetIndex = 0;
-        //currentNode = travelPath[targetIndex].Position;
-        plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.1f);
-        if (plant.position == currentNode)
+        plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.05f);
+        if (plant.position.x == currentNode.x && plant.position.z == currentNode.z)
         {
             targetIndex++;
             if (targetIndex < travelPath.Count)
-                currentNode = travelPath[targetIndex].Position;
+                currentNode = new Vector3(travelPath[targetIndex].Position.x, plant.position.y, travelPath[targetIndex].Position.z);
             else if (targetIndex >= travelPath.Count)
             {
                 startingNode = targetNode;
                 hasPath = false;
                 travelPath.Clear();
-                //break;
             }
         }
-        //travelPath.Clear();
     }
 
     void PathManager()

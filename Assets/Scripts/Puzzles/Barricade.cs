@@ -26,7 +26,7 @@ public class Barricade : Puzzle
         //run animation
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (startPuzzle)
         {
@@ -42,5 +42,5 @@ public class Barricade : Puzzle
             }
         }
         
-    }
+    }*/
 }
