@@ -12,6 +12,7 @@ public class DoorTask : Puzzle
     {
         startPuzzle = true;
         subtitle.DisplaySubtitle("The Door has been locked", 5, .1f);
-        controller.Lock(true);
+        if (controller != null)
+            controller.Lock(true);
     }
 }

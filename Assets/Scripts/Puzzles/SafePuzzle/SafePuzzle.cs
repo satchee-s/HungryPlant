@@ -10,12 +10,8 @@ public class SafePuzzle : Puzzle
     string input = "";
     [SerializeField] Text writing;
     [SerializeField] Text keypad;
-
-    SubtitleSystem subtitle;
-    // Start is called before the first frame update
     void Start()
     {
-        subtitle = FindObjectOfType<SubtitleSystem>();
         writing.gameObject.SetActive(false);
         input = "";
     }
