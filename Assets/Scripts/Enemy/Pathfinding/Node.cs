@@ -20,4 +20,10 @@ public class Node : MonoBehaviour, IComparable
             return 1;
         return 0;
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawSphere(Position, 0.5f);
+    }
 }

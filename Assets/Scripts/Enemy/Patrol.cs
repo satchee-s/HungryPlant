@@ -26,13 +26,15 @@ public class Patrol : State
         pathfinding.FindPath(targetNode, startingNode);
         travelPath = pathfinding.final;
         targetIndex = 0;
-        currentNode = new Vector3(travelPath[targetIndex].Position.x, plant.position.y, travelPath[targetIndex].Position.z);
+        currentNode = new Vector3(travelPath[targetIndex].Position.x, 
+                                  plant.position.y, travelPath[targetIndex].Position.z);
         hasPath = true;
     }
 
     void FollowPath()
     {
-        plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.05f);
+        plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.03f);
+        plant.LookAt(currentNode);
         if (plant.position.x == currentNode.x && plant.position.z == currentNode.z)
         {
             targetIndex++;
@@ -49,13 +51,24 @@ public class Patrol : State
 
     void PathManager()
     {
-        if (!hasPath)
+        if (DetectPlayer(player, plant, 8f))
         {
-            GetPath();
+            startingNode = null;
+            travelPath.Clear();
+            hasPath = false;
+            aiManager.SetMovement(aiManager.chaseBehavior);
         }
         else
         {
-            FollowPath();
+            if (!hasPath)
+            {
+                GetPath();
+            }
+            else
+            {
+                FollowPath();
+                //hasPath = false;
+            }
         }
     }
 }

@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Capture : State
 {
+    [SerializeField] Transform resetPosition;
     public override void SetBehaviour()
     {
-        //set behavior
+        aiManager.SetMovement(aiManager.captureBehavior);
+        subtitleSystem.DisplaySubtitle("ahhhh! [gets eaten]");
+        player.position = resetPosition.position;
+        aiManager.SetMovement(aiManager.roamingBehavior);
     }
 }

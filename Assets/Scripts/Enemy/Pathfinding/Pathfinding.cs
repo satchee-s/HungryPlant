@@ -8,21 +8,23 @@ public class Pathfinding : MonoBehaviour
     public Node[] allNodes;
     List <Node> open = new List <Node> ();
     [HideInInspector] public List <Node> final = new List <Node> ();
+    LayerMask nodeLayer;
     private void Start()
     {
         allNodes = GameObject.FindObjectsOfType<Node>();
+        nodeLayer = LayerMask.GetMask("Nodes");
     }
-    public Node FindClosestNode(Vector3 position) //raycast to find closest node instead?
+    public Node FindClosestNode(Vector3 position, float searchDistance = 10f)
     {
         Node closestNode = null;
+        Collider[] col = Physics.OverlapSphere(position, searchDistance, nodeLayer);
         float closestDistance = Mathf.Infinity;
-        foreach (Node node in allNodes)
+        foreach (Collider nodes in col)
         {
-            float distance = CalculateCost(node.Position, position);
-
+            float distance = CalculateCost(nodes.transform.position, position);
             if (distance < closestDistance)
             {
-                closestNode = node;
+                closestNode = nodes.GetComponent<Node>();
                 closestDistance = distance;
             }
         }
@@ -75,16 +77,9 @@ public class Pathfinding : MonoBehaviour
             endNode = final[final.Count - 1];
             if (final[final.Count - 1] == startNode)
             {
-                //enemy.gameObject.GetComponent<AIMovement>().OnPathFound(final);
-                //Debug.Log("Found path");
                 break;
             }
         }
-        //final.Reverse();
-        /*for (int i = 0; i < final.Count; i++)
-        {
-            Debug.Log(final[i].name);
-        }*/
         open.Clear();
         foreach (Node node in allNodes)
             node.isVisited = false;
