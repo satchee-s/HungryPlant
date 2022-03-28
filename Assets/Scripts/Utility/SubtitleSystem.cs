@@ -18,6 +18,11 @@ public class SubtitleSystem : MonoBehaviour
     {
         StartCoroutine(Subtitle(subtitle, text, endTime, interval, delay));
     }
+
+    public void CompletedText(string text)
+    {
+        StartCoroutine(Subtitle(subtitle, text, 2, .04f, 0));
+    }
     
     IEnumerator Subtitle(Text holder, string subtitle, float endTime, float interval, float delay)
     {

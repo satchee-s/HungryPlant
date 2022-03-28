@@ -15,5 +15,9 @@ public class Item : MonoBehaviour
     {
         rbd = GetComponent<Rigidbody>();
         inventory = FindObjectOfType<InventoryManager>();
+        Light light = gameObject.AddComponent<Light>();
+        light.intensity = .2f;
+        light.range = 1;
+        light.color = GetComponent<Renderer>().material.color;
     }
 }

@@ -55,6 +55,7 @@ public class Barricade : Puzzle
             {
                 Debug.Log("Pressed button for enough time");
                 taskCompleted.Invoke();
+                completed = true;
                 startPuzzle = false;
             }
         }
