@@ -10,11 +10,14 @@ public class Gas : MonoBehaviour
     [SerializeField] Text percentageText;
     [SerializeField] Text getOut;
 
-    //[SerializeField] GameObject outsideTrigger;
+    [SerializeField] GameObject frontDoor;
 
     [SerializeField] float drainSpeed = 0.5f;
 
     public bool hasGasCan;
+    bool allRoomsComplete;
+
+    public List<GasRooms> rooms;
 
     private void Start()
     {
@@ -23,20 +26,25 @@ public class Gas : MonoBehaviour
 
     private void Update()
     {
-        percentageText.text = Mathf.RoundToInt(slider.value * 100) + "%";
 
-        if (Input.GetMouseButton(0) && (hasGasCan = true))
+        int completeCount = 0;
+
+        for (int i = 0; i < rooms.Count; i++)
         {
-            PourGas();
+            if (rooms[i].complete)
+            {
+                completeCount++;
+            }
         }
-
-        if (slider.value <= 0)
+        if (completeCount == rooms.Count)
         {
-            slider.gameObject.SetActive(false);
-            percentageText.gameObject.SetActive(false);
-            getOut.gameObject.SetActive(true);
-            hasGasCan = false;
-            //Instantiate(outsideTrigger);
+            allRoomsComplete = true; 
+            Destroy(frontDoor);
+
+            if(getOut != null)
+            {
+                getOut.gameObject.SetActive(true);
+            }         
         }
     }
     void PourGas()

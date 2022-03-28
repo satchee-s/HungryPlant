@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public CharacterController controller;
     [SerializeField] float speed;
     [SerializeField] float sprintSpeed;
+    [SerializeField] float crouchSpeed;
     float finalSpeed;
     [SerializeField] float gravity = -9.81f * 2;
     [SerializeField] float jumpHeight;
@@ -14,6 +15,8 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     [SerializeField] float groundDistance;
     public LayerMask groundLayerMask;
+
+    public Animator playerAnimator;
 
     float crouchHeight = 0.5f;
     float normalHeight = 1f;
@@ -28,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         Jump();
         Crouch();
+        FlashBang();
         velocity.y += gravity *Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
@@ -53,13 +57,21 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Crouch()
     {
+        //finalSpeed = speed;
         Vector3 newScale = new Vector3(transform.localScale.x, normalHeight, transform.localScale.z);
         canJump = true;
         if (Input.GetKey(KeyCode.LeftControl))
         {
             newScale.y = crouchHeight;
             canJump = false;
+            //finalSpeed = crouchSpeed;
+            playerAnimator.SetBool("Crouch", true);
         }
+        else
+        {
+            playerAnimator.SetBool("Crouch", false);
+        }
+        
         transform.localScale = newScale;
     }
 
@@ -69,6 +81,23 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             finalSpeed = sprintSpeed;
+            playerAnimator.SetBool("Running", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("Running", false);
+        }
+    }
+
+    private void FlashBang()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            playerAnimator.SetBool("Flash", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("Flash", false);
         }
     }
 }
