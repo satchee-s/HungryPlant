@@ -21,7 +21,8 @@ public class RaycastController : MonoBehaviour
     {
         ray = new Ray(cam.transform.position, cam.transform.forward);
         inventory.SelectSlot();
-        ItemController();
+        if (Input.GetKeyDown(KeyCode.E))
+            ItemController();
         if (Physics.Raycast(ray, out hit))
         {
             if (Input.GetMouseButtonDown(0))
@@ -43,25 +44,40 @@ public class RaycastController : MonoBehaviour
 
     private void ItemController()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        Debug.Log("attempting pickup");
+        Debug.Log("slot is filled: " + inventory.currentSlot.isFilled);
+        if (Physics.Raycast(ray, out hit))
         {
-            if (inventory.currentSlot.isFilled == true)
+            if (hit.collider.tag == "Item")
+            {
+                Debug.Log("Picking up item");
+                item = hit.transform.GetComponent<Item>();
+                inventory.SlotManager(item);
+            }
+            else if (inventory.currentSlot.isFilled == true)
             {
                 inventory.EmptySlot();
-
-            }
-            else
-            {
-                if (Physics.Raycast(ray, out hit, 4f))
-                //if (Physics.SphereCast(ray, 2f, out hit))
-                {
-                    item = hit.transform.GetComponent<Item>();
-                    if (item != null)
-                    {
-                        inventory.SlotManager(item);
-                    }
-                }
+                Debug.Log("dropping item");
             }
         }
+        
+        Debug.Log("Ray hit tag: " + hit.collider.tag);
+        
+        //if (Input.GetKeyDown(KeyCode.E))
+        //{            
+        //    //else
+        //    //{
+        //    //    if (Physics.Raycast(ray, out hit))
+        //    //    //if (Physics.SphereCast(ray, 2f, out hit))
+        //    //    {                    
+        //    //        if (hit.collider.tag == "Item")
+        //    //        {
+        //    //            Debug.Log("Picking up item");
+        //    //            item = hit.transform.GetComponent<Item>();
+        //    //            inventory.SlotManager(item);
+        //    //        }
+        //    //    }
+        //    //}
+        //}
     }
 }

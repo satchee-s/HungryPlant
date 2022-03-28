@@ -15,7 +15,7 @@ public class Chase : State
         if (DetectPlayer(player, plant, 1f)) {
             aiManager.SetMovement(aiManager.captureBehavior);
         }
-        else if (DetectPlayer(player, plant, 10f))
+        else if (DetectPlayer(player, plant, 20f))
         {
             if (playerNode == null || nodeDistanceFromPlayer > 15f)
             {
@@ -48,7 +48,7 @@ public class Chase : State
 
     void FollowPath()
     {
-        plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.05f);
+        plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.1f);
         plant.LookAt(currentNode);
         if (plant.position.x == currentNode.x && plant.position.z == currentNode.z)
         {

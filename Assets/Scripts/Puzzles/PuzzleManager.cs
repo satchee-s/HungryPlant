@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class PuzzleManager
 {
-    public enum ItemType { Key, Nails, Planks, Hammer, Lighter, Gasoline, Bucket, FilledBucket, VideoTape };
+    public enum ItemType { Key, Nails, Planks, Hammer, Lighter, Gasoline, Bucket, FilledBucket, VideoTape, DrawerKey };
     public static List<ItemType> itemsInInventory = new List<ItemType>();
 }
