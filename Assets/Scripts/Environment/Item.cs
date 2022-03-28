@@ -9,9 +9,11 @@ public class Item : MonoBehaviour
     public Sprite inventoryImage;
     public PuzzleManager.ItemType type;
 
+    InventoryManager inventory;
+
     void Start()
     {
         rbd = GetComponent<Rigidbody>();
+        inventory = FindObjectOfType<InventoryManager>();
     }
-
 }
