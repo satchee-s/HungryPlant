@@ -19,6 +19,6 @@ public class AIManager : MonoBehaviour
 
     private void Update()
     {
-        currentState.SetBehaviour();
+        currentState.SetBehaviour(this);
     }
 }

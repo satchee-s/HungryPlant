@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SearchRoom : State
 {
-    public override void SetBehaviour()
+    public override void SetBehaviour(AIManager aiManager)
     {
         //set state
     }

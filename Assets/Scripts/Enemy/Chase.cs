@@ -8,14 +8,19 @@ public class Chase : State
     float nodeDistanceFromPlayer;
     Vector3 currentNode;
     List<Node> travelPath;
-    int targetIndex;
-    public override void SetBehaviour()
+    int targetIndex = 0;
+    [SerializeField] float followTime;
+    float timer;
+    [SerializeField] float playerDetectionRange;
+    public override void SetBehaviour(AIManager aiManager)
     {
         aiManager.SetMovement(aiManager.chaseBehavior);
-        if (DetectPlayer(player, plant, 1f)) {
+        timer += Time.deltaTime;
+        if (DetectPlayer(player, plant, 1f))
+        {
             aiManager.SetMovement(aiManager.captureBehavior);
         }
-        else if (DetectPlayer(player, plant, 20f))
+        else if (DetectPlayer(player, plant, playerDetectionRange))
         {
             if (playerNode == null || nodeDistanceFromPlayer > 15f)
             {
@@ -29,9 +34,10 @@ public class Chase : State
         else
         {
             playerNode = null;
+            timer = 0f;
             aiManager.SetMovement(aiManager.roamingBehavior);
         }
-        //nodeDistanceFromPlayer = Vector3.Distance(playerNode.Position, player.position);
+            //nodeDistanceFromPlayer = Vector3.Distance(playerNode.Position, player.position);
     }
 
     void CalculatePath()
@@ -40,15 +46,18 @@ public class Chase : State
         plantStartingNode = pathfinding.FindClosestNode(plant.position);
         pathfinding.FindPath(playerNode, plantStartingNode);
         travelPath = pathfinding.final;
-        currentNode = new Vector3(travelPath[0].Position.x, 
+        Vector3 angle1 = (plant.position - travelPath[0].Position).normalized;
+        Vector3 angle2 = (plant.position - travelPath[1].Position).normalized;
+        if (Vector3.Dot(angle1, plant.forward) < 0 && Vector3.Dot(angle2, plant.forward) > 0)
+            travelPath.RemoveAt(0);
+        currentNode = new Vector3(travelPath[0].Position.x,
                                   plant.position.y, travelPath[0].Position.z);
         targetIndex = 0;
-        //Debug.Log("calculate path");
     }
 
     void FollowPath()
     {
-        plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.1f);
+        plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.12f);
         plant.LookAt(currentNode);
         if (plant.position.x == currentNode.x && plant.position.z == currentNode.z)
         {
@@ -64,5 +73,6 @@ public class Chase : State
                 travelPath.Clear();
             }
         }
+        nodeDistanceFromPlayer = Vector3.Distance(playerNode.Position, player.position);
     }
 }

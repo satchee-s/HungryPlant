@@ -8,7 +8,7 @@ public class HideObjects : EditorWindow
     GameObject[] objects;
     bool tagStatus;
     bool tagExists;
-    [MenuItem("Tools/ Hide Objects...")]
+    [MenuItem("Tools/Hide Objects...")]
     public static void ShowWindow()
     {
         GetWindow<HideObjects>("Hide Objects");

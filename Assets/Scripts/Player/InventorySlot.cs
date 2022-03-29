@@ -20,9 +20,9 @@ public class InventorySlot : MonoBehaviour
 
     private void Update()
     {
-        if (animator.GetBool("Selected") != isSelected)
+        /*if (animator.GetBool("Selected") != isSelected)
         {
             animator.SetBool("Selected", isSelected);
-        }
+        }*/
     }
 }

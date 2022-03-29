@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public abstract class State : MonoBehaviour
 {
-    protected AIManager aiManager;
+    //protected AIManager aiManager;
     protected Pathfinding pathfinding;
     protected Transform plant;
     protected Transform player;
@@ -11,14 +11,14 @@ public abstract class State : MonoBehaviour
 
     private void Start()
     {
-        aiManager = FindObjectOfType<AIManager>();
+        //aiManager = FindObjectOfType<AIManager>();
         pathfinding = FindObjectOfType<Pathfinding>();
         subtitleSystem = FindObjectOfType<SubtitleSystem>();
         plant = GameObject.Find("Plant").GetComponent<Transform>();
         player = GameObject.Find("PlayerParent").GetComponent <Transform>();
     }
 
-    public abstract void SetBehaviour();
+    public abstract void SetBehaviour(AIManager aiManager);
 
     public bool DetectPlayer(Transform target, Transform viewer, float maxDistance)
     {

@@ -11,7 +11,7 @@ public class Pathfinding : MonoBehaviour
     LayerMask nodeLayer;
     private void Start()
     {
-        allNodes = GameObject.FindObjectsOfType<Node>();
+        allNodes = FindObjectsOfType<Node>();
         nodeLayer = LayerMask.GetMask("Nodes");
     }
     public Node FindClosestNode(Vector3 position, float searchDistance = 10f)
@@ -37,32 +37,41 @@ public class Pathfinding : MonoBehaviour
     }
     public void FindPath(Node startingNode, Node targetNode)
     {
-        bool containsInOpen;
-        open.Add(startingNode);
-
-        while (true)
+        /*startNode = startingNode;
+        endNode = targetNode;*/
+        if (startingNode == targetNode)
         {
-            open.Sort();
-            currentNode = open[0];
-            open.Remove(currentNode);
-            currentNode.isVisited = true;
-            if (currentNode == targetNode)
+            final.Add(startingNode);
+        }
+        else
+        {
+            bool containsInOpen;
+            open.Add(startingNode);
+
+            while (true)
             {
-                FinalPath(targetNode, startingNode);
-                break;
-            }
-            for (int i = 0; i < currentNode.neighbours.Count; i++)
-            {
-                containsInOpen = open.Contains(currentNode.neighbours[i]);
-                if (currentNode.neighbours[i].isVisited == true)
-                    continue;
-                currentNode.neighbours[i].gCost = (int)CalculateCost(currentNode.neighbours[i].Position, startingNode.Position);
-                currentNode.neighbours[i].hCost = (int)CalculateCost(currentNode.neighbours[i].Position, targetNode.Position);
-                if (currentNode.neighbours[i].hCost < currentNode.hCost || !containsInOpen)
+                open.Sort();
+                currentNode = open[0];
+                open.Remove(currentNode);
+                currentNode.isVisited = true;
+                if (currentNode == targetNode)
                 {
-                    currentNode.neighbours[i].parent = currentNode;
-                    if (!containsInOpen)
-                        open.Add(currentNode.neighbours[i]);
+                    FinalPath(targetNode, startingNode);
+                    break;
+                }
+                for (int i = 0; i < currentNode.neighbours.Count; i++)
+                {
+                    containsInOpen = open.Contains(currentNode.neighbours[i]);
+                    if (currentNode.neighbours[i].isVisited == true)
+                        continue;
+                    currentNode.neighbours[i].gCost = (int)CalculateCost(currentNode.neighbours[i].Position, startingNode.Position);
+                    currentNode.neighbours[i].hCost = (int)CalculateCost(currentNode.neighbours[i].Position, targetNode.Position);
+                    if (currentNode.neighbours[i].hCost < currentNode.hCost || !containsInOpen)
+                    {
+                        currentNode.neighbours[i].parent = currentNode;
+                        if (!containsInOpen)
+                            open.Add(currentNode.neighbours[i]);
+                    }
                 }
             }
         }
@@ -84,6 +93,15 @@ public class Pathfinding : MonoBehaviour
         foreach (Node node in allNodes)
             node.isVisited = false;
     }
+
+    /*void ClearPath()
+    {
+        open.Clear();
+        foreach (Node node in allNodes)
+            node.isVisited = false;
+        startNode = null;
+        endNode = null;
+    }*/
 
     public Node GetRandomNode(Node node)
     {
