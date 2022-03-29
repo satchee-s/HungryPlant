@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class Gas : MonoBehaviour
 {
     [SerializeField] Slider slider;
+    public string CompletedText;
+    bool triggered;
+    //[SerializeField] Text percentageText;
+    //[SerializeField] Text getOut;
 
-    [SerializeField] Text percentageText;
-    [SerializeField] Text getOut;
-
+    public GameObject outside;
     [SerializeField] GameObject frontDoor;
-
+    SubtitleSystem subtitleSystem;
     [SerializeField] float drainSpeed = 0.5f;
 
     public bool hasGasCan;
@@ -21,7 +23,10 @@ public class Gas : MonoBehaviour
 
     private void Start()
     {
+        outside.SetActive(false);
+        subtitleSystem = FindObjectOfType<SubtitleSystem>();
         slider.value = 1;
+        triggered = false;
     }
 
     private void Update()
@@ -38,18 +43,25 @@ public class Gas : MonoBehaviour
         }
         if (completeCount == rooms.Count)
         {
-            allRoomsComplete = true; 
-            Destroy(frontDoor);
-
-            if(getOut != null)
+            allRoomsComplete = true;
+            if (!triggered)
             {
-                getOut.gameObject.SetActive(true);
-            }         
+                subtitleSystem.DisplaySubtitle(CompletedText);
+                triggered = true;
+                outside.SetActive(true);
+            }
+           
+            //Destroy(frontDoor);
+
+            //if(getOut != null)
+            //{
+            //    getOut.gameObject.SetActive(true);
+            //}         
         }
     }
     void PourGas()
     {
-        percentageText.gameObject.SetActive(true);
+        //percentageText.gameObject.SetActive(true);
         slider.gameObject.SetActive(true);
         slider.value -= drainSpeed * Time.deltaTime;
         // Animation logic

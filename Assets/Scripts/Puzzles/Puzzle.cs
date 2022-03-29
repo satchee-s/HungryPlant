@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public abstract class Puzzle : MonoBehaviour
 {
     public List<PuzzleManager.ItemType> requiredItems = new List<PuzzleManager.ItemType>();
+    public List<PuzzleManager.ItemType> consumeItems = new List<PuzzleManager.ItemType>();
     public UnityEvent taskCompleted;
     protected InventoryManager inventoryManager;
     protected SubtitleSystem subtitle;
@@ -15,7 +16,8 @@ public abstract class Puzzle : MonoBehaviour
         {
             if (!PuzzleManager.itemsInInventory.Contains(requiredItems[i]))
             {
-                return false; 
+                subtitle.DisplaySubtitle("I dont have what I need for this");
+                return false;                
             }
         }
         return true;
@@ -33,22 +35,51 @@ public abstract class Puzzle : MonoBehaviour
         {
             //Debug.Log("You have all the items");
             taskCompleted.Invoke();
+            for (int i = 0; i < consumeItems.Count; i++)
+            {
+                ConsumeItem(consumeItems[i]);
+            }
         }
         else
         {
-            subtitle.DisplaySubtitle("You don't have all the items yet");
+            
         }
     }
 
-    public void SwapItem(PuzzleManager.ItemType oldItem, PuzzleManager.ItemType newItem)
+    public void SwapItem(PuzzleManager.ItemType oldItem, PuzzleManager.ItemType newItem, Sprite newSprite)
     {
+        
+        for (int i = 0; i < inventoryManager.slots.Length; i++)
+        {
+            if (inventoryManager.slots[i].item.type == oldItem)
+            {
+                inventoryManager.slots[i].item.ChangeType(newItem);
+                inventoryManager.ReplaceImage(inventoryManager.slots[i].UIImage.sprite, newSprite);
+                inventoryManager.slots[i].item.ChangeSprite(newSprite);
+                break;
+            }         
+        }
         for (int i = 0; i < PuzzleManager.itemsInInventory.Count; i++)
         {
             if (PuzzleManager.itemsInInventory[i] == oldItem)
-            {
                 PuzzleManager.itemsInInventory[i] = newItem;
+        }
+    }
+
+    public virtual void ConsumeItem(PuzzleManager.ItemType item)
+    {
+        for (int i = 0; i < inventoryManager.slots.Length; i++)
+        {
+            Debug.Log("Slot" + i + " has: " + inventoryManager.slots[i].item.type);
+            if (inventoryManager.slots[i].item.type == item)
+            {
+                Debug.Log("Consuming Item");
+                inventoryManager.slots[i].DeleteItem();
+                PuzzleManager.itemsInInventory.Remove(item);
                 break;
-            }         
+            }
+            else
+                Debug.Log("Item not Consumed");
         }
     }
 }

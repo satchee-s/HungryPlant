@@ -20,9 +20,20 @@ public class InventorySlot : MonoBehaviour
 
     private void Update()
     {
-        /*if (animator.GetBool("Selected") != isSelected)
-        {
-            animator.SetBool("Selected", isSelected);
-        }*/
+        
+    }
+
+    public void DeleteItem()
+    {
+        UIImage.sprite = null;
+        item.gameObject.SetActive(true);
+        Destroy(item.gameObject);
+        item = null;
+        isFilled = false;
+    }
+
+    public void AnimSelect(bool select)
+    {
+        animator.SetBool("Selected", select);
     }
 }

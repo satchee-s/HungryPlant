@@ -21,11 +21,13 @@ public class Barricade : Puzzle
     {
         slider.value = timer;
         slider.maxValue = requriedTime;
+        slider.gameObject.SetActive(false);
     }
 
     public override void ExecutePuzzle()
     {
-        base.ExecutePuzzle();
+        if(completed)
+            base.ExecutePuzzle();
     }
 
     public void BarricadeDoor()
@@ -42,19 +44,19 @@ public class Barricade : Puzzle
 
     private void Update()
     {
-        if (inRange && items)
+        if (inRange && items && !completed)
         {
             slider.gameObject.SetActive(true);
             if (Input.GetMouseButton(1))
             {
                 timer += Time.deltaTime;
                 slider.value = timer;
-                Debug.Log(timer);
+                //Debug.Log(timer);
             }
             if (timer >= requriedTime)
             {
                 Debug.Log("Pressed button for enough time");
-                taskCompleted.Invoke();
+                taskCompleted.Invoke();                
                 completed = true;
                 startPuzzle = false;
             }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     public Transform[] inventory = new Transform[3];
-    InventorySlot[] slots = new InventorySlot[3];
+    public InventorySlot[] slots = new InventorySlot[3];
     public InventorySlot currentSlot;
     //bool hasBucket;
     //public List<PuzzleManager.ItemType> itemsInInventory = new List<PuzzleManager.ItemType>();
@@ -25,22 +25,31 @@ public class InventoryManager : MonoBehaviour
         {
             currentSlot = slots[0];
             currentSlot.isSelected = true;
+            currentSlot.AnimSelect(true);
             slots[1].isSelected = false;
+            slots[1].AnimSelect(false);
             slots[2].isSelected = false;
+            slots[2].AnimSelect(false);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentSlot = slots[1];
             currentSlot.isSelected = true;
+            currentSlot.AnimSelect(true);
             slots[0].isSelected = false;
+            slots[0].AnimSelect(false);
             slots[2].isSelected = false;
+            slots[2].AnimSelect(false);
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             currentSlot = slots[2];
             currentSlot.isSelected = true;
+            currentSlot.AnimSelect(true);
             slots[0].isSelected = false;
+            slots[0].AnimSelect(false);
             slots[1].isSelected = false;
+            slots[1].AnimSelect(false);
         }
     }
 
@@ -50,6 +59,7 @@ public class InventoryManager : MonoBehaviour
         currentSlot = slots[slotIndex];
         if (currentSlot != null)
         {
+            item.PickUpSubtitle();
             currentSlot.item = item;
             currentSlot.isFilled = true;
             item.transform.SetParent(currentSlot.slot, false);
