@@ -6,30 +6,32 @@ using UnityEngine.UI;
 public class Tap : Puzzle
 {
     public GameObject water;
-
+    public Transform waterPosition;
     [SerializeField] Sprite filledBucketSprite;
     [SerializeField] Sprite originalImage;
 
-    bool isWaterRunning;
+    public bool isBucketFilled;
     bool hasBucket;
     //public InventoryManager inventoryManager;
     void Update()
     {
-        if (hasBucket)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                isWaterRunning = true;
-                StartCoroutine(WaterSpray());
-            }
-        }
-        
+        //if (Input.GetMouseButtonDown(0))
+        //{
+            
+        //    StartCoroutine(WaterSpray());
+        //}
+
     }
-    IEnumerator WaterSpray()
+    public IEnumerator WaterSpray()
     {
-        Instantiate(water);
-        yield return new WaitForSeconds(2f);
-        Destroy(water);
+        GameObject particle = Instantiate(water, waterPosition) as GameObject;
+        yield return new WaitForSeconds(4f);
+        Destroy(particle);
+    }
+
+    public void Water()
+    {
+        StartCoroutine(WaterSpray());
     }
     public override void ExecutePuzzle()
     {
