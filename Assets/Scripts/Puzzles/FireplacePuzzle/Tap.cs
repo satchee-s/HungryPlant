@@ -39,7 +39,6 @@ public class Tap : Puzzle
     }
     public void HasBucket()
     {
-        SwapItem(PuzzleManager.ItemType.Bucket, PuzzleManager.ItemType.FilledBucket);
-        inventoryManager.ReplaceImage(originalImage, filledBucketSprite);
+        SwapItem(PuzzleManager.ItemType.Bucket, PuzzleManager.ItemType.FilledBucket, filledBucketSprite);
     }
 }

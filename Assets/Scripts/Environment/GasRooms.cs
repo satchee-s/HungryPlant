@@ -18,11 +18,12 @@ public class GasRooms : Puzzle
     {
         percentageText.text = Mathf.RoundToInt(slider.value * 100) + "%";
 
-        if (inArea && !complete && CheckItems())
+        if (inArea && !complete)
         {
             if (Input.GetMouseButton(0))
             {
-                PourGas();
+                if (CheckItems())
+                    PourGas();
             }
 
             if (slider.value <= 0)
