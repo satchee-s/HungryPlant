@@ -6,6 +6,14 @@ public class BarricadeCounter : Puzzle
 {
 
     public Barricade[] barricades;
+    public string completedText;
+    SubtitleSystem subtitleSystem;
+
+    private void Start()
+    {
+        subtitleSystem = FindObjectOfType<SubtitleSystem>();
+        SetBarricadeStates(false);
+    }
 
     public void CheckBarricades()
     {
@@ -21,6 +29,15 @@ public class BarricadeCounter : Puzzle
         if (completed >= barricades.Length * .8f)
         {
             taskCompleted.Invoke();
+            subtitleSystem.DisplaySubtitle(completedText);
+        }
+    }
+
+    public void SetBarricadeStates(bool state)
+    {
+        for (int i = 0; i < barricades.Length; i++)
+        {
+            barricades[i].enabled = state;
         }
     }
 }
