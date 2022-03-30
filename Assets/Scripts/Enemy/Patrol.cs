@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Patrol : State
 {
-    Node startingNode = null;
+    [HideInInspector] public Node startingNode = null;
     Node targetNode = null;
     List<Node> travelPath = new List<Node>();
     int targetIndex = 0;
-    bool hasPath;
+    [HideInInspector] public bool hasPath;
     Vector3 currentNodePosition;
     public override void SetBehaviour(AIManager aiManager)
     {
         aiManager.SetMovement(aiManager.roamingBehavior);
-        if (DetectPlayer(player, plant, 8f))
+        if (DetectPlayer(player, plant, 20f))
         {
             startingNode = null;
             travelPath.Clear();
             hasPath = false;
-            aiManager.SetMovement(aiManager.chaseBehavior);
+            aiManager.SetMovement(aiManager.captureBehavior);
         }
         else
         {
@@ -49,7 +49,7 @@ public class Patrol : State
             travelPath.RemoveAt(0);
         targetIndex = 0;
         currentNodePosition = new Vector3(travelPath[targetIndex].Position.x, 
-                                          plant.position.y, travelPath[targetIndex].Position.z);
+                                          1f, travelPath[targetIndex].Position.z);
         hasPath = true;
     }
 
@@ -61,7 +61,7 @@ public class Patrol : State
         {
             targetIndex++;
             if (targetIndex < travelPath.Count)
-                currentNodePosition = new Vector3(travelPath[targetIndex].Position.x, plant.position.y, travelPath[targetIndex].Position.z);
+                currentNodePosition = new Vector3(travelPath[targetIndex].Position.x, 1f, travelPath[targetIndex].Position.z);
             else if (targetIndex >= travelPath.Count)
             {
                 startingNode = targetNode;

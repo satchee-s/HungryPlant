@@ -37,8 +37,6 @@ public class Pathfinding : MonoBehaviour
     }
     public void FindPath(Node startingNode, Node targetNode)
     {
-        /*startNode = startingNode;
-        endNode = targetNode;*/
         if (startingNode == targetNode)
         {
             final.Add(startingNode);
@@ -89,19 +87,16 @@ public class Pathfinding : MonoBehaviour
                 break;
             }
         }
+        ClearPath();
+    }
+
+    public void ClearPath()
+    {
+        //final.Clear();
         open.Clear();
         foreach (Node node in allNodes)
             node.isVisited = false;
     }
-
-    /*void ClearPath()
-    {
-        open.Clear();
-        foreach (Node node in allNodes)
-            node.isVisited = false;
-        startNode = null;
-        endNode = null;
-    }*/
 
     public Node GetRandomNode(Node node)
     {

@@ -18,11 +18,6 @@ public class InventorySlot : MonoBehaviour
         animator = UIBorder.GetComponent<Animator>();
     }
 
-    private void Update()
-    {
-        
-    }
-
     public void DeleteItem()
     {
         UIImage.sprite = null;

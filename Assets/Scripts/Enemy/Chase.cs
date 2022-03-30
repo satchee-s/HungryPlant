@@ -9,13 +9,10 @@ public class Chase : State
     Vector3 currentNode;
     List<Node> travelPath;
     int targetIndex = 0;
-    [SerializeField] float followTime;
-    float timer;
     [SerializeField] float playerDetectionRange;
     public override void SetBehaviour(AIManager aiManager)
     {
         aiManager.SetMovement(aiManager.chaseBehavior);
-        timer += Time.deltaTime;
         if (DetectPlayer(player, plant, 1f))
         {
             aiManager.SetMovement(aiManager.captureBehavior);
@@ -34,7 +31,6 @@ public class Chase : State
         else
         {
             playerNode = null;
-            timer = 0f;
             aiManager.SetMovement(aiManager.roamingBehavior);
         }
             //nodeDistanceFromPlayer = Vector3.Distance(playerNode.Position, player.position);
@@ -51,7 +47,7 @@ public class Chase : State
         if (Vector3.Dot(angle1, plant.forward) < 0 && Vector3.Dot(angle2, plant.forward) > 0)
             travelPath.RemoveAt(0);
         currentNode = new Vector3(travelPath[0].Position.x,
-                                  plant.position.y, travelPath[0].Position.z);
+                                  1f, travelPath[0].Position.z);
         targetIndex = 0;
     }
 
@@ -64,7 +60,7 @@ public class Chase : State
             targetIndex++;
             if (targetIndex < travelPath.Count)
             {
-                currentNode = new Vector3(travelPath[targetIndex].Position.x, plant.position.y, travelPath[targetIndex].Position.z);
+                currentNode = new Vector3(travelPath[targetIndex].Position.x, 1f, travelPath[targetIndex].Position.z);
             }
             else if (targetIndex >= travelPath.Count)
             {
