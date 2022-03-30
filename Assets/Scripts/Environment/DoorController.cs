@@ -20,14 +20,12 @@ public class DoorController : MonoBehaviour
             if (doorOpen)
             {
                 //anim.Play("doorclose");
-                Debug.Log("Closing");
                 doorOpen = false;
                 anim.SetBool("Open", doorOpen);
             }
             else if (!doorOpen)
             {
                 //anim.Play("dooropen");
-                Debug.Log("Opening");
                 doorOpen = true;
                 anim.SetBool("Open", doorOpen);
             }

@@ -11,7 +11,9 @@ public class Capture : State
     {
         //aiManager.SetMovement(aiManager.captureBehavior);
         subtitleSystem.DisplaySubtitle("ahhhh! [gets eaten]");
+        player.GetComponent<CharacterController>().enabled = false;
         player.position = resetPosition.position;
+        player.GetComponent<CharacterController>().enabled = true;
         pathfinding.ClearPath();
         patrol = (Patrol)aiManager.roamingBehavior;
         patrol.startingNode = plantResetPosition.GetComponent<Node>();

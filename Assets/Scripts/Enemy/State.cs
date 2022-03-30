@@ -21,7 +21,7 @@ public abstract class State : MonoBehaviour
 
     public abstract void SetBehaviour(AIManager aiManager);
 
-    public bool DetectPlayer(Transform target, Transform viewer, float maxDistance = 50f, float maxDegrees = 30f)
+    public bool DetectPlayer(Transform target, Transform viewer, float maxDistance = 10f, float maxDegrees = 30f)
     {
         /*RaycastHit hit;
         //if (Physics.Raycast(viewer.position, viewer.forward, out hit, maxDistance))
@@ -43,7 +43,7 @@ public abstract class State : MonoBehaviour
                     return true;
             }
         }
-        else if (degree < 360 && Vector3.Distance(viewer.position, target.position) < 4f && Physics.Raycast(viewer.position, targetDirection, out hit, maxDistance))
+        else if (Vector3.Distance(viewer.position, target.position) < 4f && Physics.Raycast(viewer.position, viewer.forward, out hit, maxDistance))
         {
             if (hit.collider.transform == target)
                 return true;

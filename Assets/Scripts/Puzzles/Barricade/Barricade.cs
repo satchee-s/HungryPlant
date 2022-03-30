@@ -55,7 +55,7 @@ public class Barricade : Puzzle
             }
             if (timer >= requriedTime)
             {
-                Debug.Log("Pressed button for enough time");
+                //Debug.Log("Pressed button for enough time");
                 taskCompleted.Invoke();                
                 completed = true;
                 startPuzzle = false;

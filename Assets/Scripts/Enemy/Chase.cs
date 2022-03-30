@@ -13,11 +13,11 @@ public class Chase : State
     public override void SetBehaviour(AIManager aiManager)
     {
         aiManager.SetMovement(aiManager.chaseBehavior);
-        if (DetectPlayer(player, plant, 1f))
+        if (DetectPlayer(player.transform, plant, 0.5f))
         {
             aiManager.SetMovement(aiManager.captureBehavior);
         }
-        else if (DetectPlayer(player, plant, playerDetectionRange))
+        else if (DetectPlayer(player.transform, plant, playerDetectionRange))
         {
             if (playerNode == null || nodeDistanceFromPlayer > 15f)
             {
@@ -38,7 +38,7 @@ public class Chase : State
 
     void CalculatePath()
     {
-        playerNode = pathfinding.FindClosestNode(player.position, 15f);
+        playerNode = pathfinding.FindClosestNode(player.transform.position, 15f);
         plantStartingNode = pathfinding.FindClosestNode(plant.position);
         pathfinding.FindPath(playerNode, plantStartingNode);
         travelPath = pathfinding.final;
@@ -53,7 +53,7 @@ public class Chase : State
 
     void FollowPath()
     {
-        plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.12f);
+        plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.8f);
         plant.LookAt(currentNode);
         if (plant.position.x == currentNode.x && plant.position.z == currentNode.z)
         {
@@ -69,6 +69,6 @@ public class Chase : State
                 travelPath.Clear();
             }
         }
-        nodeDistanceFromPlayer = Vector3.Distance(playerNode.Position, player.position);
+        nodeDistanceFromPlayer = Vector3.Distance(playerNode.Position, player.transform.position);
     }
 }

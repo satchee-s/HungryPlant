@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class BarricadeCounter : Puzzle
 {
-
     public Barricade[] barricades;
     public string completedText;
     SubtitleSystem subtitleSystem;

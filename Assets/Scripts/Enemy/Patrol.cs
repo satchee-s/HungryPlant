@@ -13,7 +13,7 @@ public class Patrol : State
     public override void SetBehaviour(AIManager aiManager)
     {
         aiManager.SetMovement(aiManager.roamingBehavior);
-        if (DetectPlayer(player, plant, 20f))
+        if (DetectPlayer(player, plant, 10f))
         {
             startingNode = null;
             travelPath.Clear();
@@ -55,7 +55,7 @@ public class Patrol : State
 
     void FollowPath()
     {
-        plant.position = Vector3.MoveTowards(plant.position, currentNodePosition, 0.05f);
+        plant.position = Vector3.MoveTowards(plant.position, currentNodePosition, 0.03f);
         plant.LookAt(currentNodePosition);
         if (plant.position.x == currentNodePosition.x && plant.position.z == currentNodePosition.z)
         {
