@@ -13,7 +13,7 @@ public class Chase : State
     public override void SetBehaviour(AIManager aiManager)
     {
         aiManager.SetMovement(aiManager.chaseBehavior);
-        if (DetectPlayer(player.transform, plant, 0.5f))
+        if (DetectPlayer(player.transform, plant, 0.005f, 20f))
         {
             aiManager.SetMovement(aiManager.captureBehavior);
         }

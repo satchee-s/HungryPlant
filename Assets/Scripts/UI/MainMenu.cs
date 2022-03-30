@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("MidnightCraving");
+        SceneManager.LoadScene("_MainScene 1");
     }
 
     public void GameQuit()
