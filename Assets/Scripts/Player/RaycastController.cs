@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RaycastController : MonoBehaviour
@@ -21,8 +19,10 @@ public class RaycastController : MonoBehaviour
     {
         ray = new Ray(cam.transform.position, cam.transform.forward);
         inventory.SelectSlot();
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonDown(0))
             ItemController();
+        if (Input.GetKey(KeyCode.E))
+            DropItem();
         if (Physics.Raycast(ray, out hit))
         {
             if (Input.GetMouseButtonDown(0))
@@ -54,15 +54,15 @@ public class RaycastController : MonoBehaviour
                 item = hit.transform.GetComponent<Item>();
                 inventory.SlotManager(item);
             }
-            else if (inventory.currentSlot.isFilled == true)
-            {
-                inventory.EmptySlot();
-                Debug.Log("dropping item");
-            }
+            //else if (inventory.currentSlot.isFilled == true)
+            //{
+            //    inventory.EmptySlot();
+            //    Debug.Log("dropping item");
+            //}
         }
-        
+
         Debug.Log("Ray hit tag: " + hit.collider.tag);
-        
+
         //if (Input.GetKeyDown(KeyCode.E))
         //{            
         //    //else
@@ -79,5 +79,13 @@ public class RaycastController : MonoBehaviour
         //    //    }
         //    //}
         //}
+    }
+    private void DropItem()
+    {
+        if (inventory.currentSlot.isFilled == true)
+        {
+            inventory.EmptySlot();
+            Debug.Log("dropping item");
+        }
     }
 }

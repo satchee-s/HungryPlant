@@ -16,7 +16,7 @@ public class GasRooms : Puzzle
 
     private void Update()
     {
-        percentageText.text = Mathf.RoundToInt(slider.value * 100) + "%";
+        //percentageText.text = Mathf.RoundToInt(slider.value * 100) + "%";
 
         if (inArea && !complete)
         {
@@ -29,7 +29,7 @@ public class GasRooms : Puzzle
             if (slider.value <= 0)
             {
                 slider.gameObject.SetActive(false);
-                percentageText.gameObject.SetActive(false);
+                //percentageText.gameObject.SetActive(false);
                 taskCompleted.Invoke();
                 complete = true;
                 slider.value = 1;
@@ -38,7 +38,7 @@ public class GasRooms : Puzzle
     }
     void PourGas()
     {
-        percentageText.gameObject.SetActive(true);
+        //percentageText.gameObject.SetActive(true);
         slider.gameObject.SetActive(true);
         slider.value -= drainSpeed * Time.deltaTime;
         // Animation logic
@@ -59,7 +59,7 @@ public class GasRooms : Puzzle
             inArea = false;
             slider.value = 1;
             slider.gameObject.SetActive(false);
-            percentageText.gameObject.SetActive(false);
+            //percentageText.gameObject.SetActive(false);
         }
     }
 }
