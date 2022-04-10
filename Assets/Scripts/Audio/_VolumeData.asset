@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b0cca0cd94b994dbb5771ac293c732, type: 3}
+  m_Name: _VolumeData
+  m_EditorClassIdentifier: 
+  prefPrefix: Volume_
+  mixer: {fileID: 24100000, guid: 4b6858c0ab6ac4e4497f26766cad96bc, type: 2}
+  volumes:
+  - name: Master
+    defaultVolume: 1
+    volume: 1
+    tempVol: 1
+  - name: Music
+    defaultVolume: 0.25
+    volume: 0.25
+    tempVol: 0.25
+  - name: UI
+    defaultVolume: 1
+    volume: 1
+    tempVol: 1
+  - name: SFX
+    defaultVolume: 0.8
+    volume: 0.8
+    tempVol: 0.8
+  - name: Ambience
+    defaultVolume: 0.4
+    volume: 0.4
+    tempVol: 0.4
+  - name: Plant
+    defaultVolume: 0.6
+    volume: 0.6
+    tempVol: 0.6
