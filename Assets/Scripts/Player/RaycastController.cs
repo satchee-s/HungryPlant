@@ -22,8 +22,7 @@ public class RaycastController : MonoBehaviour
         inventory.SelectSlot();
         if (Input.GetMouseButtonDown(0))
             ItemController();
-        if (Input.GetKey(KeyCode.E))
-            DropItem();
+
         if (Physics.Raycast(ray, out hit))
         {
             if (Input.GetMouseButtonDown(0))
@@ -52,13 +51,10 @@ public class RaycastController : MonoBehaviour
                 item = hit.transform.GetComponent<Item>();
                 inventory.SlotManager(item);
             }
-        }
-    }
-    private void DropItem()
-    {
-        if (inventory.currentSlot.isFilled == true)
-        {
-            inventory.EmptySlot();
+            if (inventory.currentSlot.isFilled == true)
+            {
+                inventory.EmptySlot();
+            }
         }
     }
 }
