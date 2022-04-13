@@ -28,7 +28,7 @@ public class Patrol : State
             }
             else
             {
-                FollowPath();
+                FollowPath(aiManager);
                 //hasPath = false;
             }
         }
@@ -53,12 +53,16 @@ public class Patrol : State
         hasPath = true;
     }
 
-    void FollowPath()
+    void FollowPath(AIManager aiManager)
     {
         plant.position = Vector3.MoveTowards(plant.position, currentNodePosition, 0.03f);
         plant.LookAt(currentNodePosition);
         if (plant.position.x == currentNodePosition.x && plant.position.z == currentNodePosition.z)
         {
+            if (travelPath[targetIndex].EnterRoom)
+            {
+                aiManager.StartCoroutine("EnterRoom");
+            }
             targetIndex++;
             if (targetIndex < travelPath.Count)
                 currentNodePosition = new Vector3(travelPath[targetIndex].Position.x, 1f, travelPath[targetIndex].Position.z);

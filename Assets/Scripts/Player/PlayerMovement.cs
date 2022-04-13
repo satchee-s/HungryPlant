@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         Jump();
         Crouch();
-        FlashBang();
+        //FlashBang();
         velocity.y += gravity *Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
@@ -81,23 +81,23 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             finalSpeed = sprintSpeed;
-            playerAnimator.SetBool("Running", true);
+            //playerAnimator.SetBool("Running", true);
         }
         else
         {
-            playerAnimator.SetBool("Running", false);
+            //playerAnimator.SetBool("Running", false);
         }
     }
 
     private void FlashBang()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        /*if (Input.GetKeyDown(KeyCode.F))
         {
             playerAnimator.SetBool("Flash", true);
         }
         else
         {
             playerAnimator.SetBool("Flash", false);
-        }
+        }*/
     }
 }

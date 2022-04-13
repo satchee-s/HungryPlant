@@ -25,7 +25,7 @@ public class Chase : State
             }
             else
             {
-                FollowPath();
+                FollowPath(aiManager);
             }
         }
         else
@@ -51,12 +51,16 @@ public class Chase : State
         targetIndex = 0;
     }
 
-    void FollowPath()
+    void FollowPath(AIManager aIManager)
     {
         plant.position = Vector3.MoveTowards(plant.position, currentNode, 0.8f);
         plant.LookAt(currentNode);
         if (plant.position.x == currentNode.x && plant.position.z == currentNode.z)
         {
+            if (travelPath[targetIndex].EnterRoom)
+            {
+                aIManager.StartCoroutine("EnterRoom");
+            }
             targetIndex++;
             if (targetIndex < travelPath.Count)
             {
