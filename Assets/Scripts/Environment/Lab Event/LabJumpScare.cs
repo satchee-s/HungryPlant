@@ -42,7 +42,6 @@ public class LabJumpScare : MonoBehaviour
         Destroy(trigger);
         outsideTrigger.gameObject.SetActive(true);
         yield return new WaitForSeconds(5f);
-        Destroy(growl);
         Destroy(slam);
         Destroy(suspense);
     }

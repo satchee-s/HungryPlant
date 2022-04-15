@@ -7,6 +7,7 @@ public class OutsideLabTrigger : MonoBehaviour
     [SerializeField] Animator animator;
 
     [SerializeField] AudioSource slither;
+    [SerializeField] AudioSource hallwaySuspense;
 
     [SerializeField] GameObject greenhouseAudioTrigger;
     [SerializeField] GameObject bubbles;
@@ -25,6 +26,7 @@ public class OutsideLabTrigger : MonoBehaviour
         animator.SetBool("Move", true);
         slither.Play();
         yield return new WaitForSeconds(1.5f);
+        hallwaySuspense.Play();
         Destroy(bubbles);
         greenhouseAudioTrigger.SetActive(true);
         Destroy(trigger);

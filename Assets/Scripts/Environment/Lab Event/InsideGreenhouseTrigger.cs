@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DeskTrigger : MonoBehaviour
+public class InsideGreenhouseTrigger : MonoBehaviour
 {
     [SerializeField] GameObject doorTrigger;
     [SerializeField] GameObject trigger;

@@ -6,6 +6,7 @@ public class GreenhouseAudioTrigger : MonoBehaviour
 {
     [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject trigger;
+    [SerializeField] GameObject insideGreenhouseTrigger;
 
     [SerializeField] Collider boxCollider;
 
@@ -13,6 +14,7 @@ public class GreenhouseAudioTrigger : MonoBehaviour
     {
         StartCoroutine(Sound());
         boxCollider.enabled = false;
+        insideGreenhouseTrigger.gameObject.SetActive(true);
     }
 
     IEnumerator Sound()
