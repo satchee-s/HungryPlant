@@ -20,7 +20,7 @@ public class GasRooms : Puzzle
 
         if (inArea && !complete)
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(1))
             {
                 if (CheckItems())
                     PourGas();

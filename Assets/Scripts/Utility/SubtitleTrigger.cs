@@ -9,6 +9,8 @@ public class SubtitleTrigger : MonoBehaviour
     public string subtitle;
     public bool triggerOnce;
     public bool colliderTrigger;
+    public bool isDelayed;
+    public float delayTimer;
     bool triggered;
 
     public UnityEvent extras;
@@ -23,7 +25,15 @@ public class SubtitleTrigger : MonoBehaviour
     {
         if (other.gameObject.tag.Equals("Player") && colliderTrigger)
         {
-            TriggerSubtitle();
+            if (!isDelayed)
+            {
+                TriggerSubtitle();
+            }
+            else
+            {
+                StartCoroutine(SubtitleTimer());
+            }
+            
         }
     }
 
@@ -40,5 +50,11 @@ public class SubtitleTrigger : MonoBehaviour
         {
             triggered = true;
         }
+    }
+
+    IEnumerator SubtitleTimer()
+    {
+        yield return new WaitForSeconds(delayTimer);
+        TriggerSubtitle();
     }
 }

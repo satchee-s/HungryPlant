@@ -33,7 +33,7 @@ namespace SojaExiles
 						}
 						else
 						{
-							if (open == true)
+							if (open == true && !gameObject.CompareTag("DoorStayOpen"))
 							{
 								if (Input.GetMouseButtonDown(0))
 								{
@@ -58,7 +58,7 @@ namespace SojaExiles
 			yield return new WaitForSeconds(.5f);
 		}
 
-		IEnumerator closing()
+		public IEnumerator closing()
 		{
 			//print("you are closing the door");
 			openandclose.Play("Closing");

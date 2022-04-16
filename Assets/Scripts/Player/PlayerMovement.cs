@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
-    [SerializeField] float speed;
+    public float speed;
     [SerializeField] float sprintSpeed;
     [SerializeField] float crouchSpeed;
     float finalSpeed;
@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
     bool canJump;
+    bool isMoving;
 
     private void Update()
     {
@@ -54,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         float z = Input.GetAxis("Vertical");
         Vector3 move = transform.right * x + transform.forward * z;
         controller.Move(move * finalSpeed * Time.deltaTime);
+        isMoving = true;
     }
     private void Crouch()
     {
@@ -78,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     private void Sprint()
     {
         finalSpeed = speed;
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && isMoving)
         {
             finalSpeed = sprintSpeed;
             playerAnimator.SetBool("Running", true);
