@@ -23,10 +23,4 @@ public class AIManager : MonoBehaviour
         currentState.SetBehaviour(this);
     }
 
-    public IEnumerator EnterRoom()
-    {
-        anim.Play(enter.name);
-        Debug.Log("Entering room");
-        yield return new WaitForSeconds(0.5f);
-    }
 }

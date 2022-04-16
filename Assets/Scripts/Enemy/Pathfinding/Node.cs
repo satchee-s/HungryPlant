@@ -30,7 +30,6 @@ public class Node : MonoBehaviour, IComparable
         for (int i = 0; i < neighbours.Count; i++)
         {
             Gizmos.DrawLine(Position, neighbours[i].Position);
-
         }
     }
 }
