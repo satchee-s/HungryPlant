@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class SubtitleSystem : MonoBehaviour
 {
-
+    public float periodPause;
+    public float commaPause;
     private Text subtitle;
 
     private void Start()
@@ -29,10 +30,22 @@ public class SubtitleSystem : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         holder.text = "";
-        for (int i = 1; i <= subtitle.Length; i++)
-        {
+        char[] chars = subtitle.ToCharArray();
+        for (int i = 0; i < chars.Length; i++)
+        {            
+            holder.text += chars[i];
 
-            holder.text = subtitle.Substring(0, i);
+            if (chars[i] == '.')
+            {
+                Debug.Log("Pausing due to '.'");
+                yield return new WaitForSeconds(periodPause);
+            }
+            if (chars[i] == ',')
+            {
+                Debug.Log("Pausing due to ','");
+                yield return new WaitForSeconds(commaPause);
+            }
+
             yield return new WaitForSeconds(interval);
         }
 

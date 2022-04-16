@@ -71,7 +71,7 @@ public class InventoryManager : MonoBehaviour
 
     public void EmptySlot()
     {
-        currentSlot.UIImage.sprite = null;
+        currentSlot.UIImage.sprite = currentSlot.empty;
         currentSlot.item.transform.SetParent(null, false);
         currentSlot.item.transform.position = currentSlot.slot.position;
         currentSlot.item.transform.rotation = currentSlot.slot.rotation;

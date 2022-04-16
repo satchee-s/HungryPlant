@@ -5,6 +5,7 @@ public class InventorySlot : MonoBehaviour
 {
     public GameObject UIBorder;
     public Image UIImage;
+    public Sprite empty;
     public Transform slot;
     [HideInInspector] public Sprite imageInInventory;
     [HideInInspector] public bool isSelected;
@@ -20,7 +21,7 @@ public class InventorySlot : MonoBehaviour
 
     public void DeleteItem()
     {
-        UIImage.sprite = null;
+        //UIImage.sprite = empty;
         item.gameObject.SetActive(true);
         Destroy(item.gameObject);
         item = null;
