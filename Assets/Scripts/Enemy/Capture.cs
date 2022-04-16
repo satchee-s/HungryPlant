@@ -16,8 +16,8 @@ public class Capture : State
         player.GetComponent<CharacterController>().enabled = true;
         pathfinding.ClearPath();
         patrol = (Patrol)aiManager.roamingBehavior;
-        patrol.startingNode = plantResetPosition.GetComponent<Node>();
-        patrol.hasPath = false;
+        //patrol.startingNode = plantResetPosition.GetComponent<Node>();
+        //patrol.hasPath = false;
         plant.position = plantResetPosition.position;
         aiManager.SetMovement(aiManager.roamingBehavior);
     }

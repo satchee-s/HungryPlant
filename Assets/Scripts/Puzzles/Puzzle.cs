@@ -12,15 +12,28 @@ public abstract class Puzzle : MonoBehaviour
     protected SubtitleSystem subtitle;
     public bool CheckItems()
     {
+        bool finalResult = true;
+        string required = "";
+        int itemCounter = 0;
+        if (requiredItems.Count == 0)
+            return true;
         for (int i = 0; i < requiredItems.Count; i++)
         {
             if (!PuzzleManager.itemsInInventory.Contains(requiredItems[i]))
             {
-                subtitle.DisplaySubtitle("I dont have what I need for this");
-                return false;                
+                if (itemCounter > 0)
+                {
+                    required = required + " and " + requiredItems[i].ToString();
+                }
+                else
+                    required = required + requiredItems[i].ToString();
+                itemCounter++;
+                finalResult = false;                
             }
         }
-        return true;
+        subtitle.DisplaySubtitle("I still need " + required + " for this");
+        return finalResult;
+
     }
     private void Start()
     {
@@ -39,10 +52,6 @@ public abstract class Puzzle : MonoBehaviour
             {
                 ConsumeItem(consumeItems[i]);
             }
-        }
-        else
-        {
-            
         }
     }
 
@@ -73,13 +82,13 @@ public abstract class Puzzle : MonoBehaviour
             Debug.Log("Slot" + i + " has: " + inventoryManager.slots[i].item.type);
             if (inventoryManager.slots[i].item.type == item)
             {
-                Debug.Log("Consuming Item");
+                //Debug.Log("Consuming Item");
                 inventoryManager.slots[i].DeleteItem();
                 PuzzleManager.itemsInInventory.Remove(item);
                 break;
             }
-            else
-                Debug.Log("Item not Consumed");
+            /*else
+                Debug.Log("Item not Consumed");*/
         }
     }
 }
