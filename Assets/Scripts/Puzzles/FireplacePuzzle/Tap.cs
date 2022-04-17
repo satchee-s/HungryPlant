@@ -7,6 +7,7 @@ public class Tap : Puzzle
 {
     public GameObject water;
     public Transform waterPosition;
+    [SerializeField] AudioSource faucetSound;
     [SerializeField] Sprite filledBucketSprite;
     [SerializeField] Sprite originalImage;
 
@@ -25,6 +26,7 @@ public class Tap : Puzzle
     public IEnumerator WaterSpray()
     {
         GameObject particle = Instantiate(water, waterPosition) as GameObject;
+        faucetSound.Play();
         yield return new WaitForSeconds(4f);
         Destroy(particle);
     }

@@ -30,7 +30,7 @@ public class BlackoutTrigger : MonoBehaviour
         directionalLight.gameObject.SetActive(false);
         lights.gameObject.SetActive(false);
         powerDown.Play();
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
         powerOn.Play();
         directionalLight.gameObject.SetActive(true);
         lights.gameObject.SetActive(true);
