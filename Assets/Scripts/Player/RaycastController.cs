@@ -8,6 +8,7 @@ public class RaycastController : MonoBehaviour
     InventoryManager inventory;
     Ray ray;
     [SerializeField] LayerMask playerLayer;
+    bool hitItem;
     //float timer = 0f;
 
     private void Start()
@@ -22,14 +23,15 @@ public class RaycastController : MonoBehaviour
         inventory.SelectSlot();
         if (Input.GetMouseButtonDown(0))
             ItemController();
-
-        if (Physics.Raycast(ray, out hit))
+        if (Input.GetKey(KeyCode.E))
+            DropItem();
+        if (Physics.Raycast(ray, out hit, 5f, ~playerLayer))
         {
             if (Input.GetMouseButtonDown(0))
             {
                 if (hit.collider.tag == "Door")
                 {
-                    hit.collider.gameObject.GetComponent<DoorController>().PlayAnimation();
+                    //hit.collider.gameObject.GetComponent<DoorController>().PlayAnimation();
                 }
             }
             if (Input.GetMouseButtonDown(1))
@@ -44,17 +46,25 @@ public class RaycastController : MonoBehaviour
 
     private void ItemController()
     {
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, 5f, ~playerLayer))
         {
             if (hit.collider.tag == "Item")
             {
                 item = hit.transform.GetComponent<Item>();
                 inventory.SlotManager(item);
             }
-            if (inventory.currentSlot.isFilled == true)
-            {
-                inventory.EmptySlot();
-            }
         }
+    }
+    private void DropItem()
+    {
+        if (inventory.currentSlot.isFilled == true)
+        {
+            inventory.EmptySlot();
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, hit.point);
     }
 }

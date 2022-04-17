@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         Movement();
         Jump();
         Crouch();
-        FlashBang();
+        //FlashBang();
         velocity.y += gravity *Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
@@ -91,15 +91,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void FlashBang()
+    public IEnumerator Flash()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            playerAnimator.SetBool("Flash", true);
-        }
-        else
-        {
-            playerAnimator.SetBool("Flash", false);
-        }
+        playerAnimator.SetBool("Flash", true);
+        yield return new WaitForSeconds(.5f);
+        playerAnimator.SetBool("Flash", false);
+    }
+
+    public void FlashBang()
+    {
+        StartCoroutine(Flash());        
     }
 }
