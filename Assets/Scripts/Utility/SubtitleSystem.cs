@@ -7,6 +7,7 @@ public class SubtitleSystem : MonoBehaviour
 {
     public float periodPause;
     public float commaPause;
+    public float questionMarkPause;
     private Text subtitle;
 
     private void Start()
@@ -44,6 +45,11 @@ public class SubtitleSystem : MonoBehaviour
             {
                 Debug.Log("Pausing due to ','");
                 yield return new WaitForSeconds(commaPause);
+            }
+            if (chars[i] == '?')
+            {
+                Debug.Log("Pausing due to ','");
+                yield return new WaitForSeconds(questionMarkPause);
             }
 
             yield return new WaitForSeconds(interval);

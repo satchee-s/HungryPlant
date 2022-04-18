@@ -6,13 +6,14 @@ public class LabJumpScare : MonoBehaviour
 {
     [SerializeField] GameObject trigger;
     [SerializeField] GameObject outsideTrigger;
-    [SerializeField] GameObject bubbles;
+    //[SerializeField] GameObject bubbles;
 
     [SerializeField] Collider boxCollider;
 
     [SerializeField] AudioSource growl;
     [SerializeField] AudioSource slam;
     [SerializeField] AudioSource suspense;
+    [SerializeField] AudioSource breathing;
 
     [SerializeField] Animator animator;
 
@@ -39,6 +40,8 @@ public class LabJumpScare : MonoBehaviour
         growl.Play();
         yield return new WaitForSeconds(1.2f);
         suspense.Play();
+        yield return new WaitForSeconds(1.2f);
+        breathing.Play();  
         Destroy(trigger);
         outsideTrigger.gameObject.SetActive(true);
         yield return new WaitForSeconds(5f);
