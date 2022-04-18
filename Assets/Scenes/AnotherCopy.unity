@@ -6541,11 +6541,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   subtitle: "It\u2019ll probably be too dark to see with the generator having issues
-    again, I should grab my flashlight, which drawer did I put it in?"
+    again. I should grab my flashlight. Which drawer did I put it in?"
   triggerOnce: 1
   colliderTrigger: 1
   isDelayed: 1
-  delayTimer: 15
+  delayTimer: 16
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -6910,7 +6910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c006fcda8dbb5a94cbdd169b3fe7eecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subtitle: "All my work . . . why would someone do this? I don\u2019t understand"
+  subtitle: "All my work. Why would someone do this? I don\u2019t understand"
   triggerOnce: 1
   colliderTrigger: 1
   isDelayed: 0
@@ -10398,7 +10398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c006fcda8dbb5a94cbdd169b3fe7eecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subtitle: Looks like it came from the lab, crap I hope nothings broken
+  subtitle: Looks like it came from the lab. Crap, I hope nothing's broken!
   triggerOnce: 1
   colliderTrigger: 1
   isDelayed: 0
@@ -11147,6 +11147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd316f5bfccbe649891c8b0e0306bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  periodPause: 2
+  commaPause: 1
+  questionMarkPause: 1
 --- !u!114 &435034353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16352,12 +16355,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c006fcda8dbb5a94cbdd169b3fe7eecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  subtitle: Am I seeing things? That looked too much like him . . . but he wasn't
-    that size earlier . . . what happened?
+  subtitle: Am I seeing things? That looked too much like him. But he wasn't that
+    size earlier. What happened?
   triggerOnce: 1
   colliderTrigger: 1
-  isDelayed: 0
-  delayTimer: 0
+  isDelayed: 1
+  delayTimer: 1.5
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -40594,7 +40597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1289180872
 RectTransform:
   m_ObjectHideFlags: 0
