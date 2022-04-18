@@ -31,8 +31,8 @@ public class LabJumpScare : MonoBehaviour
         //    slam.Play();
         //}
 
-        animator.Play("Closing");
-        slam.Play();
+        //animator.Play("Closing");
+        //slam.Play();
         yield return new WaitForSeconds(0.5f);
         bubbles.gameObject.SetActive(true);
         yield return new WaitForSeconds(1.0f);
@@ -42,7 +42,7 @@ public class LabJumpScare : MonoBehaviour
         Destroy(trigger);
         outsideTrigger.gameObject.SetActive(true);
         yield return new WaitForSeconds(5f);
-        Destroy(slam);
-        Destroy(suspense);
+        //Destroy(slam);
+        //Destroy(suspense);
     }
 }

@@ -9,11 +9,14 @@ public class GreenhouseDoorTrigger : MonoBehaviour
     [SerializeField] AudioSource bubblesAudio;
     [SerializeField] Animator animator;
 
+    public SubtitleTrigger dialog;
+
     private void OnTriggerEnter(Collider other)
     {
         Destroy(trigger);
         bubbles.gameObject.SetActive(true);
         animator.SetBool("Move", true);
         bubblesAudio.Play();
+        dialog.TriggerSubtitle();
     }
 }

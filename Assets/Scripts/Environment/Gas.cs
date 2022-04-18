@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Gas : MonoBehaviour
 {
@@ -16,8 +17,15 @@ public class Gas : MonoBehaviour
     SubtitleSystem subtitleSystem;
     [SerializeField] float drainSpeed = 0.5f;
 
+    public UnityEvent completed;
+
     public bool hasGasCan;
     bool allRoomsComplete;
+
+    public string firstCompleteText;
+    bool firstComplete;
+    public string halfCompleteText;
+    bool halfComplete;
 
     public List<GasRooms> rooms;
 
@@ -27,6 +35,8 @@ public class Gas : MonoBehaviour
         subtitleSystem = FindObjectOfType<SubtitleSystem>();
         slider.value = 1;
         triggered = false;
+        firstComplete = false;
+        halfComplete = false;
     }
 
     private void Update()
@@ -41,6 +51,19 @@ public class Gas : MonoBehaviour
                 completeCount++;
             }
         }
+
+        if (completeCount == 1 && !firstComplete)
+        {
+            subtitleSystem.DisplaySubtitle(firstCompleteText);
+            firstComplete = true;
+        }
+
+        if (completeCount == rooms.Count / 2 && !halfComplete)
+        {
+            subtitleSystem.DisplaySubtitle(halfCompleteText);
+            halfComplete = true;
+        }
+
         if (completeCount == rooms.Count)
         {
             allRoomsComplete = true;
@@ -49,6 +72,7 @@ public class Gas : MonoBehaviour
                 subtitleSystem.DisplaySubtitle(CompletedText);
                 triggered = true;
                 outside.SetActive(true);
+                completed.Invoke();
             }
            
             //Destroy(frontDoor);

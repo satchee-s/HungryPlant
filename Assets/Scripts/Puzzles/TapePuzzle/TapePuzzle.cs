@@ -5,6 +5,7 @@ using UnityEngine;
 public class TapePuzzle : Puzzle
 {
     public bool powered;
+    public string unpluggedText;
 
     private void Start()
     {
@@ -19,10 +20,13 @@ public class TapePuzzle : Puzzle
     override public void ExecutePuzzle()
     {
         CheckItems();
-        if (CheckItems() && powered)
+        if (CheckItems())
         {
             Debug.Log("You have all the items");
-            taskCompleted.Invoke();
+            if (powered)
+                taskCompleted.Invoke();
+            else
+                subtitle.DisplaySubtitle(unpluggedText);
         }
         else
         {

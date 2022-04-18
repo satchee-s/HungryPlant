@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FlashlightController : MonoBehaviour
 {
+    bool obtained;
 
     [Range(0, 100)]float batteryCharge;
     [SerializeField]float degredationRate = .01f;
@@ -22,6 +23,7 @@ public class FlashlightController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        obtained = false;
         batteryCharge = 100;
         toggled = false;
         ToggleLight(toggled);
@@ -33,36 +35,37 @@ public class FlashlightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool doubleTap = false;
-
-        if (Input.GetKeyDown(KeyCode.F))
+        if (obtained)
         {
-            if (toggled && !doubleTap)
-                toggled = false;
-            else
-                toggled = true;
-            ToggleLight(toggled);
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            FlashBang();
-        }
-
-        if (toggled)
-        {
-            batteryCharge -= degredationRate * Time.deltaTime;
-            updateUI();
-        }
-
-        if (batteryCharge <= 0)
-        {
-            if (toggled)
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                toggled = false;
+                if (toggled)
+                    toggled = false;
+                else
+                    toggled = true;
                 ToggleLight(toggled);
             }
-        }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                FlashBang();
+            }
+
+            if (toggled)
+            {
+                batteryCharge -= degredationRate * Time.deltaTime;
+                updateUI();
+            }
+
+            if (batteryCharge <= 0)
+            {
+                if (toggled)
+                {
+                    toggled = false;
+                    ToggleLight(toggled);
+                }
+            }
+        }        
     }
 
     void ToggleLight(bool state)
@@ -107,5 +110,10 @@ public class FlashlightController : MonoBehaviour
             ui.material.color = Color.black;
             ui.material.SetColor("_EmissionColor", Color.black * 1.5f);
         }            
+    }
+
+    public void ObtainedFlashlight()
+    {
+        obtained = true;
     }
 }

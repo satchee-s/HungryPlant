@@ -15,10 +15,13 @@ public class OutsideLabTrigger : MonoBehaviour
 
     [SerializeField] Collider boxCollider;
 
+    public GameObject dialog;
+
     private void OnTriggerEnter(Collider other)
     {
         StartCoroutine(Bubbles());
         boxCollider.enabled = false;
+        dialog.SetActive(true);
     }
 
     IEnumerator Bubbles()
