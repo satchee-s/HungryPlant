@@ -8,8 +8,12 @@ public class BarricadeCounter : Puzzle
     public string completedText;
     SubtitleSystem subtitleSystem;
 
+    bool firstBarricade;
+    public string firstBarricadeText;
+
     private void Start()
     {
+        firstBarricade = false;
         subtitleSystem = FindObjectOfType<SubtitleSystem>();
         SetBarricadeStates(false);
     }
@@ -23,6 +27,12 @@ public class BarricadeCounter : Puzzle
             {
                 completed++;
             }
+        }
+
+        if (completed == 1 && firstBarricade)
+        {
+            subtitle.DisplaySubtitle(firstBarricadeText);
+            firstBarricade = true;
         }
 
         if (completed >= barricades.Length * .8f)

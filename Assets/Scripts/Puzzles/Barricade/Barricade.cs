@@ -47,7 +47,7 @@ public class Barricade : Puzzle
         if (inRange && items && !completed)
         {
             slider.gameObject.SetActive(true);
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(1))
             {
                 timer += Time.deltaTime;
                 slider.value = timer;

@@ -10,10 +10,14 @@ public class SafePuzzle : Puzzle
     string input = "";
     [SerializeField] Text writing;
     [SerializeField] Text keypad;
+
+    bool hasCode;
+
     void Start()
     {
         writing.gameObject.SetActive(false);
         input = "";
+        hasCode = false;
     }
 
     public void RevealCode()
@@ -29,6 +33,7 @@ public class SafePuzzle : Puzzle
         for (int i = 0; i < 4; i++)
             c += (int)Random.Range(0, 9);
         code = c;
+        hasCode = true;
     }
 
     public void KeyPressed(string number)
@@ -37,7 +42,7 @@ public class SafePuzzle : Puzzle
         keypad.text = input;
         if (input.Length >= 4)
         {
-            if (input == code)
+            if (input == code && hasCode)
             {
                 taskCompleted.Invoke();
             }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
+    public GameplaySettings gameplaySettings;
     public Transform player;
     public float mouseSensitivity;
     float xRotation;
@@ -17,6 +18,8 @@ public class MouseMovement : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.Locked;
         isHiding = false;
+
+        mouseSensitivity = gameplaySettings.GetSensitivity();
     }
 
     void Update()
@@ -43,5 +46,10 @@ public class MouseMovement : MonoBehaviour
             maxXRotation = 90f;
             player.Rotate(Vector3.up * mouseX);
         }
+    }
+
+    public void ChangeSensitivity(float value)
+    {
+        mouseSensitivity = value;
     }
 }

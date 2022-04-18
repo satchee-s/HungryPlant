@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RaycastController : MonoBehaviour
 {
@@ -7,58 +8,130 @@ public class RaycastController : MonoBehaviour
     Item item;
     InventoryManager inventory;
     Ray ray;
+    public float rayDist;
+    public float interactionDist;
     [SerializeField] LayerMask playerLayer;
-    //float timer = 0f;
+
+    public Image reticle;
+    public Sprite interactable;
+    public Sprite normalIcon;
+    public Vector2 minMaxReticleScale;
+    Vector3 minScale;
+    Vector3 maxScale;
+    bool hitItem;
+    bool hitDoor;
+    bool hitPuzzle;
+    bool hitEnvironmental;
 
     private void Start()
     {
         cam = Camera.main;
         item = null;
         inventory = FindObjectOfType<InventoryManager>();
+
+        minScale = reticle.transform.localScale * minMaxReticleScale.x;
+        maxScale = reticle.transform.localScale * minMaxReticleScale.y;
     }
     private void Update()
     {
         ray = new Ray(cam.transform.position, cam.transform.forward);
         inventory.SelectSlot();
-        if (Input.GetMouseButtonDown(0))
-            ItemController();
-        if (Input.GetKey(KeyCode.E))
-            DropItem();
-        if (Physics.Raycast(ray, out hit))
+
+        if (Physics.Raycast(ray, out hit, rayDist, ~playerLayer))
         {
-            if (Input.GetMouseButtonDown(0))
+            float distance = hit.distance;
+
+            if (hit.collider.tag == "Door" && distance <= interactionDist) 
             {
-                if (hit.collider.tag == "Door")
+                hitDoor = true;
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    hit.collider.gameObject.GetComponent<DoorController>().PlayAnimation();
+                    Debug.Log("OpenDoor");
+                    hit.collider.gameObject.GetComponent<DoorControl>().Interact();
+                }                
+            }
+            else
+            {
+                hitDoor = false;
+            }
+
+            if (hit.collider.tag == "Puzzle" && distance <= interactionDist) 
+            {
+                hitPuzzle = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {                    
+                    hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
+                }                
+            }
+            else
+            {
+                hitPuzzle = false;
+            }
+
+            if (hit.collider.tag == "Item" && distance <= interactionDist)
+            {
+                hitItem = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    item = hit.transform.GetComponent<Item>();
+                    inventory.SlotManager(item);
+                }                    
+            }
+            else
+            {
+                hitItem = false;
+            }
+
+            if (hit.collider.tag == "Environmental" && distance <= interactionDist)
+            {
+                hitEnvironmental = true;
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    hit.transform.GetComponent<EnvironmentalComment>().TriggerComment();
                 }
             }
-            if (Input.GetMouseButtonDown(1))
+            else
             {
-                if (hit.collider.tag == "Puzzle")
-                {
-                    hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
-                }
+                hitEnvironmental = false;
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && !hitDoor && !hitPuzzle && !hitItem && !hitEnvironmental)
+            {
+                DropItem();
+            }
+
+            if (hitDoor || hitPuzzle || hitItem || hitEnvironmental)
+            {
+                reticle.sprite = interactable;
+                reticle.transform.localScale = Vector3.Lerp(reticle.transform.localScale, maxScale, Time.deltaTime);
+            }
+            else
+            {
+                reticle.sprite = normalIcon;
+                reticle.transform.localScale = Vector3.Lerp(reticle.transform.localScale, minScale, Time.deltaTime);
             }
         }
     }
 
-    private void ItemController()
-    {
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.collider.tag == "Item")
-            {
-                item = hit.transform.GetComponent<Item>();
-                inventory.SlotManager(item);
-            }
-        }
-    }
     private void DropItem()
     {
         if (inventory.currentSlot.isFilled == true)
         {
             inventory.EmptySlot();
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (hitDoor)
+            Gizmos.color = Color.yellow;
+        else if (hitPuzzle)
+            Gizmos.color = Color.blue;
+        else if (hitItem)
+            Gizmos.color = Color.green;
+        else
+            Gizmos.color = Color.red;
+
+        Gizmos.DrawLine(transform.position, hit.point);
     }
 }
