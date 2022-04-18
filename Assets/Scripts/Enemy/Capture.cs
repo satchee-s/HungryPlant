@@ -6,7 +6,7 @@ public class Capture : State
 {
     [SerializeField] Transform resetPosition;
     [SerializeField] Transform plantResetPosition;
-    Patrol patrol;
+    //Patrol patrol;
     public override void SetBehaviour(AIManager aiManager)
     {
         //aiManager.SetMovement(aiManager.captureBehavior);
@@ -15,10 +15,10 @@ public class Capture : State
         player.position = resetPosition.position;
         player.GetComponent<CharacterController>().enabled = true;
         pathfinding.ClearPath();
-        patrol = (Patrol)aiManager.roamingBehavior;
+        //patrol = (Patrol)aiManager.roamingBehavior;
         //patrol.startingNode = plantResetPosition.GetComponent<Node>();
         //patrol.hasPath = false;
-        plant.position = plantResetPosition.position;
+        transform.position = plantResetPosition.position;
         aiManager.SetMovement(aiManager.roamingBehavior);
     }
 }
