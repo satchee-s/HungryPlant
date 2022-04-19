@@ -78,23 +78,23 @@ public abstract class Puzzle : MonoBehaviour
 
     public virtual void ConsumeItem(PuzzleManager.ItemType item)
     {
-        //Debug.Log("Trying to remove " + item);
-        //Debug.Log("There are " + inventoryManager.slots.Length + " slots in inventory");
-        int itemCount = 0;
-        if (inventoryManager.slots.Length > 0 || inventoryManager.slots.Length != null)
-            itemCount = inventoryManager.slots.Length;
-        for (int i = 0; i < itemCount; i++)
+        Debug.Log("Trying to remove " + item);
+        Debug.Log("There are " + inventoryManager.slots.Length + " slots in inventory");
+        for (int i = 0; i < inventoryManager.slots.Length; i++)
         {
-            Debug.Log("Slot" + i + " has: " + inventoryManager.slots[i].item.type);
-            if (inventoryManager.slots[i].item.type == item)
+            if (inventoryManager.slots[i].item != null)
             {
-                Debug.Log("Consuming Item");
-                inventoryManager.slots[i].DeleteItem();
-                PuzzleManager.itemsInInventory.Remove(item);
-                break;
+                if (inventoryManager.slots[i].item.type == item)
+                {
+                    Debug.Log("Consuming Item");
+                    inventoryManager.slots[i].DeleteItem();
+                    PuzzleManager.itemsInInventory.Remove(item);
+                    break;
+                }
+                else
+                    Debug.Log(inventoryManager.slots[i].item.type + "not Consumed");
             }
-            else
-                Debug.Log("Item not Consumed");
+            
         }
     }
 }

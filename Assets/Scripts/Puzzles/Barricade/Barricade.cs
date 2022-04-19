@@ -9,13 +9,13 @@ public class Barricade : Puzzle
     [SerializeField] float requriedTime;
     float timer = 0f;
     public bool startPuzzle = false;
-    InventoryManager manager;
-    Item item;
 
     bool inRange = false;
     bool items = false;
     [SerializeField] Slider slider;
     public bool completed;
+
+    bool itemChecked;
 
     private void Start()
     {
@@ -38,8 +38,18 @@ public class Barricade : Puzzle
         //run animation
     }
 
+    void CheckForItems()
+    {
+        if (!itemChecked)
+        {
+            items = CheckItems();
+            itemChecked = true;
+        }
+    }
+
     override public void ExecutePuzzle()
     {
+        CheckForItems();
         if (inRange && items && !completed)
         {
             slider.gameObject.SetActive(true);
@@ -56,8 +66,7 @@ public class Barricade : Puzzle
                     ConsumeItem(consumeItems[i]);
                 }
                 completed = true;
-                startPuzzle = false;
-                slider.gameObject.SetActive(false);
+                startPuzzle = false;                
             }
         }
         if (!inRange || !items || completed)
@@ -70,11 +79,11 @@ public class Barricade : Puzzle
         if (startPuzzle)
         {
             inRange = range;
-            if (range)
-                items = CheckItems();
-            else
+            if (!inRange)
+            {
+                itemChecked = false;
                 slider.gameObject.SetActive(false);
-
+            }
         }        
     }
 }
