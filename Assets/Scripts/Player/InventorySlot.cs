@@ -21,7 +21,7 @@ public class InventorySlot : MonoBehaviour
 
     public void DeleteItem()
     {
-        //UIImage.sprite = empty;
+        UIImage.sprite = empty;
         item.gameObject.SetActive(true);
         Destroy(item.gameObject);
         item = null;

@@ -58,10 +58,20 @@ public class RaycastController : MonoBehaviour
             if (hit.collider.tag == "Puzzle" && distance <= interactionDist) 
             {
                 hitPuzzle = true;
-                if (Input.GetKeyDown(KeyCode.E))
-                {                    
-                    hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
-                }                
+                if (hit.collider.GetComponent<Barricade>() != null)
+                {
+                    if (Input.GetKey(KeyCode.E))
+                    {
+                        hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
+                    }
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
+                    }
+                }                               
             }
             else
             {
@@ -132,6 +142,7 @@ public class RaycastController : MonoBehaviour
         else
             Gizmos.color = Color.red;
 
-        Gizmos.DrawLine(transform.position, hit.point);
+        if (hit.distance < rayDist)
+            Gizmos.DrawLine(transform.position, hit.point);
     }
 }

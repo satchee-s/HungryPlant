@@ -8,7 +8,7 @@ public class Barricade : Puzzle
     public DoorController controller;
     [SerializeField] float requriedTime;
     float timer = 0f;
-    [SerializeField] bool startPuzzle = false;
+    public bool startPuzzle = false;
     InventoryManager manager;
     Item item;
 
@@ -19,15 +19,11 @@ public class Barricade : Puzzle
 
     private void Start()
     {
+        inventoryManager = GameObject.Find("PlayerParent").GetComponent<InventoryManager>();
+        subtitle = FindObjectOfType<SubtitleSystem>();
         slider.value = timer;
         slider.maxValue = requriedTime;
         slider.gameObject.SetActive(false);
-    }
-
-    public override void ExecutePuzzle()
-    {
-        if(completed)
-            base.ExecutePuzzle();
     }
 
     public void BarricadeDoor()
@@ -42,33 +38,43 @@ public class Barricade : Puzzle
         //run animation
     }
 
-    private void Update()
+    override public void ExecutePuzzle()
     {
         if (inRange && items && !completed)
         {
             slider.gameObject.SetActive(true);
-            if (Input.GetMouseButton(1))
-            {
-                timer += Time.deltaTime;
-                slider.value = timer;
-                //Debug.Log(timer);
-            }
+            timer += Time.deltaTime;
+            slider.value = timer;
+            //Debug.Log(timer);
+
             if (timer >= requriedTime)
             {
                 //Debug.Log("Pressed button for enough time");
-                taskCompleted.Invoke();                
+                taskCompleted.Invoke();
+                for (int i = 0; i < consumeItems.Count; i++)
+                {
+                    ConsumeItem(consumeItems[i]);
+                }
                 completed = true;
                 startPuzzle = false;
+                slider.gameObject.SetActive(false);
             }
         }
-        else
+        if (!inRange || !items || completed)
             slider.gameObject.SetActive(false);
 
     }
 
     public void SetTrigger(bool range)
     {
-        inRange = range;
-        items = CheckItems();
+        if (startPuzzle)
+        {
+            inRange = range;
+            if (range)
+                items = CheckItems();
+            else
+                slider.gameObject.SetActive(false);
+
+        }        
     }
 }

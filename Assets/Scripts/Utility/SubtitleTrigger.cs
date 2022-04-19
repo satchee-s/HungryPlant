@@ -9,6 +9,7 @@ public class SubtitleTrigger : MonoBehaviour
     public string subtitle;
     public bool triggerOnce;
     public bool colliderTrigger;
+    public bool mouseoverTrigger;
     public bool isDelayed;
     public float delayTimer;
     bool triggered;
@@ -19,6 +20,22 @@ public class SubtitleTrigger : MonoBehaviour
     {
         subtitleSystem = FindObjectOfType<SubtitleSystem>();
         triggered = false;
+    }
+
+    private void OnMouseEnter()
+    {
+        Debug.Log("MousedOver");
+        if (mouseoverTrigger)
+        {
+            if (!isDelayed)
+            {
+                TriggerSubtitle();
+            }
+            else
+            {
+                StartCoroutine(SubtitleTimer());
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)

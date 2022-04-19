@@ -31,7 +31,8 @@ public abstract class Puzzle : MonoBehaviour
                 finalResult = false;                
             }
         }
-        subtitle.DisplaySubtitle("I still need " + required + " for this");
+        if (!finalResult)
+            subtitle.DisplaySubtitle("I still need " + required + " for this");
         return finalResult;
 
     }
@@ -43,7 +44,7 @@ public abstract class Puzzle : MonoBehaviour
 
     public virtual void ExecutePuzzle()
     {
-        CheckItems();
+        //CheckItems();
         if (CheckItems())
         {
             //Debug.Log("You have all the items");
@@ -77,18 +78,23 @@ public abstract class Puzzle : MonoBehaviour
 
     public virtual void ConsumeItem(PuzzleManager.ItemType item)
     {
-        for (int i = 0; i < inventoryManager.slots.Length; i++)
+        //Debug.Log("Trying to remove " + item);
+        //Debug.Log("There are " + inventoryManager.slots.Length + " slots in inventory");
+        int itemCount = 0;
+        if (inventoryManager.slots.Length > 0 || inventoryManager.slots.Length != null)
+            itemCount = inventoryManager.slots.Length;
+        for (int i = 0; i < itemCount; i++)
         {
             Debug.Log("Slot" + i + " has: " + inventoryManager.slots[i].item.type);
             if (inventoryManager.slots[i].item.type == item)
             {
-                //Debug.Log("Consuming Item");
+                Debug.Log("Consuming Item");
                 inventoryManager.slots[i].DeleteItem();
                 PuzzleManager.itemsInInventory.Remove(item);
                 break;
             }
-            /*else
-                Debug.Log("Item not Consumed");*/
+            else
+                Debug.Log("Item not Consumed");
         }
     }
 }

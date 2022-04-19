@@ -6,7 +6,7 @@ public class LabJumpScare : MonoBehaviour
 {
     [SerializeField] GameObject trigger;
     [SerializeField] GameObject outsideTrigger;
-    //[SerializeField] GameObject bubbles;
+    [SerializeField] GameObject bubbles;
 
     [SerializeField] Collider boxCollider;
 

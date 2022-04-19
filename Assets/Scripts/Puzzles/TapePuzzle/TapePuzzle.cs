@@ -5,11 +5,12 @@ using UnityEngine;
 public class TapePuzzle : Puzzle
 {
     public bool powered;
-    public string unpluggedText;
+    public SubtitleTrigger unpluggedText;
 
     private void Start()
     {
         powered = false;
+        inventoryManager = GameObject.Find("PlayerParent").GetComponent<InventoryManager>();
     }
 
     public void PowerPlayer()
@@ -19,18 +20,20 @@ public class TapePuzzle : Puzzle
 
     override public void ExecutePuzzle()
     {
-        CheckItems();
+        //CheckItems();
         if (CheckItems())
         {
             Debug.Log("You have all the items");
             if (powered)
+            {
                 taskCompleted.Invoke();
+                for (int i = 0; i < consumeItems.Count; i++)
+                {
+                    ConsumeItem(consumeItems[i]);
+                }
+            }
             else
-                subtitle.DisplaySubtitle(unpluggedText);
-        }
-        else
-        {
-            Debug.Log("You don't have all the items yet");
+                unpluggedText.TriggerSubtitle();
         }
     }
 }
