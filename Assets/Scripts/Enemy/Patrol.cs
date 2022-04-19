@@ -8,6 +8,7 @@ public class Patrol : State
     Vector3 currentNode;
     int targetIndex;
     [SerializeField] float maxSpeed;
+    [SerializeField] float smooth;
     Vector3 finalVelocity = Vector3.zero;
     Vector3 desiredPos;
     Vector3 desiredVelocity;
@@ -22,7 +23,9 @@ public class Patrol : State
         finalVelocity = finalVelocity - desiredVelocity;
         finalVelocity = Vector3.ClampMagnitude(finalVelocity, maxSpeed);
         transform.position += finalVelocity * Time.deltaTime;
-        transform.LookAt(currentNode);
+        var desiredRotaion = Quaternion.Euler(transform.rotation.x, 1f, transform.rotation.z);
+        transform.rotation = Quaternion.Lerp(desiredRotaion, Quaternion.Euler(currentNode), smooth);
+        //transform.LookAt(currentNode);
         if (PlantInRange(currentNode))
         {
             targetIndex++;
@@ -65,7 +68,6 @@ public class Patrol : State
             startingNode = pathfinding.FindClosestNode(transform.position);
         }
         targetNode = pathfinding.GetRandomNode(startingNode);
-        //GetPath(startingNode, targetNode, currentNode, travelPath);
         pathfinding.FindPath(targetNode, startingNode);
         travelPath = pathfinding.final;
         Vector3 angle1 = (transform.position - travelPath[0].Position).normalized;
