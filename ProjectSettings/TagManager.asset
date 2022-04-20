@@ -12,6 +12,7 @@ TagManager:
   - Plant
   - DoorStayOpen
   - Environmental
+  - Waypoint
   layers:
   - Default
   - TransparentFX
