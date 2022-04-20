@@ -5,9 +5,7 @@ using UnityEngine;
 public class AIManager : MonoBehaviour
 {
     public State currentState;
-    public State roamingBehavior, captureBehavior, chaseBehavior, searchBehavior;
-    public Animator anim;
-    public AnimationClip enter;
+    public State roamingBehavior, captureBehavior, chaseBehavior;
     public void SetMovement (State state)
     {
         currentState = state;
@@ -22,5 +20,4 @@ public class AIManager : MonoBehaviour
     {
         currentState.SetBehaviour(this);
     }
-
 }

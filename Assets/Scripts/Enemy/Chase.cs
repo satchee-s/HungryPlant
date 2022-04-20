@@ -6,12 +6,17 @@ public class Chase : State
 {
     Vector3 currentNode;
 
-    [SerializeField] float maxSpeed, frames;
+    [SerializeField] float maxSpeed, frames, captureDistance;
     Vector3 finalVelocity = Vector3.zero;
     Vector3 desiredPos;
     Vector3 desiredVelocity;
     public override void SetBehaviour(AIManager aiManager)
     {
+        if (DetectPlayer(player.transform, transform, captureDistance))
+        {
+            aiManager.SetMovement(aiManager.captureBehavior);
+
+        }
         if (DetectPlayer(player.transform, transform, playerDetectionDistance))
         {
             FollowPath();

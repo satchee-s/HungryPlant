@@ -13,12 +13,12 @@ public abstract class State : MonoBehaviour
     {
         pathfinding = FindObjectOfType<Pathfinding>();
         subtitleSystem = FindObjectOfType<SubtitleSystem>();
-        player = GameObject.FindWithTag("Player").GetComponent <Transform>();
+        player = GameObject.FindWithTag("Player").GetComponent<Transform>();
     }
 
     public abstract void SetBehaviour(AIManager aiManager);
 
-    public bool DetectPlayer(Transform target, Transform viewer, float maxDistance, float maxDegrees = 45f)
+    public bool DetectPlayer(Transform target, Transform viewer, float maxDistance, float maxDegrees = 60f)
     {
         float degree = Vector3.Angle(target.position - viewer.position, viewer.forward);
         Vector3 targetDirection = (target.position - viewer.position);

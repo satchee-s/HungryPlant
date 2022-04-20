@@ -1,79 +1,115 @@
 Shader "Unlit/OutlineShader"
 {
-    Properties
-	{
-		_Color("Main Color", Color) = (1,1,1,1)
+    Properties{
 		_MainTex ("Texture", 2D) = "white" {}
-		_OutlineColor ("Outline color", Color) = (0,0,0,1)
-		_OutlineWidth ("Outlines width", Range (0.0, 0.2)) = 0.1
+		_OutColor ("Tint", Color) = (1, 1, 1, 1)
+		_OutValue ("Outline value", Range(0.0, 0.2)) = 0.1
 	}
 
-	CGINCLUDE
-	#include "UnityCG.cginc"
+	SubShader{
 
-	struct appdata
-	{
-		float4 vertex : POSITION;
-	};
+		Pass{
+			Tags{ "Queue"="Transparent" }
+			Blend SrcAlpha OneMinusSrcAlpha
+			//ZWrite Off
 
-	struct v2f
-	{
-		float4 pos : POSITION;
-	};
-
-	float _OutlineWidth;
-	float4 _OutlineColor;
-	sampler2D _MainTex;
-	float4 _Color;
-
-	ENDCG
-
-	SubShader
-	{
-		Tags{ "Queue" = "Transparent" "IgnoreProjector" = "True" }
-
-		Pass //Outline
-		{
-			ZWrite Off
-			Cull Back
 			CGPROGRAM
+
+			#include "UnityCG.cginc"
 
 			#pragma vertex vert
 			#pragma fragment frag
 
-			v2f vert(appdata v)
-			{
-				appdata original = v;
-				v.vertex.xyz += _OutlineWidth * normalize(v.vertex.xyz);
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+			float4 _OutColor;
+			float _OutValue;
 
+			fixed4 _Color;
+
+			struct appdata{
+				float4 vertex : POSITION;
+				float2 uv : TEXCOORD0;
+			};
+
+			struct v2f {
+				float4 position : SV_POSITION;
+				float2 uv : TEXCOORD0;
+			};
+
+			float4 outline (float4 vertexPos, float outValue)
+			{
+				float4x4 scale = float4x4
+				(
+					1 + outValue, 0, 0, 0,
+					0, 1 + outValue, 0, 0,
+					0, 0, 1 + outValue, 0,
+					0, 0, 0,  1 + outValue
+				);
+				return mul(scale, vertexPos);
+			}
+
+			v2f vert(appdata v){
 				v2f o;
-				o.pos = UnityObjectToClipPos(v.vertex);
+				float4 vertexPos = outline(v.vertex, _OutValue);
+				o.position = UnityObjectToClipPos(vertexPos);
+				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				return o;
-
 			}
 
-			half4 frag(v2f i) : COLOR
-			{
-				return _OutlineColor;
+			fixed3 frag(v2f i) : SV_TARGET{
+				fixed4 col = tex2D(_MainTex, i.uv);
+				
+				return float4(_OutColor.r, _OutColor.g, _OutColor.b, col.a);
 			}
-
+			
 			ENDCG
 		}
 
-		Tags{ "Queue" = "Geometry"}
+		//texture
 
-		CGPROGRAM
-		#pragma surface surf Lambert
-		struct Input {
-			float2 uv_MainTex;
-		};
-		 
-		void surf (Input IN, inout SurfaceOutput o) {
-			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
-			o.Albedo = c.rgb;
-			o.Alpha = c.a;
+		Pass{
+			Tags{ "Queue"="Transparent+1" }
+			Blend SrcAlpha OneMinusSrcAlpha
+
+			CGPROGRAM
+
+			#include "UnityCG.cginc"
+
+			#pragma vertex vert
+			#pragma fragment frag
+
+			sampler2D _MainTex;
+			float4 _MainTex_ST;
+			float4 _OutColor;
+			float _OutValue;
+
+			fixed4 _Color;
+
+			struct appdata{
+				float4 vertex : POSITION;
+				float2 uv : TEXCOORD0;
+			};
+
+			struct v2f {
+				float4 position : SV_POSITION;
+				float2 uv : TEXCOORD0;
+			};
+
+			v2f vert(appdata v){
+				v2f o;
+				
+				o.position = UnityObjectToClipPos(v.vertex);
+				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+				return o;
+			}
+
+			fixed3 frag(v2f i) : SV_TARGET{
+				fixed4 col = tex2D(_MainTex, i.uv);
+				return col;
+			}
+			
+			ENDCG
 		}
-		ENDCG
 	}
-	Fallback "Diffuse"
 }

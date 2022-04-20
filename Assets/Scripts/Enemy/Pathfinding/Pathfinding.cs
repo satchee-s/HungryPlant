@@ -92,7 +92,6 @@ public class Pathfinding : MonoBehaviour
 
     public void ClearPath()
     {
-        //final.Clear();
         open.Clear();
         foreach (Node node in allNodes)
             node.isVisited = false;

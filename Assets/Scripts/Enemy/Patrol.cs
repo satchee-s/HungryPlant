@@ -7,13 +7,16 @@ public class Patrol : State
     Node startingNode, targetNode;
     Vector3 currentNode;
     int targetIndex;
+
     [SerializeField] float maxSpeed;
     [SerializeField] float smooth;
     Vector3 finalVelocity = Vector3.zero;
     Vector3 desiredPos;
     Vector3 desiredVelocity;
+
     bool hasPath = false;
     List<Node> travelPath = new List<Node>();
+    [SerializeField] SearchRoom searchRoom;
 
     void FollowPath()
     {
@@ -23,14 +26,22 @@ public class Patrol : State
         finalVelocity = finalVelocity - desiredVelocity;
         finalVelocity = Vector3.ClampMagnitude(finalVelocity, maxSpeed);
         transform.position += finalVelocity * Time.deltaTime;
-        var desiredRotaion = Quaternion.Euler(transform.rotation.x, 1f, transform.rotation.z);
-        transform.rotation = Quaternion.Lerp(desiredRotaion, Quaternion.Euler(currentNode), smooth);
-        //transform.LookAt(currentNode);
+
+        Vector3 rotationPos = (transform.position - currentNode).normalized * -1f;
+        Quaternion desiredRotation = Quaternion.LookRotation(rotationPos);
+        transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, smooth * Time.deltaTime);
+
         if (PlantInRange(currentNode))
         {
             targetIndex++;
             if (targetIndex < travelPath.Count)
+            {
                 currentNode = new Vector3(travelPath[targetIndex].Position.x, 1f, travelPath[targetIndex].Position.z);
+                if (travelPath[targetIndex].EnterRoom && travelPath[targetIndex + 1].EnterRoom)
+                {
+                    searchRoom.PlayAnimation();
+                }
+            }
             else if (targetIndex >= travelPath.Count)
             {
                 startingNode = targetNode;
@@ -48,7 +59,6 @@ public class Patrol : State
         }
         else
         {
-            //aiManager.SetMovement(aiManager.roamingBehavior);
             if (!hasPath)
             {
                 CalculatePath();
@@ -72,10 +82,9 @@ public class Patrol : State
         travelPath = pathfinding.final;
         Vector3 angle1 = (transform.position - travelPath[0].Position).normalized;
         Vector3 angle2 = (transform.position - travelPath[1].Position).normalized;
-        if (Vector3.Dot(angle1, transform.forward) < 0 && Vector3.Dot(angle2, transform.forward) > 0)
+        if (Vector3.Dot(angle1, transform.forward) > 0 && Vector3.Dot(angle2, transform.forward) < 0)
             travelPath.RemoveAt(0);
-        currentNode = new Vector3(travelPath[0].Position.x,
-                                  1f, travelPath[0].Position.z);
+        currentNode = new Vector3(travelPath[0].Position.x, 1f, travelPath[0].Position.z);
         targetIndex = 0;
 
         hasPath = true;
