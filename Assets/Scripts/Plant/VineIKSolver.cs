@@ -6,6 +6,7 @@ public class VineIKSolver : MonoBehaviour
 {
 
     public LayerMask levelLayer = default;
+    public Transform raycastPoint;
     public Transform body;
     public VineIKSolver oppositeVine;
     public VineIKSolver linkedVine;
@@ -13,7 +14,7 @@ public class VineIKSolver : MonoBehaviour
     public float speed = 1;
     public float stepDistance = 4;
     public float stepLength = 4;
-    public float stepHeight = 1;
+    public AnimationCurve stepHeight;
     public Vector3 tipOffset;
     public Color targetColor;
 
@@ -37,7 +38,7 @@ public class VineIKSolver : MonoBehaviour
         lerp = 1;
 
 
-        Ray ray = new Ray(body.position + (body.right * tipSpacing) + tipOffset, Vector3.down);
+        Ray ray = new Ray(raycastPoint.position, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hit, 10, levelLayer))
         {
             target.position = hit.point;
@@ -63,8 +64,8 @@ public class VineIKSolver : MonoBehaviour
                 linkedVine.LinkedTrigger();
 
                 lerp = 0;
-                int dir = body.InverseTransformPoint(target.position).z > body.InverseTransformPoint(newPos).z ? 1 : -1;
-                newPos = target.position + (body.forward * stepLength * dir);
+                //int dir = body.InverseTransformPoint(target.position).z > body.InverseTransformPoint(newPos).z ? 1 : -1;
+                newPos = target.position /*+ (body.forward * stepLength * dir)*/;
                 newNormal = hit.normal;
             }
         }
@@ -72,7 +73,7 @@ public class VineIKSolver : MonoBehaviour
         if (lerp < 1)
         {
             Vector3 temp = Vector3.Lerp(oldPos, newPos, lerp);
-            temp.y += Mathf.Sin(lerp * Mathf.PI) * stepHeight;
+            temp.y = stepHeight.Evaluate(lerp);
 
             curPos = temp;
             curNormal = Vector3.Lerp(oldNormal, newNormal, lerp);
@@ -95,12 +96,12 @@ public class VineIKSolver : MonoBehaviour
 
     public void LinkedTrigger()
     {
-        Ray ray = new Ray(body.position + (body.right * tipSpacing) + tipOffset, Vector3.down);
+        Ray ray = new Ray(raycastPoint.position, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hit, 10, levelLayer))
         {
             lerp = 0;
-            int dir = body.InverseTransformPoint(target.position).z > body.InverseTransformPoint(newPos).z ? 1 : -1;
-            newPos = target.position + (body.forward * stepLength * dir);
+            //int dir = body.InverseTransformPoint(target.position).z > body.InverseTransformPoint(newPos).z ? 1 : -1;
+            newPos = target.position /*+ (body.forward * stepLength * dir)*/;
             newNormal = hit.normal;
         }            
     }
@@ -108,7 +109,8 @@ public class VineIKSolver : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = targetColor;
-        Gizmos.DrawWireCube(body.position + (body.right * tipSpacing) + tipOffset, Vector3.one * .1f);
+        if (raycastPoint != null)
+            Gizmos.DrawWireCube(raycastPoint.position, Vector3.one * .1f);
         Gizmos.DrawSphere(target.position, .1f);
         Gizmos.DrawLine(target.position, target.position + target.forward);
 

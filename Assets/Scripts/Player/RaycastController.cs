@@ -47,7 +47,10 @@ public class RaycastController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.E))
                 {
                     Debug.Log("OpenDoor");
-                    hit.collider.gameObject.GetComponent<DoorControl>().Interact();
+                    if (hit.collider.gameObject.GetComponent<DoorControl>() != null)
+                        hit.collider.gameObject.GetComponent<DoorControl>().Interact();
+                    else if (hit.collider.gameObject.GetComponent<Drawer_Pull_X>() != null)
+                        hit.collider.gameObject.GetComponent<Drawer_Pull_X>().Interact();
                 }                
             }
             else

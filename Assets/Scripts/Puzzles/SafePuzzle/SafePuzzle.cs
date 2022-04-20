@@ -10,6 +10,7 @@ public class SafePuzzle : Puzzle
     string input = "";
     [SerializeField] Text writing;
     [SerializeField] Text keypad;
+    public Collider[] keys;
 
     bool hasCode;
 
@@ -18,6 +19,7 @@ public class SafePuzzle : Puzzle
         writing.gameObject.SetActive(false);
         input = "";
         hasCode = false;
+        SetKeysStates(false);
     }
 
     public void RevealCode()
@@ -50,6 +52,14 @@ public class SafePuzzle : Puzzle
             {
                 input = "";
             }
+        }
+    }
+
+    public void SetKeysStates(bool state)
+    {
+        for (int i = 0; i < keys.Length; i++)
+        {
+            keys[i].enabled = state;
         }
     }
 

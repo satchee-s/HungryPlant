@@ -12,9 +12,12 @@ public class GreenhouseAudioTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(Sound());
-        boxCollider.enabled = false;
-        insideGreenhouseTrigger.gameObject.SetActive(true);
+        if (other.tag == "Player")
+        {
+            StartCoroutine(Sound());
+            boxCollider.enabled = false;
+            insideGreenhouseTrigger.gameObject.SetActive(true);
+        }
     }
 
     IEnumerator Sound()
