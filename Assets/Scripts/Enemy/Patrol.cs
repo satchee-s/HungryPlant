@@ -37,10 +37,10 @@ public class Patrol : State
             if (targetIndex < travelPath.Count)
             {
                 currentNode = new Vector3(travelPath[targetIndex].Position.x, 1f, travelPath[targetIndex].Position.z);
-                if (travelPath[targetIndex].EnterRoom && travelPath[targetIndex + 1].EnterRoom)
-                {
-                    searchRoom.PlayAnimation();
-                }
+                //if (travelPath[targetIndex].EnterRoom && travelPath[targetIndex + 1].EnterRoom)
+                //{
+                //    searchRoom.PlayAnimation();
+                //}
             }
             else if (targetIndex >= travelPath.Count)
             {

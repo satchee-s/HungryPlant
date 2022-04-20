@@ -939,6 +939,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ed6ad627e4cf3d4baa67b7e913e711e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDetectionDistance: 10
   resetPosition: {fileID: 1951995299}
   plantResetPosition: {fileID: 2096203328}
 --- !u!114 &14526142
@@ -953,7 +954,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fec2ac4dd4baa53499222cdc2a35ae53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDetectionRange: 20
+  playerDetectionDistance: 10
+  maxSpeed: 0
+  frames: 0
+  captureDistance: 0
 --- !u!114 &14526143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -966,9 +970,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd2d4bd87b2d00c40b80d60f1a55c8fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxForce: 5
+  playerDetectionDistance: 10
   maxSpeed: 5
-  frames: 5
+  smooth: 0
+  searchRoom: {fileID: 0}
 --- !u!114 &14526144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -985,9 +990,6 @@ MonoBehaviour:
   roamingBehavior: {fileID: 14526143}
   captureBehavior: {fileID: 14526141}
   chaseBehavior: {fileID: 14526142}
-  searchBehavior: {fileID: 0}
-  anim: {fileID: 0}
-  enter: {fileID: 0}
 --- !u!136 &14526145
 CapsuleCollider:
   m_ObjectHideFlags: 0

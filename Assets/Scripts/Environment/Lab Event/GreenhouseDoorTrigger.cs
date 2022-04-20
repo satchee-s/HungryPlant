@@ -51,7 +51,7 @@ public class GreenhouseDoorTrigger : MonoBehaviour
             animator.SetTrigger("Start");
             bubblesAudio.Play();
             dialog.TriggerSubtitle();
-            
+            extras.Invoke();
         }        
     }
 

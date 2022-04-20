@@ -6,9 +6,11 @@ public class Capture : State
 {
     [SerializeField] Transform resetPosition;
     [SerializeField] Transform plantResetPosition;
+    [SerializeField] AudioSource eatSound;
     public override void SetBehaviour(AIManager aiManager)
     {
-        //subtitleSystem.DisplaySubtitle("ahhhh! [gets eaten]");
+        eatSound.Play();
+        subtitleSystem.DisplaySubtitle("ahhhh! [gets eaten]");
         player.GetComponent<CharacterController>().enabled = false;
         player.position = resetPosition.position;
         player.GetComponent<CharacterController>().enabled = true;
