@@ -17,7 +17,7 @@ public class KeypadButton : MonoBehaviour
         text.text = number.ToString();
     }
 
-    private void OnMouseDown()
+    public void PressKey()
     {
         keyPressed.Invoke();
     }
