@@ -16,10 +16,22 @@ public class OutsideLabTrigger : MonoBehaviour
 
     [SerializeField] Collider boxCollider;
 
-    private void OnTriggerEnter(Collider other)
+    public GameObject dialog;
+    bool triggered;
+    public float viewTime;
+    float timer = 0;
+
+    private void OnMouseOver()
     {
-        StartCoroutine(Bubbles());
-        boxCollider.enabled = false;
+        timer += Time.deltaTime;
+        if (timer >= viewTime && !triggered)
+        {
+            triggered = true;
+            StartCoroutine(Bubbles());
+            boxCollider.enabled = false;
+            dialog.SetActive(true);
+            GetComponent<SubtitleTrigger>().TriggerSubtitle();
+        }        
     }
 
     IEnumerator Bubbles()

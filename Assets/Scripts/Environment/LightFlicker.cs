@@ -11,10 +11,13 @@ public class LightFlicker : MonoBehaviour
 
     [SerializeField] Collider collider;
 
+    public EnvironmentalComment comment;
+
     private void OnTriggerEnter(Collider other)
     {
         StartCoroutine(Flicker());
         collider.enabled = false;
+        comment.TriggerComment();
     }
 
     IEnumerator Flicker()

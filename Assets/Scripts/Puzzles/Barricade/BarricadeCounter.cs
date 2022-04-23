@@ -6,11 +6,14 @@ public class BarricadeCounter : Puzzle
 {
     public Barricade[] barricades;
     public string completedText;
-    SubtitleSystem subtitleSystem;
+
+    bool firstBarricade;
+    public string firstBarricadeText;
 
     private void Start()
     {
-        subtitleSystem = FindObjectOfType<SubtitleSystem>();
+        firstBarricade = false;
+        subtitle = FindObjectOfType<SubtitleSystem>();
         SetBarricadeStates(false);
     }
 
@@ -21,14 +24,22 @@ public class BarricadeCounter : Puzzle
         {
             if (barricades[i].completed)
             {
-                completed++;
+                completed++;                
             }
+        }
+
+        Debug.Log(completed + " Barricades done");
+
+        if (completed == 0 && !firstBarricade)
+        {
+            subtitle.DisplaySubtitle(firstBarricadeText);
+            firstBarricade = true;
         }
 
         if (completed >= barricades.Length * .8f)
         {
             taskCompleted.Invoke();
-            subtitleSystem.DisplaySubtitle(completedText);
+            subtitle.DisplaySubtitle(completedText);
         }
     }
 
@@ -36,7 +47,7 @@ public class BarricadeCounter : Puzzle
     {
         for (int i = 0; i < barricades.Length; i++)
         {
-            barricades[i].enabled = state;
+            barricades[i].startPuzzle = state;
         }
     }
 }

@@ -12,15 +12,29 @@ public abstract class Puzzle : MonoBehaviour
     protected SubtitleSystem subtitle;
     public bool CheckItems()
     {
+        bool finalResult = true;
+        string required = "";
+        int itemCounter = 0;
+        if (requiredItems.Count == 0)
+            return true;
         for (int i = 0; i < requiredItems.Count; i++)
         {
             if (!PuzzleManager.itemsInInventory.Contains(requiredItems[i]))
             {
-                subtitle.DisplaySubtitle("I dont have what I need for this");
-                return false;                
+                if (itemCounter > 0)
+                {
+                    required = required + " and " + requiredItems[i].ToString();
+                }
+                else
+                    required = required + requiredItems[i].ToString();
+                itemCounter++;
+                finalResult = false;                
             }
         }
-        return true;
+        if (!finalResult)
+            subtitle.DisplaySubtitle("I still need " + required + " for this");
+        return finalResult;
+
     }
     private void Start()
     {
@@ -30,7 +44,7 @@ public abstract class Puzzle : MonoBehaviour
 
     public virtual void ExecutePuzzle()
     {
-        CheckItems();
+        //CheckItems();
         if (CheckItems())
         {
             //Debug.Log("You have all the items");
@@ -39,10 +53,6 @@ public abstract class Puzzle : MonoBehaviour
             {
                 ConsumeItem(consumeItems[i]);
             }
-        }
-        else
-        {
-            
         }
     }
 
@@ -68,7 +78,12 @@ public abstract class Puzzle : MonoBehaviour
 
     public virtual void ConsumeItem(PuzzleManager.ItemType item)
     {
-        for (int i = 0; i < inventoryManager.slots.Length; i++)
+        //Debug.Log("Trying to remove " + item);
+        //Debug.Log("There are " + inventoryManager.slots.Length + " slots in inventory");
+        int itemCount = 0;
+        if (inventoryManager.slots.Length > 0 || inventoryManager.slots.Length != null)
+            itemCount = inventoryManager.slots.Length;
+        for (int i = 0; i < itemCount; i++)
         {
             Debug.Log("Slot" + i + " has: " + inventoryManager.slots[i].item.type);
             if (inventoryManager.slots[i].item.type == item)

@@ -9,6 +9,7 @@ public class FindNeighbourNodes : EditorWindow
     LayerMask nodeLayer, level;
     RaycastHit hit;
     Ray ray;
+    bool excludeLayer;
 
     [MenuItem("Tools/Find Neighbours...")]
 
@@ -19,7 +20,9 @@ public class FindNeighbourNodes : EditorWindow
     private void OnGUI()
     {
         nodeObject = EditorGUILayout.ObjectField(nodeObject, typeof(GameObject), true) as GameObject;
+        level = EditorGUILayout.LayerField("Layer to exclude", level);
         searchDistance = EditorGUILayout.FloatField("Search distance ", searchDistance);
+        excludeLayer = EditorGUILayout.Toggle("Exclude layer", excludeLayer);
         if (GUILayout.Button("Find"))
         {
             Neighbours();
@@ -30,13 +33,14 @@ public class FindNeighbourNodes : EditorWindow
     {
         node = nodeObject.GetComponent<Node>();
         nodeLayer = LayerMask.GetMask("Nodes");
-        level = LayerMask.GetMask("Level");
+        //level = LayerMask.GetMask("Level");
         Collider[] col = Physics.OverlapSphere(node.Position, searchDistance, nodeLayer);
         foreach (Collider nodes in col)
         {
             neighbourNode = nodes.GetComponent<Node>();
             ray = new Ray(node.Position, nodes.transform.position);
-            if (!Physics.Raycast(ray, out hit) && neighbourNode != node)
+            if ((excludeLayer?(!Physics.Raycast(ray, out hit, ~level)): !Physics.Raycast(ray, out hit)) && neighbourNode != node)
+            //if (!Physics.Raycast(ray, out hit) && neighbourNode != node)
             {
                 //Debug.DrawLine(node.Position, node.transform.position, Color.red);
                 Debug.Log("Node found" + nodes.name);

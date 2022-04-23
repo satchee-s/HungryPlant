@@ -41,6 +41,6 @@ public class Tap : Puzzle
     }
     public void HasBucket()
     {
-        SwapItem(PuzzleManager.ItemType.Bucket, PuzzleManager.ItemType.FilledBucket, filledBucketSprite);
+        SwapItem(PuzzleManager.ItemType.EmptyBucket, PuzzleManager.ItemType.Bucket, filledBucketSprite);
     }
 }

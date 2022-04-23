@@ -83,11 +83,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && isMoving)
         {
             finalSpeed = sprintSpeed;
-            playerAnimator.SetBool("Running", true);
+            //playerAnimator.SetBool("Running", true);
         }
         else
         {
-            playerAnimator.SetBool("Running", false);
+            //playerAnimator.SetBool("Running", false);
         }
     }
 

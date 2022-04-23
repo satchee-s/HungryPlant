@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FlashlightController : MonoBehaviour
 {
-
     [Range(0, 100)]float batteryCharge;
     [SerializeField]float degredationRate = .01f;
 
@@ -33,11 +32,9 @@ public class FlashlightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        bool doubleTap = false;
-
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (toggled && !doubleTap)
+            if (toggled)
                 toggled = false;
             else
                 toggled = true;
