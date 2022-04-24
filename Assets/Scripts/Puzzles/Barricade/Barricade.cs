@@ -16,6 +16,10 @@ public class Barricade : Puzzle
     public bool completed;
 
     bool itemChecked;
+    [SerializeField] AudioClip[] hammerSounds;
+    [SerializeField] AudioSource audioSource;
+    public float hammerInterval = 0.5f;
+    float hammerTime;
 
     private void Start()
     {
@@ -24,6 +28,7 @@ public class Barricade : Puzzle
         slider.value = timer;
         slider.maxValue = requriedTime;
         slider.gameObject.SetActive(false);
+        hammerTime = 0f;
     }
 
     public void BarricadeDoor()
@@ -55,6 +60,14 @@ public class Barricade : Puzzle
             slider.gameObject.SetActive(true);
             timer += Time.deltaTime;
             slider.value = timer;
+
+            if (!audioSource.isPlaying && hammerTime >= hammerInterval)
+            {
+                int index = Random.Range(0, hammerSounds.Length);
+                audioSource.PlayOneShot(hammerSounds[index]);
+                hammerTime = 0;
+            }
+            hammerTime += Time.deltaTime;
             //Debug.Log(timer);
 
             if (timer >= requriedTime)

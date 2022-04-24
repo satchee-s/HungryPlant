@@ -8,6 +8,7 @@ public class Intro : MonoBehaviour
     [SerializeField] GameObject introUI;
 
     [SerializeField] AudioSource introNoise;
+    [SerializeField] AudioSource getUp;
 
     public PlayerMovement playerMovement;
     public MouseMovement mouseMovement;
@@ -25,7 +26,9 @@ public class Intro : MonoBehaviour
         playerMovement.speed = 0;
         yield return new WaitForSeconds(3f);
         introNoise.Play();
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(2f);
+        getUp.Play();
+        yield return new WaitForSeconds(8f);
         playerMovement.speed = tempSpeed;
         mouseMovement.mouseSensitivity = tempMouseSensitivity;
         inventoryUI.gameObject.SetActive(true);
