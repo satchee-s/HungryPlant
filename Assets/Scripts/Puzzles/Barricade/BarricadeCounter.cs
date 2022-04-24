@@ -5,6 +5,7 @@ using UnityEngine;
 public class BarricadeCounter : Puzzle
 {
     public Barricade[] barricades;
+    public GameObject[] vines;
     public string completedText;
 
     bool firstBarricade;
@@ -15,6 +16,10 @@ public class BarricadeCounter : Puzzle
         firstBarricade = false;
         subtitle = FindObjectOfType<SubtitleSystem>();
         SetBarricadeStates(false);
+        for (int i = 0; i < vines.Length; i++)
+        {
+            vines[i].SetActive(false);
+        }
     }
 
     public void CheckBarricades()
@@ -39,6 +44,10 @@ public class BarricadeCounter : Puzzle
         if (completed >= barricades.Length * .8f)
         {
             taskCompleted.Invoke();
+            for (int i = 0; i < vines.Length; i++)
+            {
+                vines[i].SetActive(true);
+            }
             subtitle.DisplaySubtitle(completedText);
         }
     }

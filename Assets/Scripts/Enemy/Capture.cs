@@ -6,19 +6,16 @@ public class Capture : State
 {
     [SerializeField] Transform resetPosition;
     [SerializeField] Transform plantResetPosition;
-    Patrol patrol;
+    [SerializeField] AudioSource eatSound;
     public override void SetBehaviour(AIManager aiManager)
     {
-        //aiManager.SetMovement(aiManager.captureBehavior);
+        eatSound.Play();
         subtitleSystem.DisplaySubtitle("ahhhh! [gets eaten]");
         player.GetComponent<CharacterController>().enabled = false;
         player.position = resetPosition.position;
         player.GetComponent<CharacterController>().enabled = true;
         pathfinding.ClearPath();
-        patrol = (Patrol)aiManager.roamingBehavior;
-        //patrol.startingNode = plantResetPosition.GetComponent<Node>();
-        //patrol.hasPath = false;
-        plant.position = plantResetPosition.position;
+        transform.position = plantResetPosition.position;
         aiManager.SetMovement(aiManager.roamingBehavior);
     }
 }

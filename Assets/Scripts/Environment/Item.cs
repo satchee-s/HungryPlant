@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.Events;
+
 
 public class Item : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Item : MonoBehaviour
     SubtitleSystem subtitleSystem;
     public string subtitle;
     bool triggered;
+
+    public UnityEvent extras;
 
     InventoryManager inventory;
 
@@ -41,6 +44,7 @@ public class Item : MonoBehaviour
         if (!triggered)
         {
             subtitleSystem.DisplaySubtitle(subtitle);
+            extras.Invoke();
             triggered = true;
         }
     }

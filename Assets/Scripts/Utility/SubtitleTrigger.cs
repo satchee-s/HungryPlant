@@ -24,12 +24,11 @@ public class SubtitleTrigger : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        Debug.Log("MousedOver");
         if (mouseoverTrigger)
         {
             if (!isDelayed)
             {
-                TriggerSubtitle();
+                Subtitle();
             }
             else
             {
@@ -44,7 +43,7 @@ public class SubtitleTrigger : MonoBehaviour
         {
             if (!isDelayed)
             {
-                TriggerSubtitle();
+                Subtitle();
             }
             else
             {
@@ -56,12 +55,24 @@ public class SubtitleTrigger : MonoBehaviour
 
     public void TriggerSubtitle()
     {
+        if (!isDelayed)
+        {
+            Subtitle();
+        }
+        else
+        {
+            StartCoroutine(SubtitleTimer());
+        }
+    }
+
+    void Subtitle()
+    {
         if (!triggered)
         {
             subtitleSystem.DisplaySubtitle(subtitle);
             extras.Invoke();
         }
-            
+
 
         if (triggerOnce)
         {
@@ -72,6 +83,6 @@ public class SubtitleTrigger : MonoBehaviour
     IEnumerator SubtitleTimer()
     {
         yield return new WaitForSeconds(delayTimer);
-        TriggerSubtitle();
+        Subtitle();
     }
 }

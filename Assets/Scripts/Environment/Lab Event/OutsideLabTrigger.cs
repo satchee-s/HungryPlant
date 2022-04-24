@@ -8,9 +8,8 @@ public class OutsideLabTrigger : MonoBehaviour
 
     [SerializeField] AudioSource slither;
     [SerializeField] AudioSource hallwaySuspense;
-
+    //
     [SerializeField] GameObject greenhouseAudioTrigger;
-    [SerializeField] GameObject greenhouseAudioTrigger2;
     [SerializeField] GameObject bubbles;
     [SerializeField] GameObject trigger;
 
@@ -42,7 +41,6 @@ public class OutsideLabTrigger : MonoBehaviour
         hallwaySuspense.Play();
         Destroy(bubbles);
         greenhouseAudioTrigger.SetActive(true);
-        greenhouseAudioTrigger2.SetActive(true);
         Destroy(trigger);
     }
 

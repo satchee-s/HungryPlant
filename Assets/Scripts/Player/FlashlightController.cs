@@ -12,17 +12,23 @@ public class FlashlightController : MonoBehaviour
     public Renderer ui;
 
     bool toggled;
-    public Light light;
+    public Light lightObject;
+    public float changeRate;
+    float t;
+    public float maxIntensity;
+    public float currentIntensity;
     public GameObject[] lightObjects;
     
     public PlayerMovement playerMovement;
     [Range(0, 50)]public float flashBangCost;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         batteryCharge = 100;
         toggled = false;
+        maxIntensity = lightObject.intensity;
+        lightObject.intensity = 0;
         ToggleLight(toggled);
 
         ui.material.EnableKeyword("_EMISSION");
@@ -38,6 +44,7 @@ public class FlashlightController : MonoBehaviour
                 toggled = false;
             else
                 toggled = true;
+            t = 0;
             ToggleLight(toggled);
         }
 
@@ -45,6 +52,9 @@ public class FlashlightController : MonoBehaviour
         {
             FlashBang();
         }
+
+        //LightAmount();
+        //lightObject.intensity = currentIntensity;
 
         if (toggled)
         {
@@ -64,10 +74,11 @@ public class FlashlightController : MonoBehaviour
 
     void ToggleLight(bool state)
     {
-        light.enabled = state;
+        lightObject.enabled = state;
+
         for (int i = 0; i < lightObjects.Length; i++)
             lightObjects[i].SetActive(state);        
-    }
+    }    
 
     void FlashBang()
     {
@@ -90,6 +101,19 @@ public class FlashlightController : MonoBehaviour
         else
         {
             batteryCharge = 100;
+        }
+    }
+
+    void LightAmount()
+    {
+        t += Time.deltaTime * changeRate;
+        if (toggled && lightObject.intensity < maxIntensity)
+        {
+            currentIntensity = Mathf.Lerp(lightObject.intensity, maxIntensity, t);            
+        }
+        else if (!toggled && lightObject.intensity > 0)
+        {
+            currentIntensity = Mathf.Lerp(lightObject.intensity, 0, t);
         }
     }
 

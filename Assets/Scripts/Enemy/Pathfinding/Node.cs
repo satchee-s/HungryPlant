@@ -32,4 +32,13 @@ public class Node : MonoBehaviour, IComparable
             Gizmos.DrawLine(Position, neighbours[i].Position);
         }
     }
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+
+        for (int i = 0; i < neighbours.Count; i++)
+        {
+            Gizmos.DrawLine(Position, neighbours[i].Position);
+        }
+    }
 }

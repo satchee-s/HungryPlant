@@ -9,7 +9,10 @@ public class InsideGreenhouseTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        doorTrigger.gameObject.SetActive(true);
-        Destroy(trigger);
+        if (other.tag == "Player")
+        {
+            doorTrigger.gameObject.SetActive(true);
+            Destroy(trigger);
+        }            
     }
 }

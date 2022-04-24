@@ -20,8 +20,11 @@ public class LabJumpScare : MonoBehaviour
     //opencloseDoor opencloseDoor;
     private void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(LabScare()); 
-        boxCollider.enabled = false;
+        if (other.tag == "Player")
+        {
+            StartCoroutine(LabScare());
+            boxCollider.enabled = false;
+        }        
     }
 
     IEnumerator LabScare()
