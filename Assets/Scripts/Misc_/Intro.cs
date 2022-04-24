@@ -8,6 +8,8 @@ public class Intro : MonoBehaviour
     [SerializeField] GameObject introUI;
 
     [SerializeField] AudioSource introNoise;
+    [SerializeField] AudioSource tableFall;
+
     [SerializeField] AudioSource getUp;
 
     public PlayerMovement playerMovement;
@@ -25,6 +27,8 @@ public class Intro : MonoBehaviour
         mouseMovement.mouseSensitivity = 0;
         playerMovement.speed = 0;
         yield return new WaitForSeconds(3f);
+        tableFall.Play();
+        yield return new WaitForSeconds(1f);
         introNoise.Play();
         yield return new WaitForSeconds(2f);
         getUp.Play();

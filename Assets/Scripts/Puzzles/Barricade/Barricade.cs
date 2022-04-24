@@ -63,6 +63,7 @@ public class Barricade : Puzzle
 
             if (!audioSource.isPlaying && hammerTime >= hammerInterval)
             {
+                audioSource.transform.position = gameObject.transform.position;
                 int index = Random.Range(0, hammerSounds.Length);
                 audioSource.PlayOneShot(hammerSounds[index]);
                 hammerTime = 0;
