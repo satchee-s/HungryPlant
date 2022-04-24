@@ -970,7 +970,7 @@ GameObject:
   - component: {fileID: 24960139}
   m_Layer: 0
   m_Name: KeyButton5
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4590,7 +4590,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDetectionDistance: 8
-  maxSpeed: 5
+  maxSpeed: 8
   frames: 5
   captureDistance: 1
 --- !u!114 &88344101
@@ -4606,7 +4606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDetectionDistance: 8
-  maxSpeed: 1
+  maxSpeed: 5
   smooth: 4
   searchRoom: {fileID: 88344098}
 --- !u!114 &88344102
@@ -6245,7 +6245,7 @@ GameObject:
   - component: {fileID: 112964411}
   m_Layer: 0
   m_Name: KeyButton4
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13886,7 +13886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ae721243dc125438da89bb6aeb34b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  degredationRate: 1
+  degredationRate: 0.2
   uiColorRange:
     serializedVersion: 2
     key0: {r: 1, g: 0, b: 0, a: 1}
@@ -18903,9 +18903,9 @@ MonoBehaviour:
   body: {fileID: 2032522504}
   oppositeVine: {fileID: 2033727012}
   linkedVine: {fileID: 1023655426}
-  speed: 2
-  stepDistance: 1
-  stepLength: 1.2
+  speed: 4
+  stepDistance: 1.5
+  stepLength: 2
   stepHeight:
     serializedVersion: 2
     m_Curve:
@@ -19059,7 +19059,7 @@ GameObject:
   - component: {fileID: 360976956}
   m_Layer: 0
   m_Name: KeyButton_Clear
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25296,7 +25296,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454721918}
   m_LocalRotation: {x: -0, y: -0.7071065, z: -0, w: 0.7071071}
-  m_LocalPosition: {x: -0.16722107, y: -0.365188, z: 0}
+  m_LocalPosition: {x: -0.16740608, y: -0.365188, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1647853289}
@@ -27163,7 +27163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &498650232
 Transform:
   m_ObjectHideFlags: 0
@@ -27187,11 +27187,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 498650231}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441c27bf61e9804438448926d77cf309, type: 3}
+  m_Script: {fileID: 11500000, guid: c006fcda8dbb5a94cbdd169b3fe7eecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  comment: I forgot to put out the fire, I should probably do that before Bubbles
+  subtitle: I forgot to put out the fire, I should probably do that before Bubbles
     knocks something over and it catches fire
+  triggerOnce: 1
+  colliderTrigger: 1
+  mouseoverTrigger: 0
+  isDelayed: 1
+  delayTimer: 2
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -27242,8 +27247,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 2, z: 3}
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Size: {x: 6.521597, y: 2, z: 7.2239046}
+  m_Center: {x: 3.0107985, y: 1, z: -2.1119523}
 --- !u!1001 &500148961
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35558,7 +35563,7 @@ GameObject:
   - component: {fileID: 605061924}
   m_Layer: 0
   m_Name: KeyButton3
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40558,7 +40563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1760714182489039777, guid: db9f1de3a3fd8d844b296c3eadd840be, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1760714182489039777, guid: db9f1de3a3fd8d844b296c3eadd840be, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -42393,7 +42398,7 @@ GameObject:
   - component: {fileID: 710297120}
   - component: {fileID: 710297119}
   m_Layer: 5
-  m_Name: Crosshair
+  m_Name: Reticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43881,7 +43886,7 @@ BoxCollider:
   m_GameObject: {fileID: 730372595}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -44915,7 +44920,7 @@ GameObject:
   - component: {fileID: 756154772}
   m_Layer: 0
   m_Name: KeyButton6
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53146,7 +53151,7 @@ GameObject:
   - component: {fileID: 880319165}
   m_Layer: 0
   m_Name: KeyButton1
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -54234,6 +54239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 1818230671}
+  settingMenuUI: {fileID: 1573585490}
 --- !u!114 &901015184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63096,9 +63102,9 @@ MonoBehaviour:
   body: {fileID: 2032522504}
   oppositeVine: {fileID: 1539934945}
   linkedVine: {fileID: 356430368}
-  speed: 2
-  stepDistance: 1
-  stepLength: 1.2
+  speed: 4
+  stepDistance: 1.5
+  stepLength: 2
   stepHeight:
     serializedVersion: 2
     m_Curve:
@@ -64747,7 +64753,7 @@ GameObject:
   - component: {fileID: 1047547337}
   m_Layer: 0
   m_Name: KeyButton9
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69388,7 +69394,7 @@ GameObject:
   - component: {fileID: 1126726942}
   m_Layer: 0
   m_Name: KeyButton8
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71756,7 +71762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1361732741774811372, guid: c5e2e07fffd504e4c9b983c574aa2430, type: 3}
       propertyPath: speed
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1361732741774811372, guid: c5e2e07fffd504e4c9b983c574aa2430, type: 3}
       propertyPath: crouchSpeed
@@ -71764,7 +71770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1361732741774811372, guid: c5e2e07fffd504e4c9b983c574aa2430, type: 3}
       propertyPath: sprintSpeed
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1361732741774811372, guid: c5e2e07fffd504e4c9b983c574aa2430, type: 3}
       propertyPath: crouchVignette
@@ -71890,7 +71896,9 @@ MonoBehaviour:
   reticle: {fileID: 710297119}
   interactable: {fileID: 21300000, guid: a9e90a1bfe6ae1945be896f7e28f8717, type: 3}
   normalIcon: {fileID: 21300000, guid: d1e954ee56edc5744855534ca55ef4f6, type: 3}
-  minMaxReticleScale: {x: 1, y: 1.8}
+  minMaxReticleScale: {x: 1, y: 2.6}
+  reticleChangeRate: 2
+  interactableColor: {r: 1, g: 0.8207309, b: 0, a: 1}
 --- !u!114 &1158412906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92988,9 +92996,9 @@ MonoBehaviour:
   body: {fileID: 2032522504}
   oppositeVine: {fileID: 1023655426}
   linkedVine: {fileID: 2033727012}
-  speed: 2
-  stepDistance: 1
-  stepLength: 1.2
+  speed: 4
+  stepDistance: 1.5
+  stepLength: 2
   stepHeight:
     serializedVersion: 2
     m_Curve:
@@ -94831,7 +94839,7 @@ GameObject:
   - component: {fileID: 1582326130}
   m_Layer: 0
   m_Name: KeyButton7
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -106599,6 +106607,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 498650231}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!4 &1767300048
 Transform:
   m_ObjectHideFlags: 0
@@ -111343,7 +111363,7 @@ GameObject:
   - component: {fileID: 1861510988}
   m_Layer: 0
   m_Name: KeyButton2
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -114139,7 +114159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912148737}
   m_LocalRotation: {x: -0, y: -0.7071065, z: -0, w: 0.7071071}
-  m_LocalPosition: {x: 0.17218685, y: -0.365188, z: 0}
+  m_LocalPosition: {x: 0.172, y: -0.365188, z: 0.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1467313902}
@@ -117561,7 +117581,7 @@ GameObject:
   - component: {fileID: 1964875538}
   m_Layer: 0
   m_Name: KeyButton0
-  m_TagString: Untagged
+  m_TagString: Puzzle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -123695,9 +123715,9 @@ MonoBehaviour:
   body: {fileID: 2032522504}
   oppositeVine: {fileID: 356430368}
   linkedVine: {fileID: 1539934945}
-  speed: 2
-  stepDistance: 1
-  stepLength: 1.2
+  speed: 4
+  stepDistance: 1.5
+  stepLength: 2
   stepHeight:
     serializedVersion: 2
     m_Curve:

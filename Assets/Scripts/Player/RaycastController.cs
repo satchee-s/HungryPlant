@@ -16,6 +16,9 @@ public class RaycastController : MonoBehaviour
     public Sprite interactable;
     public Sprite normalIcon;
     public Vector2 minMaxReticleScale;
+    public float reticleChangeRate;
+    public Color interactableColor;
+    Color defaultReticleColor;
     Vector3 minScale;
     Vector3 maxScale;
     bool hitItem;
@@ -31,6 +34,7 @@ public class RaycastController : MonoBehaviour
 
         minScale = reticle.transform.localScale * minMaxReticleScale.x;
         maxScale = reticle.transform.localScale * minMaxReticleScale.y;
+        defaultReticleColor = Color.white;
     }
     private void Update()
     {
@@ -72,7 +76,10 @@ public class RaycastController : MonoBehaviour
                 {
                     if (Input.GetKeyDown(KeyCode.E))
                     {
-                        hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
+                        if (hit.collider.GetComponent<KeypadButton>() != null)
+                            hit.collider.GetComponent<KeypadButton>().PressKey();
+                        else
+                            hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
                     }
                 }                               
             }
@@ -108,7 +115,7 @@ public class RaycastController : MonoBehaviour
                 hitEnvironmental = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.E) && !hitDoor && !hitPuzzle && !hitItem && !hitEnvironmental)
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 DropItem();
             }
@@ -116,12 +123,14 @@ public class RaycastController : MonoBehaviour
             if (hitDoor || hitPuzzle || hitItem || hitEnvironmental)
             {
                 reticle.sprite = interactable;
-                reticle.transform.localScale = Vector3.Lerp(reticle.transform.localScale, maxScale, Time.deltaTime);
+                reticle.transform.localScale = Vector3.Lerp(reticle.transform.localScale, maxScale, Time.deltaTime * reticleChangeRate);
+                reticle.color = Color.Lerp(interactableColor, defaultReticleColor, Time.deltaTime * reticleChangeRate);                
             }
             else
             {
                 reticle.sprite = normalIcon;
-                reticle.transform.localScale = Vector3.Lerp(reticle.transform.localScale, minScale, Time.deltaTime);
+                reticle.transform.localScale = Vector3.Lerp(reticle.transform.localScale, minScale, Time.deltaTime * reticleChangeRate);
+                reticle.color = Color.Lerp(defaultReticleColor, interactableColor, Time.deltaTime * reticleChangeRate);
             }
         }
     }
