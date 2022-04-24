@@ -14,8 +14,8 @@ public class Chase : State
     {
         if (DetectPlayer(player.transform, transform, captureDistance))
         {
+            aiManager.PlayAttackSound();
             aiManager.SetMovement(aiManager.captureBehavior);
-
         }
         if (DetectPlayer(player.transform, transform, playerDetectionDistance))
         {

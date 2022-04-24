@@ -24,6 +24,10 @@ public class VineIKSolver : MonoBehaviour
     Vector3 oldNormal, curNormal, newNormal;
     float lerp;
 
+    public AudioClip[] steps;
+    AudioSource source;
+    bool triggerStep;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +41,7 @@ public class VineIKSolver : MonoBehaviour
         curNormal = transform.up;
         lerp = 1;
 
+        source = GetComponent<AudioSource>();
 
         Ray ray = new Ray(raycastPoint.position, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hit, 10, levelLayer))
@@ -62,7 +67,7 @@ public class VineIKSolver : MonoBehaviour
             if (Vector3.Distance(newPos, target.position) > stepDistance && !oppositeVine.IsMoving() && lerp >= 1)
             {
                 linkedVine.LinkedTrigger();
-
+                triggerStep = true;
                 lerp = 0;
                 //int dir = body.InverseTransformPoint(target.position).z > body.InverseTransformPoint(newPos).z ? 1 : -1;
                 newPos = target.position /*+ (body.forward * stepLength * dir)*/;
@@ -83,6 +88,13 @@ public class VineIKSolver : MonoBehaviour
         {
             oldPos = newPos;
             oldNormal = newNormal;
+
+            if (triggerStep)
+            {
+                int index = Random.Range(0, steps.Length);
+                source.PlayOneShot(steps[index]);
+                triggerStep = false;
+            }
         }
     }
 

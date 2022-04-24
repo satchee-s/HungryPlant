@@ -25,6 +25,7 @@ public class SafePuzzle : Puzzle
     public void RevealCode()
     {
         GenerateCode();
+        SetKeysStates(true);
         writing.gameObject.SetActive(true);
         writing.text ="" + code;
     }

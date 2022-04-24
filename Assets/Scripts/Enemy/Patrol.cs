@@ -18,6 +18,10 @@ public class Patrol : State
     List<Node> travelPath = new List<Node>();
     [SerializeField] SearchRoom searchRoom;
 
+    public Vector2 soundRange;
+    float soundTimer;
+    float timeLimit;
+
     void FollowPath()
     {
         desiredPos = currentNode;
@@ -55,6 +59,7 @@ public class Patrol : State
     {
         if (DetectPlayer(player, transform, playerDetectionDistance))
         {
+            aiManager.PlayAttackSound();
             aiManager.SetMovement(aiManager.chaseBehavior);
         }
         else
@@ -65,6 +70,7 @@ public class Patrol : State
             }
             else
             {
+                SoundTiming(aiManager);
                 FollowPath();
             }
         }
@@ -88,5 +94,22 @@ public class Patrol : State
         targetIndex = 0;
 
         hasPath = true;
+    }
+
+    void SoundTiming(AIManager manager)
+    {
+        if (timeLimit == 0)
+        {
+            timeLimit = Random.Range(soundRange.x, soundRange.y);
+        }
+
+        if (soundTimer >= timeLimit)
+        {
+            manager.PlaySound();
+            soundTimer = 0;
+            timeLimit = Random.Range(soundRange.x, soundRange.y);
+        }
+        else
+            soundTimer += Time.deltaTime;
     }
 }

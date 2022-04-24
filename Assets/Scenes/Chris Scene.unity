@@ -8873,6 +8873,7 @@ MonoBehaviour:
   maxSpeed: 5
   smooth: 4
   searchRoom: {fileID: 113298121}
+  soundRange: {x: 0, y: 0}
 --- !u!114 &113298125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8889,6 +8890,9 @@ MonoBehaviour:
   roamingBehavior: {fileID: 113298124}
   captureBehavior: {fileID: 113298122}
   chaseBehavior: {fileID: 113298123}
+  attack: []
+  sounds: []
+  plantSource: {fileID: 0}
 --- !u!1001 &115838891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13664,6 +13668,7 @@ MonoBehaviour:
   tipOffset: {x: 1.331109, y: 0, z: 1.2}
   targetColor: {r: 0, g: 1, b: 0, a: 1}
   target: {fileID: 1047131833}
+  steps: []
 --- !u!114 &178475433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16209,6 +16214,9 @@ MonoBehaviour:
   startPuzzle: 0
   slider: {fileID: 767372649}
   completed: 0
+  hammerSounds: []
+  audioSource: {fileID: 0}
+  hammerInterval: 0.5
 --- !u!4 &223485076
 Transform:
   m_ObjectHideFlags: 0
@@ -31673,6 +31681,9 @@ MonoBehaviour:
   startPuzzle: 0
   slider: {fileID: 768223776}
   completed: 0
+  hammerSounds: []
+  audioSource: {fileID: 0}
+  hammerInterval: 0.5
 --- !u!65 &488761894
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31828,6 +31839,7 @@ MonoBehaviour:
   tipOffset: {x: -1.331109, y: 0, z: -1}
   targetColor: {r: 0, g: 0, b: 1, a: 1}
   target: {fileID: 940857439}
+  steps: []
 --- !u!114 &489300089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32777,6 +32789,9 @@ MonoBehaviour:
   startPuzzle: 0
   slider: {fileID: 544219973}
   completed: 0
+  hammerSounds: []
+  audioSource: {fileID: 0}
+  hammerInterval: 0.5
 --- !u!4 &505292002
 Transform:
   m_ObjectHideFlags: 0
@@ -33902,6 +33917,9 @@ MonoBehaviour:
   startPuzzle: 0
   slider: {fileID: 624497498}
   completed: 0
+  hammerSounds: []
+  audioSource: {fileID: 0}
+  hammerInterval: 0.5
 --- !u!4 &529582722
 Transform:
   m_ObjectHideFlags: 0
@@ -37370,6 +37388,7 @@ MonoBehaviour:
   tipOffset: {x: -1.331109, y: 0, z: 1.2}
   targetColor: {r: 1, g: 0, b: 0, a: 1}
   target: {fileID: 871975593}
+  steps: []
 --- !u!114 &575194174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44468,6 +44487,7 @@ MonoBehaviour:
   tipOffset: {x: 1.331109, y: 0, z: -1}
   targetColor: {r: 1, g: 1, b: 0, a: 1}
   target: {fileID: 504085918}
+  steps: []
 --- !u!114 &686036803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51061,6 +51081,7 @@ MonoBehaviour:
   tipOffset: {x: -1.331109, y: 0, z: 1.2}
   targetColor: {r: 1, g: 0, b: 0, a: 1}
   target: {fileID: 1924197239}
+  steps: []
 --- !u!114 &824036722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51196,6 +51217,9 @@ MonoBehaviour:
   startPuzzle: 0
   slider: {fileID: 1959789588}
   completed: 0
+  hammerSounds: []
+  audioSource: {fileID: 0}
+  hammerInterval: 0.5
 --- !u!4 &827706240
 Transform:
   m_ObjectHideFlags: 0
@@ -53017,6 +53041,9 @@ MonoBehaviour:
   startPuzzle: 0
   slider: {fileID: 1692135532}
   completed: 0
+  hammerSounds: []
+  audioSource: {fileID: 0}
+  hammerInterval: 0.5
 --- !u!4 &849348109
 Transform:
   m_ObjectHideFlags: 0
@@ -59618,6 +59645,9 @@ MonoBehaviour:
   startPuzzle: 0
   slider: {fileID: 656947015}
   completed: 0
+  hammerSounds: []
+  audioSource: {fileID: 0}
+  hammerInterval: 0.5
 --- !u!4 &936431591
 Transform:
   m_ObjectHideFlags: 0
@@ -63991,7 +64021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1020463682
 RectTransform:
   m_ObjectHideFlags: 0
@@ -64027,6 +64057,8 @@ MonoBehaviour:
   inventoryUI: {fileID: 107117277}
   introUI: {fileID: 1020463681}
   introNoise: {fileID: 1775386436}
+  tableFall: {fileID: 0}
+  getUp: {fileID: 0}
   playerMovement: {fileID: 488224228}
   mouseMovement: {fileID: 488224227}
 --- !u!114 &1020463684
@@ -96879,6 +96911,7 @@ MonoBehaviour:
   tipOffset: {x: 1.331109, y: 0, z: 1.2}
   targetColor: {r: 0, g: 1, b: 0, a: 1}
   target: {fileID: 132919425}
+  steps: []
 --- !u!114 &1541473639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100792,6 +100825,9 @@ MonoBehaviour:
   startPuzzle: 0
   slider: {fileID: 831981895}
   completed: 0
+  hammerSounds: []
+  audioSource: {fileID: 0}
+  hammerInterval: 0.5
 --- !u!4 &1608421633
 Transform:
   m_ObjectHideFlags: 0
@@ -101639,6 +101675,7 @@ MonoBehaviour:
   tipOffset: {x: -1.331109, y: 0, z: -1}
   targetColor: {r: 0, g: 0, b: 1, a: 1}
   target: {fileID: 213601400}
+  steps: []
 --- !u!114 &1632161731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112961,6 +112998,9 @@ MonoBehaviour:
   startPuzzle: 0
   slider: {fileID: 941703651}
   completed: 0
+  hammerSounds: []
+  audioSource: {fileID: 0}
+  hammerInterval: 0.5
 --- !u!4 &1851228111
 Transform:
   m_ObjectHideFlags: 0
@@ -126438,6 +126478,9 @@ MonoBehaviour:
   startPuzzle: 0
   slider: {fileID: 1253873417}
   completed: 0
+  hammerSounds: []
+  audioSource: {fileID: 0}
+  hammerInterval: 0.5
 --- !u!4 &2083665661
 Transform:
   m_ObjectHideFlags: 0
@@ -129940,6 +129983,7 @@ MonoBehaviour:
   tipOffset: {x: 1.331109, y: 0, z: -1}
   targetColor: {r: 1, g: 1, b: 0, a: 1}
   target: {fileID: 6764340}
+  steps: []
 --- !u!114 &2134570553
 MonoBehaviour:
   m_ObjectHideFlags: 0

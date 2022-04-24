@@ -7,8 +7,7 @@ public class AIManager : MonoBehaviour
     public State currentState;
     public State roamingBehavior, captureBehavior, chaseBehavior;
     public AudioClip[] attack;
-    public AudioClip[] shortSounds;
-    public AudioClip[] longSounds;
+    public AudioClip[] sounds;
 
     public AudioSource plantSource;
 
@@ -37,21 +36,12 @@ public class AIManager : MonoBehaviour
         }
     }
 
-    public void PlayShortSound()
+    public void PlaySound()
     {
         if (!plantSource.isPlaying)
         {
-            int index = Random.Range(0, shortSounds.Length);
-            plantSource.PlayOneShot(shortSounds[index]);
-        }
-    }
-
-    public void PlayLongSound()
-    {
-        if (!plantSource.isPlaying)
-        {
-            int index = Random.Range(0, longSounds.Length);
-            plantSource.PlayOneShot(longSounds[index]);
+            int index = Random.Range(0, sounds.Length);
+            plantSource.PlayOneShot(sounds[index]);
         }
     }
 }

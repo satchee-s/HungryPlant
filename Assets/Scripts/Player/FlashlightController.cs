@@ -23,15 +23,17 @@ public class FlashlightController : MonoBehaviour
     public PlayerMovement playerMovement;
     [Range(0, 50)]public float flashBangCost;
 
+    AudioSource sound;
+
     // Start is called before the first frame update
     void Awake()
     {
         batteryCharge = 100;
         toggled = false;
-        maxIntensity = lightObject.intensity;
-        lightObject.intensity = 0;
+        //maxIntensity = lightObject.intensity;
+        //lightObject.intensity = 0;
         ToggleLight(toggled);
-
+        sound = GetComponent<AudioSource>();
         ui.material.EnableKeyword("_EMISSION");
         updateUI();
     }
@@ -46,6 +48,7 @@ public class FlashlightController : MonoBehaviour
             else
                 toggled = true;
             t = 0;
+            sound.Play();
             ToggleLight(toggled);
         }
 
