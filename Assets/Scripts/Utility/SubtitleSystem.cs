@@ -14,6 +14,7 @@ public class SubtitleSystem : MonoBehaviour
     float interval = .05f;
     float delay = 0;
 
+    public bool isPlaying { get; private set; }
     Queue<string> subtitlesQueue = new Queue<string>();
 
     private void Start()
@@ -44,6 +45,8 @@ public class SubtitleSystem : MonoBehaviour
             if (subtitlesQueue.Count > 0)
             {
                 yield return new WaitForSeconds(delay);
+
+                isPlaying = true;
                 string subtitle = subtitlesQueue.Dequeue();
                 subtitleHolder.text = "";
                 char[] chars = subtitle.ToCharArray();
@@ -74,7 +77,10 @@ public class SubtitleSystem : MonoBehaviour
 
                 subtitleHolder.text = "";
             }
-
+            else
+            {
+                isPlaying = false;
+            }
             yield return null;
         }        
     }

@@ -1564,6 +1564,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 0
   delayTimer: 0
+  slowPlayer: 1
+  player: {fileID: 1196907327}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -4045,6 +4047,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 16
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -7009,6 +7013,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 2
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -24539,6 +24545,8 @@ MonoBehaviour:
   mouseoverTrigger: 1
   isDelayed: 0
   delayTimer: 1
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -28146,6 +28154,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 5
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -30634,6 +30644,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 2
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -43717,6 +43729,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 0
   delayTimer: 0
+  slowPlayer: 1
+  player: {fileID: 1196907327}
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -46777,6 +46791,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 3
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -47689,6 +47705,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 2
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -51738,6 +51756,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 0
   delayTimer: 2
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -54542,6 +54562,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 1
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -54608,6 +54630,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 7.5
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -55105,6 +55129,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 0
   delayTimer: 1
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -55273,6 +55299,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 5
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -70682,6 +70710,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 0
   delayTimer: 0
+  slowPlayer: 1
+  player: {fileID: 1196907327}
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -71327,6 +71357,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 1
+  slowPlayer: 1
+  player: {fileID: 1196907327}
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -75811,6 +75843,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 1.5
+  slowPlayer: 1
+  player: {fileID: 1196907327}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -75846,7 +75880,7 @@ MonoBehaviour:
   trigger: {fileID: 1157581429}
   boxCollider: {fileID: 1157581433}
   dialog: {fileID: 1091854104}
-  viewTime: 0.6
+  viewTime: 0.3
 --- !u!65 &1157581433
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -76498,6 +76532,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 0
   delayTimer: 0
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -119293,6 +119329,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 0
   delayTimer: 0
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -123881,6 +123919,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 1
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls: []
@@ -123936,6 +123976,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 0
   delayTimer: 0
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -129769,6 +129811,8 @@ MonoBehaviour:
   mouseoverTrigger: 0
   isDelayed: 1
   delayTimer: 2
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:
@@ -130070,6 +130114,8 @@ MonoBehaviour:
   mouseoverTrigger: 1
   isDelayed: 0
   delayTimer: 1
+  slowPlayer: 0
+  player: {fileID: 0}
   extras:
     m_PersistentCalls:
       m_Calls:

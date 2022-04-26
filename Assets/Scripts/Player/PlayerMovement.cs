@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller;
     public float speed;
-    [SerializeField] float sprintSpeed;
+    public float sprintSpeed;
     [SerializeField] float crouchSpeed;
     float finalSpeed;
     [SerializeField] float gravity = -9.81f * 2;
