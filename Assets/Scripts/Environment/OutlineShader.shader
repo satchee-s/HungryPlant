@@ -1,114 +1,101 @@
-Shader "Unlit/OutlineShader"
+Shader "Custom/OutlineShader"
 {
-    Properties{
-		_MainTex ("Texture", 2D) = "white" {}
-		_OutColor ("Tint", Color) = (1, 1, 1, 1)
-		_OutValue ("Outline value", Range(0.0, 0.2)) = 0.1
+    Properties
+	{
+		_MainTex("Main Texture (RBG)", 2D) = "white" {}
+		_Color("Color", Color) = (1,1,1,1)
+
+		_OutlineTex("Outline Texture", 2D) = "white" {}
+		_OutlineColor("Outline Color", Color) = (1,1,1,1)
+		_OutlineWidth("Outline Width", Range(1.0,10.0)) = 1.1
 	}
 
-	SubShader{
-
-		Pass{
-			Tags{ "Queue"="Transparent" }
-			Blend SrcAlpha OneMinusSrcAlpha
-			//ZWrite Off
-
+	SubShader
+	{
+		Tags 
+		{
+			"Queue" = "Transparent"
+		}
+		Pass
+		{
+			ZWrite Off
 			CGPROGRAM
-
-			#include "UnityCG.cginc"
 
 			#pragma vertex vert
 			#pragma fragment frag
+			#include "UnityCG.cginc"
 
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			float4 _OutColor;
-			float _OutValue;
-
-			fixed4 _Color;
-
-			struct appdata{
+			struct appdata
+			{
 				float4 vertex : POSITION;
 				float2 uv : TEXCOORD0;
 			};
 
-			struct v2f {
-				float4 position : SV_POSITION;
+			struct v2f
+			{
+				float4 pos : SV_POSITION;
 				float2 uv : TEXCOORD0;
 			};
 
-			float4 outline (float4 vertexPos, float outValue)
+			float _OutlineWidth;
+			float4 _OutlineColor;
+			sampler2D _OutlineTex;
+
+			v2f vert(appdata IN)
 			{
-				float4x4 scale = float4x4
-				(
-					1 + outValue, 0, 0, 0,
-					0, 1 + outValue, 0, 0,
-					0, 0, 1 + outValue, 0,
-					0, 0, 0,  1 + outValue
-				);
-				return mul(scale, vertexPos);
+				IN.vertex.xyz *= _OutlineWidth;
+				v2f OUT;
+
+				OUT.pos = UnityObjectToClipPos(IN.vertex);
+				OUT.uv = IN.uv;
+
+				return OUT;
 			}
 
-			v2f vert(appdata v){
-				v2f o;
-				float4 vertexPos = outline(v.vertex, _OutValue);
-				o.position = UnityObjectToClipPos(vertexPos);
-				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-				return o;
+			fixed4 frag(v2f IN) : SV_Target
+			{
+				float4 texColor = tex2D(_OutlineTex, IN.uv);
+				return texColor * _OutlineColor;
 			}
-
-			fixed3 frag(v2f i) : SV_TARGET{
-				fixed4 col = tex2D(_MainTex, i.uv);
-				
-				return float4(_OutColor.r, _OutColor.g, _OutColor.b, col.a);
-			}
-			
 			ENDCG
 		}
 
-		//texture
-
-		Pass{
-			Tags{ "Queue"="Transparent+1" }
-			Blend SrcAlpha OneMinusSrcAlpha
-
+		Pass
+		{
+			Tags { "LightMode" = "UniversalForward" }
+			ZWrite On
 			CGPROGRAM
+            #pragma vertex vert
+            #pragma fragment frag
 
-			#include "UnityCG.cginc"
+            #include "UnityCG.cginc"
 
-			#pragma vertex vert
-			#pragma fragment frag
+            struct appdata 
+			{
+                float4 vertex : POSITION;
+                float2 uv : TEXCOORD0;
+            };
 
-			sampler2D _MainTex;
-			float4 _MainTex_ST;
-			float4 _OutColor;
-			float _OutValue;
+            struct v2f {
+                float4 vertex : SV_POSITION;
+                float2 uv : TEXCOORD0;
+            };
 
-			fixed4 _Color;
+            sampler2D _MainTex;
+            float4 _Color;
+            float4 _MainTex_ST;
 
-			struct appdata{
-				float4 vertex : POSITION;
-				float2 uv : TEXCOORD0;
-			};
-
-			struct v2f {
-				float4 position : SV_POSITION;
-				float2 uv : TEXCOORD0;
-			};
-
-			v2f vert(appdata v){
+			v2f vert (appdata v){
 				v2f o;
-				
-				o.position = UnityObjectToClipPos(v.vertex);
+				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				return o;
 			}
-
-			fixed3 frag(v2f i) : SV_TARGET{
+			fixed4 frag(v2f i) : SV_Target
+			{
 				fixed4 col = tex2D(_MainTex, i.uv);
 				return col;
-			}
-			
+			}  
 			ENDCG
 		}
 	}

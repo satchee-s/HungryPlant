@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class Patrol : State
 {
-    Node startingNode, targetNode;
+    Node targetNode;
+    [HideInInspector] public Node startingNode;
     Vector3 currentNode;
     int targetIndex;
 
-    [SerializeField] float maxSpeed;
+    [SerializeField] float maxSpeed, collisionDist, maxAvoid;
     [SerializeField] float smooth;
     Vector3 finalVelocity = Vector3.zero;
     Vector3 desiredPos;
@@ -18,6 +19,29 @@ public class Patrol : State
     List<Node> travelPath = new List<Node>();
     [SerializeField] SearchRoom searchRoom;
 
+    RaycastHit hit;
+    Vector3 avoidanceForce;
+
+    public override void SetBehaviour(AIManager aiManager)
+    {
+        if (DetectPlayer(player, transform, playerDetectionDistance) || BehindPlant(player, transform))
+        {
+            ResetPath(null);
+            aiManager.SetMovement(aiManager.chaseBehavior);
+        }
+        else
+        {
+            if (!hasPath)
+            {
+                CalculatePath();
+            }
+            else
+            {
+                FollowPath();
+            }
+        }
+    }
+
     void FollowPath()
     {
         desiredPos = currentNode;
@@ -25,7 +49,17 @@ public class Patrol : State
         desiredVelocity = (transform.position - desiredPos).normalized * maxSpeed;
         finalVelocity = finalVelocity - desiredVelocity;
         finalVelocity = Vector3.ClampMagnitude(finalVelocity, maxSpeed);
-        transform.position += finalVelocity * Time.deltaTime;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, collisionDist, ~playerLayer))
+        {
+            avoidanceForce = transform.position + finalVelocity;
+            avoidanceForce = avoidanceForce - hit.point;
+            avoidanceForce = Vector3.ClampMagnitude(avoidanceForce, maxAvoid);
+            avoidanceForce.Normalize();
+        }
+        else
+            avoidanceForce = Vector3.zero;
+
+        transform.position += (finalVelocity + avoidanceForce) * Time.deltaTime;
 
         Vector3 rotationPos = (transform.position - currentNode).normalized * -1f;
         Quaternion desiredRotation = Quaternion.LookRotation(rotationPos);
@@ -44,31 +78,16 @@ public class Patrol : State
             }
             else if (targetIndex >= travelPath.Count)
             {
-                startingNode = targetNode;
-                hasPath = false;
-                travelPath.Clear();
+                ResetPath(targetNode);
             }
         }
     }
 
-    public override void SetBehaviour(AIManager aiManager)
+    void ResetPath(Node endNode)
     {
-        if (DetectPlayer(player, transform, playerDetectionDistance))
-        {
-            aiManager.SetMovement(aiManager.chaseBehavior);
-        }
-        else
-        {
-            if (!hasPath)
-            {
-                CalculatePath();
-            }
-            else
-            {
-                FollowPath();
-            }
-        }
-        
+        startingNode = endNode;
+        hasPath = false;
+        travelPath.Clear();
     }
 
     void CalculatePath()

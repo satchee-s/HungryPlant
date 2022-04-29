@@ -134,7 +134,7 @@ public class RaycastController : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         if (hitDoor)
             Gizmos.color = Color.yellow;
@@ -147,5 +147,5 @@ public class RaycastController : MonoBehaviour
 
         if (hit.distance < rayDist)
             Gizmos.DrawLine(transform.position, hit.point);
-    }
+    }*/
 }
