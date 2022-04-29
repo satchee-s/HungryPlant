@@ -9,12 +9,12 @@ public class Capture : State
     [SerializeField] AudioSource eatSound;
     public override void SetBehaviour(AIManager aiManager)
     {
-        eatSound.Play();
-        subtitleSystem.DisplaySubtitle("ahhhh! [gets eaten]");
+        //eatSound.Play();
+        //subtitleSystem.DisplaySubtitle("ahhhh! [gets eaten]");
         player.GetComponent<CharacterController>().enabled = false;
         player.position = resetPosition.position;
         player.GetComponent<CharacterController>().enabled = true;
-        pathfinding.ClearPath();
+
         transform.position = plantResetPosition.position;
         aiManager.SetMovement(aiManager.roamingBehavior);
     }
