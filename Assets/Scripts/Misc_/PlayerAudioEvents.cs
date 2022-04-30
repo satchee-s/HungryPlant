@@ -15,6 +15,6 @@ public class PlayerAudioEvents : MonoBehaviour
 
     void FlashSound() { flash.Play(); }
 
-    void GlassSound() { glassBreak.Play(); }
+    //void GlassSound() { glassBreak.Play(); }
 
 }

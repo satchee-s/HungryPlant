@@ -28,7 +28,9 @@ public class PlayerMovement : MonoBehaviour
         Sprint();
         Movement();
         Crouch();
-        //FlashBang();
+
+        
+
         velocity.y += gravity *Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
@@ -42,7 +44,17 @@ public class PlayerMovement : MonoBehaviour
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
+
         Vector3 move = transform.right * x + transform.forward * z;
+
+        if (x > 0 || z > 0)
+        {
+            playerAnimator.SetBool("IsMoving", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("IsMoving", false);
+        }
         controller.Move(move * finalSpeed * Time.deltaTime);
         isMoving = true;
     }
@@ -67,14 +79,15 @@ public class PlayerMovement : MonoBehaviour
     private void Sprint()
     {
         finalSpeed = speed;
+
         if (Input.GetKey(KeyCode.LeftShift) && isMoving)
         {
             finalSpeed = sprintSpeed;
-            //playerAnimator.SetBool("Running", true);
+            playerAnimator.SetBool("Running", true);
         }
         else
         {
-            //playerAnimator.SetBool("Running", false);
+            playerAnimator.SetBool("Running", false);
         }
     }
 

@@ -30,9 +30,9 @@ public class Intro : MonoBehaviour
         tableFall.Play();
         yield return new WaitForSeconds(1f);
         introNoise.Play();
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         getUp.Play();
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(5f);
         playerMovement.speed = tempSpeed;
         mouseMovement.mouseSensitivity = tempMouseSensitivity;
         inventoryUI.gameObject.SetActive(true);

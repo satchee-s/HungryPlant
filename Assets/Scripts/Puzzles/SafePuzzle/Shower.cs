@@ -13,16 +13,14 @@ public class Shower : Puzzle
     {
         known = false;
     }
-    public IEnumerator WaterSpray()
+    public void WaterSpray()
     {
         GameObject particle = Instantiate(shower, position) as GameObject;
-        yield return new WaitForSeconds(4f);
-        Destroy(particle);
     }
 
     public void ToggleShower()
     {
-        StartCoroutine(WaterSpray());
+        WaterSpray();
     }
 
     public override void ExecutePuzzle()
