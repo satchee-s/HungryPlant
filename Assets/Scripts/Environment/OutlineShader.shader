@@ -8,6 +8,8 @@ Shader "Custom/OutlineShader"
 		_OutlineTex("Outline Texture", 2D) = "white" {}
 		_OutlineColor("Outline Color", Color) = (1,1,1,1)
 		_OutlineWidth("Outline Width", Range(1.0,10.0)) = 1.1
+		
+		[Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull", Float) = 2
 	}
 
 	SubShader
@@ -16,6 +18,8 @@ Shader "Custom/OutlineShader"
 		{
 			"Queue" = "Transparent"
 		}
+		//Cull[_Cull]
+
 		Pass
 		{
 			ZWrite Off
@@ -64,6 +68,7 @@ Shader "Custom/OutlineShader"
 		{
 			Tags { "LightMode" = "UniversalForward" }
 			ZWrite On
+			Blend SrcAlpha OneMinusSrcAlpha
 			CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -94,7 +99,12 @@ Shader "Custom/OutlineShader"
 			fixed4 frag(v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
-				return col;
+				//fixed4 col1 = col;
+				//clip(col.r - 1);
+
+				fixed4 colf = col * _Color;
+
+				return colf;
 			}  
 			ENDCG
 		}
