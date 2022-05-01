@@ -40,7 +40,8 @@ public class Patrol : State
             }
             else
             {
-                FollowPath();
+                if (!aiManager.stunned)
+                    FollowPath();
                 SoundTiming(aiManager);
             }
         }

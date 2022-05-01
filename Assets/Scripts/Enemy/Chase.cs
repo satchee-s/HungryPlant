@@ -17,7 +17,8 @@ public class Chase : State
         }
         else if (DetectPlayer(player, transform, playerDetectionDistance) || BehindPlant(player, transform))
         {
-            FollowPath();
+            if (!aiManager.stunned)
+                FollowPath();
         }
         else
         {

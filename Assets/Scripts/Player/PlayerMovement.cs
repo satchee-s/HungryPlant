@@ -49,11 +49,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (x > 0 || z > 0)
         {
-            //playerAnimator.SetBool("IsMoving", true);
+            playerAnimator.SetBool("IsMoving", true);
         }
         else
         {
-            //playerAnimator.SetBool("IsMoving", false);
+            playerAnimator.SetBool("IsMoving", false);
         }
         controller.Move(move * finalSpeed * Time.deltaTime);
         isMoving = true;
