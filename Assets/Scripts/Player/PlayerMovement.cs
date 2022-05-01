@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     [SerializeField] float groundDistance;
 
-    //public Animator playerAnimator;
+    public Animator playerAnimator;
 
     float crouchHeight = 0.5f;
     float normalHeight = 1f;
@@ -49,11 +49,11 @@ public class PlayerMovement : MonoBehaviour
 
         if (x > 0 || z > 0)
         {
-            playerAnimator.SetBool("IsMoving", true);
+            //playerAnimator.SetBool("IsMoving", true);
         }
         else
         {
-            playerAnimator.SetBool("IsMoving", false);
+            //playerAnimator.SetBool("IsMoving", false);
         }
         controller.Move(move * finalSpeed * Time.deltaTime);
         isMoving = true;
@@ -83,11 +83,11 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && isMoving)
         {
             finalSpeed = sprintSpeed;
-            playerAnimator.SetBool("Running", true);
+            //playerAnimator.SetBool("Running", true);
         }
         else
         {
-            playerAnimator.SetBool("Running", false);
+            //playerAnimator.SetBool("Running", false);
         }
     }
 

@@ -102,17 +102,10 @@ public class SubtitleTrigger : MonoBehaviour
         player.speed = initialSpeed * .4f;
         sprintSpeed = initialSpeed * .4f;
 
-        yield return new WaitForSeconds(.25f);
+        yield return new WaitUntil(() => subtitleSystem.isPlaying);
+        yield return new WaitWhile(() => subtitleSystem.isPlaying);
 
-        while (true)
-        {
-            if (!subtitleSystem.isPlaying)
-            {
-                player.speed = initialSpeed;
-                player.sprintSpeed = sprintSpeed;
-                break;
-            }
-            yield return null;
-        }        
+        player.speed = initialSpeed;
+        player.sprintSpeed = sprintSpeed;       
     }
 }

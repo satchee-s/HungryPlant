@@ -7,8 +7,10 @@ public class InteractableLogic : MonoBehaviour
     GameObject player;
     public float interactionDistance;
     public Renderer mesh;
+    public Renderer[] extraMeshes;
     public float pulseInterval;
-    public bool inRange;
+    public bool startEnabled;
+    bool inRange;
     bool canInteract;
 
     Material material;
@@ -23,7 +25,10 @@ public class InteractableLogic : MonoBehaviour
         material = mesh.materials[1];
         transparency = 0;
 
-        canInteract = true;
+        if (startEnabled)
+            canInteract = true;
+        else
+            canInteract = false;
         curve = new AnimationCurve();
         curve.AddKey(0, 0);
         curve.AddKey(pulseInterval / 2, .5f);
@@ -42,6 +47,12 @@ public class InteractableLogic : MonoBehaviour
         {
             transparency = curve.Evaluate(timer);
             material.SetFloat("_Transparency", transparency);
+            for (int i = 0; i < extraMeshes.Length; i++)
+            {
+                Material temp = extraMeshes[i].materials[1];
+                temp.SetFloat("_Transparency", transparency);
+                extraMeshes[i].materials[1] = temp;
+            }
             if (timer < pulseInterval)
                 timer += Time.deltaTime;
             else
@@ -54,6 +65,12 @@ public class InteractableLogic : MonoBehaviour
                 timer -= Time.deltaTime;
                 transparency = curve.Evaluate(timer);
                 material.SetFloat("_Transparency", transparency);
+                for (int i = 0; i < extraMeshes.Length; i++)
+                {
+                    Material temp = extraMeshes[i].materials[1];
+                    temp.SetFloat("_Transparency", transparency);
+                    extraMeshes[i].materials[1] = temp;
+                }
             }
         }
     }

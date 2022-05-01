@@ -47,10 +47,12 @@ public class ToggleRoomLighting : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && !hallLights)
+        if (other.tag == "Player")
         {
             if (!lightsOn)
             {
+                for (int i = 0; i < roomLights.Length; i++)
+                    roomLights[i].enabled = true;
                 lightsOn = true;
             }
         }
