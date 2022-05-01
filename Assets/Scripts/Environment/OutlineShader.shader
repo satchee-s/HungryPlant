@@ -8,6 +8,7 @@ Shader "Custom/OutlineShader"
 		_OutlineTex("Outline Texture", 2D) = "white" {}
 		_OutlineColor("Outline Color", Color) = (1,1,1,1)
 		_OutlineWidth("Outline Width", Range(1.0,10.0)) = 1.1
+		//_Material("Default material", Material) = new Material
 	}
 
 	SubShader
@@ -15,10 +16,12 @@ Shader "Custom/OutlineShader"
 		Tags 
 		{
 			"Queue" = "Transparent"
+			//"RenderType" = "Transparent"
 		}
 		Pass
 		{
 			ZWrite Off
+			//Blend SrcAlpha OneMinusSrcAlpha
 			CGPROGRAM
 
 			#pragma vertex vert
@@ -41,29 +44,35 @@ Shader "Custom/OutlineShader"
 			float4 _OutlineColor;
 			sampler2D _OutlineTex;
 
-			v2f vert(appdata IN)
+			v2f vert(appdata v)
 			{
-				IN.vertex.xyz *= _OutlineWidth;
+				v.vertex.xyz *= _OutlineWidth;
 				v2f OUT;
-
-				OUT.pos = UnityObjectToClipPos(IN.vertex);
-				OUT.uv = IN.uv;
+				OUT.pos = UnityObjectToClipPos(v.vertex);
+				OUT.uv = v.uv;
 
 				return OUT;
 			}
 
-			fixed4 frag(v2f IN) : SV_Target
+			fixed4 frag(v2f i) : SV_Target
 			{
-				float4 texColor = tex2D(_OutlineTex, IN.uv);
+				float4 texColor = tex2D(_OutlineTex, i.uv);
+				texColor *= (1, 1, 1, 0);
 				return texColor * _OutlineColor;
 			}
 			ENDCG
 		}
 
-		Pass
+		/*Pass
 		{
-			Tags { "LightMode" = "UniversalForward" }
-			ZWrite On
+			Tags 
+			{ 
+				"LightMode" = "UniversalForward" 
+				//"Queue" = "Transparent"
+				//"RenderType" = "Transparent"
+			}
+			ZWrite Off
+			Blend SrcAlpha OneMinusSrcAlpha
 			CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
@@ -94,9 +103,10 @@ Shader "Custom/OutlineShader"
 			fixed4 frag(v2f i) : SV_Target
 			{
 				fixed4 col = tex2D(_MainTex, i.uv);
+				col *= (0, 0, 0, 0);
 				return col;
 			}  
 			ENDCG
-		}
+		}*/
 	}
 }

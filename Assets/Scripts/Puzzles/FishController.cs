@@ -29,7 +29,7 @@ public class FishController : MonoBehaviour
 
     [HideInInspector] public bool fishingActive = false;
     float maxFailTime = 3f;
-    public int totalFishCaught;
+    [HideInInspector] public int totalFishCaught;
 
     [SerializeField] Transform progressBar;
 
@@ -106,7 +106,6 @@ public class FishController : MonoBehaviour
     {
         totalFishCaught++;
         Debug.Log("You won!");
-
     }
     void Reset()
     {

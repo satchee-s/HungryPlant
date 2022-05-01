@@ -13,14 +13,13 @@ public class Patrol : State
     [SerializeField] float smooth;
     Vector3 finalVelocity = Vector3.zero;
     Vector3 desiredPos;
-    Vector3 desiredVelocity;
+    Vector3 desiredVelocity, avoidanceForce;
 
     bool hasPath = false;
     List<Node> travelPath = new List<Node>();
     [SerializeField] SearchRoom searchRoom;
 
     RaycastHit hit;
-    Vector3 avoidanceForce;
 
     public override void SetBehaviour(AIManager aiManager)
     {
@@ -49,17 +48,7 @@ public class Patrol : State
         desiredVelocity = (transform.position - desiredPos).normalized * maxSpeed;
         finalVelocity = finalVelocity - desiredVelocity;
         finalVelocity = Vector3.ClampMagnitude(finalVelocity, maxSpeed);
-        if (Physics.Raycast(transform.position, transform.forward, out hit, collisionDist, ~playerLayer))
-        {
-            avoidanceForce = transform.position + finalVelocity;
-            avoidanceForce = avoidanceForce - hit.point;
-            avoidanceForce = Vector3.ClampMagnitude(avoidanceForce, maxAvoid);
-            avoidanceForce.Normalize();
-        }
-        else
-            avoidanceForce = Vector3.zero;
-
-        transform.position += (finalVelocity + avoidanceForce) * Time.deltaTime;
+        transform.position += (finalVelocity) * Time.deltaTime;
 
         Vector3 rotationPos = (transform.position - currentNode).normalized * -1f;
         Quaternion desiredRotation = Quaternion.LookRotation(rotationPos);

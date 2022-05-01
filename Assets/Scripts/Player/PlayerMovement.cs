@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     [SerializeField] float groundDistance;
 
-    //public Animator playerAnimator;
+    public Animator playerAnimator;
 
     float crouchHeight = 0.5f;
     float normalHeight = 1f;
@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         Sprint();
         Movement();
         Crouch();
-        //FlashBang();
+        FlashBang();
         velocity.y += gravity *Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
@@ -54,11 +54,11 @@ public class PlayerMovement : MonoBehaviour
         {
             newScale.y = crouchHeight;
             finalSpeed = crouchSpeed;
-            //playerAnimator.SetBool("Crouch", true);
+            playerAnimator.SetBool("Crouch", true);
         }
         else
         {
-            //playerAnimator.SetBool("Crouch", false);
+            playerAnimator.SetBool("Crouch", false);
         }
         
         transform.localScale = newScale;
@@ -70,19 +70,19 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && isMoving)
         {
             finalSpeed = sprintSpeed;
-            //playerAnimator.SetBool("Running", true);
+            playerAnimator.SetBool("Running", true);
         }
         else
         {
-            //playerAnimator.SetBool("Running", false);
+            playerAnimator.SetBool("Running", false);
         }
     }
 
     public IEnumerator Flash()
     {
-        //playerAnimator.SetBool("Flash", true);
+        playerAnimator.SetBool("Flash", true);
         yield return new WaitForSeconds(.5f);
-        //playerAnimator.SetBool("Flash", false);
+        playerAnimator.SetBool("Flash", false);
     }
 
     public void FlashBang()

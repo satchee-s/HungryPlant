@@ -23,8 +23,8 @@ public class ComputerPuzzle : Puzzle
                 if (timer >= requiredTime)
                 {
                     Debug.Log("You caught a fish");
-                    //StartGame();
                     fishController.StartGame();
+                    requiredTime = Random.Range(3, 8);
                     timer = 0;
                 }
             }
@@ -72,6 +72,6 @@ public class ComputerPuzzle : Puzzle
         screenCanvas.gameObject.SetActive(true);
         player.enabled = false;
         inventory.enabled = false;
-        Debug.Log("Game started");
+        requiredTime = Random.Range(3, 8);
     }
 }
