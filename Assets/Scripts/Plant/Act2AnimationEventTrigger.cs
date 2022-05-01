@@ -13,7 +13,7 @@ public class Act2AnimationEventTrigger : MonoBehaviour
     ConstraintSource constraintSource;
     [Range(0, 1)] public float weight;
     public float lookSpeed;
-    bool looking;
+    bool looking;    
 
     private void Awake()
     {

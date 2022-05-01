@@ -52,7 +52,8 @@ public abstract class Puzzle : MonoBehaviour
         {
             //Debug.Log("You have all the items");
             taskCompleted.Invoke();
-            interactable.SetInteracting(false);
+            if (interactable != null)
+                interactable.SetInteracting(false);
             for (int i = 0; i < consumeItems.Count; i++)
             {
                 ConsumeItem(consumeItems[i]);

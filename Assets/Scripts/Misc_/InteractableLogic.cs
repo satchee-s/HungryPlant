@@ -79,4 +79,10 @@ public class InteractableLogic : MonoBehaviour
     {
         this.canInteract = canInteract;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawCube(transform.position, Vector3.one / 2);
+    }
 }

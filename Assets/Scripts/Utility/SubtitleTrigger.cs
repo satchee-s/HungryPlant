@@ -16,7 +16,7 @@ public class SubtitleTrigger : MonoBehaviour
 
     public bool slowPlayer;
     public PlayerMovement player;
-    float initialSpeed, sprintSpeed;
+    public float initialSpeed = 4, sprintSpeed = 8;
 
     public UnityEvent extras;
 
@@ -25,11 +25,11 @@ public class SubtitleTrigger : MonoBehaviour
         subtitleSystem = FindObjectOfType<SubtitleSystem>();
         triggered = false;
 
-        if (player != null)
-        {
-            initialSpeed = player.speed;
-            sprintSpeed = player.sprintSpeed;
-        }            
+        //if (player != null)
+        //{
+        //    initialSpeed = player.speed;
+        //    sprintSpeed = player.sprintSpeed;
+        //}            
     }
 
     private void OnMouseEnter()
@@ -100,7 +100,7 @@ public class SubtitleTrigger : MonoBehaviour
     IEnumerator SlowPlayer()
     {
         player.speed = initialSpeed * .4f;
-        sprintSpeed = initialSpeed * .4f;
+        player.sprintSpeed = initialSpeed * .4f;
 
         yield return new WaitUntil(() => subtitleSystem.isPlaying);
         yield return new WaitWhile(() => subtitleSystem.isPlaying);

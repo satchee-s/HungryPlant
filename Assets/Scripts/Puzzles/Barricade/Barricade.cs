@@ -79,6 +79,7 @@ public class Barricade : Puzzle
                 {
                     ConsumeItem(consumeItems[i]);
                 }
+                interactable.SetInteracting(false);
                 completed = true;
                 startPuzzle = false;                
             }

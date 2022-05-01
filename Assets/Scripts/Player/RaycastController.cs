@@ -72,6 +72,13 @@ public class RaycastController : MonoBehaviour
                         hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
                     }
                 }
+                else if (hit.collider.GetComponent<GasRooms>() != null)
+                {
+                    if (Input.GetKey(KeyCode.E))
+                    {
+                        hit.collider.GetComponent<GasRooms>().ExecutePuzzle();
+                    }
+                }
                 else
                 {
                     if (Input.GetKeyDown(KeyCode.E))
@@ -143,7 +150,7 @@ public class RaycastController : MonoBehaviour
         }
     }
 
-    /*private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         if (hitDoor)
             Gizmos.color = Color.yellow;
@@ -156,5 +163,5 @@ public class RaycastController : MonoBehaviour
 
         if (hit.distance < rayDist)
             Gizmos.DrawLine(transform.position, hit.point);
-    }*/
+    }
 }

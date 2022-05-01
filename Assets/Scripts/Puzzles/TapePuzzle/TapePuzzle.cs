@@ -26,11 +26,8 @@ public class TapePuzzle : Puzzle
             Debug.Log("You have all the items");
             if (powered)
             {
+                base.ExecutePuzzle();
                 taskCompleted.Invoke();
-                for (int i = 0; i < consumeItems.Count; i++)
-                {
-                    ConsumeItem(consumeItems[i]);
-                }
             }
             else
                 unpluggedText.TriggerSubtitle();

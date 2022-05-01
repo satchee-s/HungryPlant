@@ -36,11 +36,22 @@ public class DoorControl : MonoBehaviour
 		locked = state;
 	}
 
+	public void OpenSound()
+    {
+		doorOpen.transform.position = transform.position;
+		doorOpen.Play();
+    }
+
+	public void ClosingSound()
+    {
+		doorClose.transform.position = transform.position;
+		doorClose.Play();
+    }
+
 	IEnumerator opening()
 	{
 		//print("you are opening the door");
 		openandclose.Play("Opening");
-		doorOpen.Play();
 		open = true;
 		yield return new WaitForSeconds(.5f);
 	}
@@ -49,7 +60,6 @@ public class DoorControl : MonoBehaviour
 	{
 		//print("you are closing the door");
 		openandclose.Play("Closing");
-		doorClose.Play();
 		open = false;
 		yield return new WaitForSeconds(.5f);
 	}
