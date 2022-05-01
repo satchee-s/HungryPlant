@@ -146,7 +146,10 @@ public class RaycastController : MonoBehaviour
     {
         if (inventory.currentSlot.isFilled == true)
         {
-            inventory.EmptySlot();
+            if (!Physics.Raycast(transform.position, transform.forward, 2f, ~playerLayer))
+            {
+                inventory.EmptySlot();
+            }
         }
     }
 

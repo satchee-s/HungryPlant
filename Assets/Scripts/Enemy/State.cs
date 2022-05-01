@@ -14,7 +14,6 @@ public abstract class State : MonoBehaviour
         pathfinding = FindObjectOfType<Pathfinding>();
         subtitleSystem = FindObjectOfType<SubtitleSystem>();
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
-        playerLayer = LayerMask.GetMask("Player");
     }
 
     public abstract void SetBehaviour(AIManager aiManager);

@@ -1,13 +1,13 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Chase : State
 {
-    [SerializeField] float maxSpeed, frames, captureDistance, smooth, collisionDist, maxAvoid;
+    [SerializeField] float maxSpeed, frames, captureDistance, smooth, collisionDist;
     Vector3 finalVelocity = Vector3.zero;
-    Vector3 desiredPos;
-    Vector3 desiredVelocity;
+    Vector3 desiredPos, desiredVelocity, currentNode;
     RaycastHit hit;
-    Vector3 avoidanceForce;
+    
     public override void SetBehaviour(AIManager aiManager)
     {
         if (DetectPlayer(player.transform, transform, captureDistance))
@@ -27,27 +27,23 @@ public class Chase : State
 
     void FollowPath()
     {
-        desiredPos = player.position;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, collisionDist, ~playerLayer))
+        {
+            currentNode = pathfinding.FindClosestNode(player.position).Position;
+        }
+        else
+        {
+            currentNode = player.position;
+        }
+
+        desiredPos = currentNode;
         desiredPos = desiredPos + desiredVelocity;
         desiredVelocity = (transform.position - desiredPos).normalized * maxSpeed;
         finalVelocity = finalVelocity - desiredVelocity;
         finalVelocity = Vector3.ClampMagnitude(finalVelocity, maxSpeed);
-
-        if (Physics.Raycast(transform.position, transform.forward, out hit, collisionDist, ~playerLayer))
-        {
-            avoidanceForce = transform.position + finalVelocity;
-            avoidanceForce = avoidanceForce - hit.point;
-            avoidanceForce = Vector3.ClampMagnitude(avoidanceForce, maxAvoid);
-            avoidanceForce.Normalize();
-        }
-        else
-            avoidanceForce = Vector3.zero;
-
-        transform.position += (finalVelocity + avoidanceForce) * Time.deltaTime;
-
         transform.position += (finalVelocity) * Time.deltaTime;
 
-        Vector3 rotationPos = (transform.position - player.position).normalized * -1f;
+        Vector3 rotationPos = (transform.position - currentNode).normalized * -1f;
         Quaternion desiredRotation = Quaternion.LookRotation(rotationPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, smooth * Time.deltaTime);
     }
