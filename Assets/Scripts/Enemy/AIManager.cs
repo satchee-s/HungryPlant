@@ -9,6 +9,7 @@ public class AIManager : MonoBehaviour
     public AudioClip[] attack;
     public AudioClip[] sounds;
 
+    public VignetteToggle vignette;
     public AudioSource plantSource;
 
     public void SetMovement (State state)
@@ -25,6 +26,10 @@ public class AIManager : MonoBehaviour
     {
         currentState.SetBehaviour(this);
 
+        if (currentState == chaseBehavior)
+            vignette.AddIn();
+        else
+            vignette.TakeOut();
     }
 
     public void PlayAttackSound()
