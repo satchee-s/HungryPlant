@@ -17,11 +17,17 @@ public class FlashlightController : MonoBehaviour
     public float changeRate;
     float t;
     public float maxIntensity;
+    public float flashMultiplier;
+    float flashIntensity;
     public float currentIntensity;
     public GameObject[] lightObjects;
     
     public PlayerMovement playerMovement;
-    [Range(0, 50)]public float flashBangCost;
+    public AudioSource flashSound;
+    public float flashBangCost;
+    bool flashOn;
+    public float flashDuration;
+    float flashTime;
 
     AudioSource sound;
 
@@ -30,7 +36,9 @@ public class FlashlightController : MonoBehaviour
     {
         batteryCharge = 100;
         toggled = false;
-        //maxIntensity = lightObject.intensity;
+        maxIntensity = lightObject.intensity;
+        flashIntensity = maxIntensity * flashMultiplier;
+
         //lightObject.intensity = 0;
         ToggleLight(toggled);
         sound = GetComponent<AudioSource>();
@@ -41,6 +49,7 @@ public class FlashlightController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (toggled)
@@ -55,10 +64,22 @@ public class FlashlightController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             FlashBang();
+            flashSound.Play();
+            flashOn = true;
         }
 
-        //LightAmount();
-        //lightObject.intensity = currentIntensity;
+
+        LightAmount();
+        lightObject.intensity = currentIntensity;
+        if (flashOn)
+        {
+            flashTime += Time.deltaTime;
+            if (flashTime > flashDuration)
+            {
+                flashOn = false;
+                flashTime = 0;
+            }
+        }        
 
         if (toggled)
         {
@@ -111,9 +132,13 @@ public class FlashlightController : MonoBehaviour
     void LightAmount()
     {
         t += Time.deltaTime * changeRate;
-        if (toggled && lightObject.intensity < maxIntensity)
+        if ((toggled && lightObject.intensity != maxIntensity) && !flashOn)
         {
-            currentIntensity = Mathf.Lerp(lightObject.intensity, maxIntensity, t);            
+            currentIntensity = Mathf.Lerp(lightObject.intensity, maxIntensity, t);
+        }
+        else if ((toggled && lightObject.intensity != flashIntensity) && flashOn)
+        {
+            currentIntensity = Mathf.Lerp(lightObject.intensity, flashIntensity, flashTime/flashDuration);
         }
         else if (!toggled && lightObject.intensity > 0)
         {

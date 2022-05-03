@@ -8,8 +8,6 @@ public class InventoryManager : MonoBehaviour
     public Transform[] inventory = new Transform[3];
     public InventorySlot[] slots = new InventorySlot[3];
     public InventorySlot currentSlot;
-    //bool hasBucket;
-    //public List<PuzzleManager.ItemType> itemsInInventory = new List<PuzzleManager.ItemType>();
 
     private void Start()
     {
@@ -55,7 +53,6 @@ public class InventoryManager : MonoBehaviour
 
     void FillSlot(Item item, int slotIndex)
     {
-        //currentSlot = FindEmpty();//do you need to re-find an empty slot
         currentSlot = slots[slotIndex];
         if (currentSlot != null)
         {
@@ -72,12 +69,12 @@ public class InventoryManager : MonoBehaviour
     public void EmptySlot()
     {
         currentSlot.UIImage.sprite = currentSlot.empty;
-        currentSlot.item.transform.SetParent(null, false);
+        currentSlot.item.transform.SetParent(null, true);
         currentSlot.item.transform.position = currentSlot.slot.position;
         currentSlot.item.transform.rotation = currentSlot.slot.rotation;
         currentSlot.isFilled = false;
         currentSlot.item.gameObject.SetActive(true);
-        currentSlot.item.rbd.AddForce(currentSlot.item.transform.forward * 2, ForceMode.VelocityChange);
+        //currentSlot.item.rbd.AddForce(currentSlot.item.transform.forward * 0.8f, ForceMode.VelocityChange);
         PuzzleManager.itemsInInventory.Remove(currentSlot.item.type);
         currentSlot.item = null;
     }
@@ -92,7 +89,6 @@ public class InventoryManager : MonoBehaviour
                 break;
             }
         }
-
     }
 
     public void ReplaceImage(Sprite inventoryImage, Sprite replacementImage)

@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public abstract class State : MonoBehaviour
 {
@@ -8,6 +7,7 @@ public abstract class State : MonoBehaviour
     protected SubtitleSystem subtitleSystem;
     RaycastHit hit;
     public float playerDetectionDistance = 10f;
+    public LayerMask playerLayer;
 
     private void Start()
     {
@@ -30,10 +30,15 @@ public abstract class State : MonoBehaviour
                     return true;
             }
         }
-        else if (Vector3.Distance(viewer.position, target.position) < 4f && Physics.Raycast(viewer.position, viewer.forward, out hit, maxDistance))
+        return false;
+    }
+
+    public bool BehindPlant(Transform target, Transform viewer)
+    {
+        float distance = Vector3.Distance(target.position, viewer.position);
+        if (distance < 7f)
         {
-            if (hit.collider.transform == target)
-                return true;
+            return true;
         }
         return false;
     }

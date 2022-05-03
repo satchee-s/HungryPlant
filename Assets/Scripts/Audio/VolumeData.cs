@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 [System.Serializable]
-public class Volume
+public class VolumeHolder
 {
     public string name;
     [Range(0.001f, 1)]
@@ -18,7 +18,7 @@ public class VolumeData : ScriptableObject
 {
     public string prefPrefix = "Volume_";
     public AudioMixer mixer;
-    public Volume[] volumes;
+    public VolumeHolder[] volumes;
 
     public float GetVolumeLevels(string name)
     {
@@ -29,7 +29,7 @@ public class VolumeData : ScriptableObject
             return volume;
         }
 
-        foreach (Volume vol in volumes)
+        foreach (VolumeHolder vol in volumes)
         {
             if (vol.name.Equals(name))
             {
@@ -57,7 +57,7 @@ public class VolumeData : ScriptableObject
             return;
         }
 
-        foreach (Volume vol in volumes)
+        foreach (VolumeHolder vol in volumes)
         {
             if (PlayerPrefs.HasKey(prefPrefix + vol.name))
             {
@@ -80,7 +80,7 @@ public class VolumeData : ScriptableObject
             return;
         }
 
-        foreach (Volume vol in volumes)
+        foreach (VolumeHolder vol in volumes)
         {
             if (vol.name.Equals(name))
             {
@@ -99,7 +99,7 @@ public class VolumeData : ScriptableObject
         }
 
         float volume = 0;
-        foreach (Volume vol in volumes)
+        foreach (VolumeHolder vol in volumes)
         {
             volume = vol.tempVol;
             //Debug.Log("Saving Values - " + prefPrefix + vol.name + ": " + volume);

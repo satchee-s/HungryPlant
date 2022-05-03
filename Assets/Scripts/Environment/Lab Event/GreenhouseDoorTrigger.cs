@@ -19,6 +19,8 @@ public class GreenhouseDoorTrigger : MonoBehaviour
     public KeyPrompts prompt;
     bool prompted;
 
+    public AudioSource slowDown, speedUp;
+
     private void Start()
     {
         waitForFlash = false;
@@ -33,6 +35,7 @@ public class GreenhouseDoorTrigger : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 Debug.Log("Resume Time to Normal");
+                speedUp.Play();
                 StartCoroutine(LerpTime(1, .5f, false));
                 animator.SetTrigger("Stunned");
                 flashDialog.TriggerSubtitle();
@@ -49,8 +52,7 @@ public class GreenhouseDoorTrigger : MonoBehaviour
             GetComponent<Collider>().enabled = false;
             bubbles.gameObject.SetActive(true);
             animator.SetTrigger("Start");
-            bubblesAudio.Play();
-            dialog.TriggerSubtitle();
+            bubblesAudio.Play();            
             extras.Invoke();
         }        
     }
@@ -58,7 +60,8 @@ public class GreenhouseDoorTrigger : MonoBehaviour
     public void SlowTime()
     {
         waitForFlash = true;
-        
+        slowDown.Play();
+        dialog.TriggerSubtitle();
         StartCoroutine(LerpTime(0.002f, .5f, true));
     }
 

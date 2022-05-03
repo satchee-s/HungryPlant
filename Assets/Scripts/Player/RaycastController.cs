@@ -72,6 +72,13 @@ public class RaycastController : MonoBehaviour
                         hit.collider.GetComponent<Puzzle>().ExecutePuzzle();
                     }
                 }
+                else if (hit.collider.GetComponent<GasRooms>() != null)
+                {
+                    if (Input.GetKey(KeyCode.E))
+                    {
+                        hit.collider.GetComponent<GasRooms>().ExecutePuzzle();
+                    }
+                }
                 else
                 {
                     if (Input.GetKeyDown(KeyCode.E))
@@ -139,7 +146,10 @@ public class RaycastController : MonoBehaviour
     {
         if (inventory.currentSlot.isFilled == true)
         {
-            inventory.EmptySlot();
+            if (!Physics.Raycast(transform.position, transform.forward, 2f, ~playerLayer))
+            {
+                inventory.EmptySlot();
+            }
         }
     }
 

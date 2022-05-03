@@ -4,23 +4,48 @@ using UnityEngine;
 
 public class Patrol : State
 {
-    Node startingNode, targetNode;
+    Node targetNode;
+    [HideInInspector] public Node startingNode;
     Vector3 currentNode;
     int targetIndex;
 
-    [SerializeField] float maxSpeed;
+    [SerializeField] float maxSpeed, collisionDist, maxAvoid;
     [SerializeField] float smooth;
     Vector3 finalVelocity = Vector3.zero;
     Vector3 desiredPos;
-    Vector3 desiredVelocity;
+    Vector3 desiredVelocity, avoidanceForce;
 
     bool hasPath = false;
     List<Node> travelPath = new List<Node>();
     [SerializeField] SearchRoom searchRoom;
 
-    public Vector2 soundRange;
+	public Vector2 soundRange;
     float soundTimer;
     float timeLimit;
+
+    RaycastHit hit;
+
+    public override void SetBehaviour(AIManager aiManager)
+    {
+        if (DetectPlayer(player, transform, playerDetectionDistance) || BehindPlant(player, transform))
+        {
+            ResetPath(null);
+            aiManager.SetMovement(aiManager.chaseBehavior);
+        }
+        else
+        {
+            if (!hasPath)
+            {
+                CalculatePath();
+            }
+            else
+            {
+                if (!aiManager.stunned)
+                    FollowPath();
+                SoundTiming(aiManager);
+            }
+        }
+    }
 
     void FollowPath()
     {
@@ -29,7 +54,7 @@ public class Patrol : State
         desiredVelocity = (transform.position - desiredPos).normalized * maxSpeed;
         finalVelocity = finalVelocity - desiredVelocity;
         finalVelocity = Vector3.ClampMagnitude(finalVelocity, maxSpeed);
-        transform.position += finalVelocity * Time.deltaTime;
+        transform.position += (finalVelocity) * Time.deltaTime;
 
         Vector3 rotationPos = (transform.position - currentNode).normalized * -1f;
         Quaternion desiredRotation = Quaternion.LookRotation(rotationPos);
@@ -48,33 +73,16 @@ public class Patrol : State
             }
             else if (targetIndex >= travelPath.Count)
             {
-                startingNode = targetNode;
-                hasPath = false;
-                travelPath.Clear();
+                ResetPath(targetNode);
             }
         }
     }
 
-    public override void SetBehaviour(AIManager aiManager)
+    void ResetPath(Node endNode)
     {
-        if (DetectPlayer(player, transform, playerDetectionDistance))
-        {
-            aiManager.PlayAttackSound();
-            aiManager.SetMovement(aiManager.chaseBehavior);
-        }
-        else
-        {
-            if (!hasPath)
-            {
-                CalculatePath();
-            }
-            else
-            {
-                SoundTiming(aiManager);
-                FollowPath();
-            }
-        }
-        
+        startingNode = endNode;
+        hasPath = false;
+        travelPath.Clear();
     }
 
     void CalculatePath()

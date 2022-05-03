@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     public string scene;
+    public GameObject settings;
 
     public void StartGame()
     {
@@ -18,8 +19,8 @@ public class MainMenu : MonoBehaviour
     }
 
     public void Settings()
-    {
-
+    {       
+        settings.SetActive(true);
     }
 
     public void Continue()

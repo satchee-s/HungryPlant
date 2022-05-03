@@ -13,29 +13,50 @@ public class GasRooms : Puzzle
 
     bool inArea;
     public bool complete;
+    bool invoked;
 
     private void Update()
     {
         //percentageText.text = Mathf.RoundToInt(slider.value * 100) + "%";
 
-        if (inArea && !complete)
-        {
-            if (Input.GetMouseButton(1))
-            {
-                if (CheckItems())
-                    PourGas();
-            }
+        //if (inArea && !complete)
+        //{
+        //    if (Input.GetMouseButton(1))
+        //    {
+        //        if (CheckItems())
+        //            PourGas();
+        //    }
 
+        //    if (slider.value <= 0)
+        //    {
+        //        slider.gameObject.SetActive(false);
+        //        //percentageText.gameObject.SetActive(false);
+        //        taskCompleted.Invoke();
+        //        complete = true;
+        //        slider.value = 1;
+        //    }
+        //}       
+    }
+
+    public override void ExecutePuzzle()
+    {
+        Debug.Log(CheckItems());
+        if (CheckItems() && !complete && inArea)
+        {
+            Debug.Log("PourGas");
+            PourGas();
             if (slider.value <= 0)
             {
                 slider.gameObject.SetActive(false);
                 //percentageText.gameObject.SetActive(false);
                 taskCompleted.Invoke();
+                interactable.SetInteracting(false);
                 complete = true;
                 slider.value = 1;
             }
-        }       
+        }
     }
+
     void PourGas()
     {
         //percentageText.gameObject.SetActive(true);

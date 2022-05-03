@@ -10,11 +10,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float crouchSpeed;
     float finalSpeed;
     [SerializeField] float gravity = -9.81f * 2;
-    [SerializeField] float jumpHeight;
 
     public Transform groundCheck;
     [SerializeField] float groundDistance;
-    public LayerMask groundLayerMask;
 
     public Animator playerAnimator;
 
@@ -23,14 +21,12 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 velocity;
     bool isGrounded;
-    bool canJump;
     bool isMoving;
 
     private void Update()
     {
         Sprint();
         Movement();
-        Jump();
         Crouch();
 
         
@@ -39,17 +35,10 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    private void Jump()
-    {
-        if (Input.GetButtonDown("Jump") && isGrounded && canJump)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-    }
     private void Movement()
     {
 
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundLayerMask);
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance);
         if (isGrounded && velocity.y < 0)
             velocity.y = -1f;
 
@@ -71,19 +60,17 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Crouch()
     {
-        //finalSpeed = speed;
+        finalSpeed = speed;
         Vector3 newScale = new Vector3(transform.localScale.x, normalHeight, transform.localScale.z);
-        canJump = true;
         if (Input.GetKey(KeyCode.LeftControl))
         {
             newScale.y = crouchHeight;
-            canJump = false;
-            //finalSpeed = crouchSpeed;
-            //playerAnimator.SetBool("Crouch", true);
+            finalSpeed = crouchSpeed;
+            playerAnimator.SetBool("Crouch", true);
         }
         else
         {
-            //playerAnimator.SetBool("Crouch", false);
+            playerAnimator.SetBool("Crouch", false);
         }
         
         transform.localScale = newScale;
@@ -113,6 +100,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void FlashBang()
     {
-        StartCoroutine(Flash());        
+        StartCoroutine(Flash());
     }
 }

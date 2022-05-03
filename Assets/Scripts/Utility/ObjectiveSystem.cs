@@ -32,6 +32,8 @@ public class ObjectiveSystem : MonoBehaviour
     Vector3 endPos;
     public float rate, duration;
 
+    public AudioSource add, done;
+
     void Start()
     {
         objectives = new List<Objective>();
@@ -99,8 +101,14 @@ public class ObjectiveSystem : MonoBehaviour
                 if (temp.completed)
                 {
                     Strikethrough(temp, temp.completed);
+                    done.Play();
+                }
+                else
+                {
+                    add.Play();
                 }
                 obj.transform.SetParent(popUp.transform, false);
+
 
                 while (Vector3.Distance(popUp.transform.position, endPos) > .01f)
                 {
@@ -108,6 +116,7 @@ public class ObjectiveSystem : MonoBehaviour
                     popUp.transform.position = pos;
                     yield return null;
                 }
+
                 yield return new WaitForSeconds(duration);
 
                 while (Vector3.Distance(popUp.transform.position, startPos) > .01f)

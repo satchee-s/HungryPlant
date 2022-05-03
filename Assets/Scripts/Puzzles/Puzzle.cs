@@ -10,6 +10,9 @@ public abstract class Puzzle : MonoBehaviour
     public UnityEvent taskCompleted;
     protected InventoryManager inventoryManager;
     protected SubtitleSystem subtitle;
+    
+    public InteractableLogic interactable;
+
     public bool CheckItems()
     {
         bool finalResult = true;
@@ -49,6 +52,8 @@ public abstract class Puzzle : MonoBehaviour
         {
             //Debug.Log("You have all the items");
             taskCompleted.Invoke();
+            if (interactable != null)
+                interactable.SetInteracting(false);
             for (int i = 0; i < consumeItems.Count; i++)
             {
                 ConsumeItem(consumeItems[i]);
