@@ -31,7 +31,7 @@ public class InteractableLogic : MonoBehaviour
             canInteract = false;
         curve = new AnimationCurve();
         curve.AddKey(0, 0);
-        curve.AddKey(pulseInterval / 2, .5f);
+        curve.AddKey(pulseInterval / 2, .3f);
         curve.AddKey(pulseInterval, 0);
     }
 
