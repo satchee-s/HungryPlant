@@ -29,26 +29,41 @@ public class FlashlightController : MonoBehaviour
     public float flashDuration;
     float flashTime;
 
+    Ray ray;
+    RaycastHit hit;
+    public Vector2 intensityRange;
+    AnimationCurve intensityFalloff;
+    public float lightMaxRange;
+    public LayerMask playerLayer;
+
     AudioSource sound;
 
     // Start is called before the first frame update
     void Awake()
     {
         batteryCharge = 100;
-        toggled = false;
-        maxIntensity = lightObject.intensity;
-        flashIntensity = maxIntensity * flashMultiplier;
+        toggled = false;     
 
-        //lightObject.intensity = 0;
         ToggleLight(toggled);
         sound = GetComponent<AudioSource>();
         ui.material.EnableKeyword("_EMISSION");
         updateUI();
+        
+        intensityFalloff = new AnimationCurve();
+        intensityFalloff.AddKey(0, intensityRange.x);
+        intensityFalloff.AddKey(1, intensityRange.y);
     }
 
     // Update is called once per frame
     void Update()
     {
+        ray = new Ray(transform.position, transform.right);
+        if (Physics.Raycast(ray, out hit, lightMaxRange))
+        {
+            maxIntensity = intensityFalloff.Evaluate(hit.distance / lightMaxRange);
+            flashIntensity = maxIntensity * flashMultiplier;
+            lightObject.range = hit.distance * 1.5f;
+        }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -66,8 +81,7 @@ public class FlashlightController : MonoBehaviour
             FlashBang();
             flashSound.Play();
             flashOn = true;
-        }
-
+        }        
 
         LightAmount();
         lightObject.intensity = currentIntensity;
@@ -157,5 +171,13 @@ public class FlashlightController : MonoBehaviour
             ui.material.color = Color.black;
             ui.material.SetColor("_EmissionColor", Color.black * 1.5f);
         }            
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(transform.position, hit.point);
+        Gizmos.color = uiColor;
+        Gizmos.DrawRay(ray);
+        
     }
 }
