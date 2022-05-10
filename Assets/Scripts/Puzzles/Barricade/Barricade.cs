@@ -21,6 +21,9 @@ public class Barricade : Puzzle
     public float hammerInterval = 0.5f;
     float hammerTime;
 
+    public Material broken;
+    public GameObject particles;
+
     private void Start()
     {
         inventoryManager = GameObject.Find("PlayerParent").GetComponent<InventoryManager>();
@@ -100,5 +103,12 @@ public class Barricade : Puzzle
                 slider.gameObject.SetActive(false);
             }
         }        
+    }
+
+    public void BreakWindows()
+    {
+        GetComponent<Renderer>().material = broken;
+        GameObject particlesObject = Instantiate(particles);
+        GetComponent<AudioSource>().Play();
     }
 }

@@ -62,7 +62,7 @@ public class FlashlightController : MonoBehaviour
         {
             maxIntensity = intensityFalloff.Evaluate(hit.distance / lightMaxRange);
             flashIntensity = maxIntensity * flashMultiplier;
-            lightObject.range = hit.distance * 1.5f;
+            //lightObject.range = hit.distance * 1.5f;
         }
 
         if (Input.GetKeyDown(KeyCode.F))

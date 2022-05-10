@@ -48,6 +48,10 @@ public class BarricadeCounter : Puzzle
             {
                 vines[i].SetActive(true);
             }
+            for (int i = 0; i < barricades.Length; i++)
+            {
+                barricades[i].BreakWindows();
+            }
             subtitle.DisplaySubtitle(completedText);
         }
     }
