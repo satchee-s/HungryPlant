@@ -6,27 +6,26 @@ using UnityEngine.Rendering;
 public class VignetteToggle : MonoBehaviour
 {
 
-    Volume vignette;
+    public Volume vignette;
     bool toggled;
     public float speed;
     float weight;
 
-    // Start is called before the first frame update
-    void Start()
+    public bool IsToggled()
     {
-        vignette = GetComponent<Volume>();
+        return toggled;
     }
 
     public void AddIn()
     {
         if (!toggled)
-            ChangeWeight(true);
+            StartCoroutine(ChangeWeight(true));            
     }
 
     public void TakeOut()
     {
         if (toggled)
-            ChangeWeight(false);
+            StartCoroutine(ChangeWeight(false));
     }
 
     IEnumerator ChangeWeight(bool state)

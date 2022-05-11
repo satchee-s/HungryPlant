@@ -9,7 +9,6 @@ public class AIManager : MonoBehaviour
     public AudioClip[] attack;
     public AudioClip[] sounds;
 
-    public VignetteToggle vignette;
     public AudioSource plantSource;
     public Animator animator;
 
@@ -18,6 +17,8 @@ public class AIManager : MonoBehaviour
     public float stunDuration;
     float stunTime;
     public bool stunned { get; private set; }
+
+    public VignetteToggle vignette;
 
     public void SetMovement (State state)
     {
@@ -52,12 +53,23 @@ public class AIManager : MonoBehaviour
                 currentState.enabled = true;
             }
         }
+
         currentState.SetBehaviour(this);
 
         if (currentState == chaseBehavior)
-            vignette.AddIn();
+        {
+            if (!vignette.IsToggled())
+            {
+                vignette.AddIn();
+            }
+        }
         else
-            vignette.TakeOut();
+        {
+            if (vignette.IsToggled())
+            {
+                vignette.TakeOut();
+            }
+        }
     }
 
     public void PlayAttackSound()

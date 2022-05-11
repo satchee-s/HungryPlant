@@ -6,8 +6,8 @@ public class Chase : State
     [SerializeField] float maxSpeed, frames, captureDistance, smooth, collisionDist;
     Vector3 finalVelocity = Vector3.zero;
     Vector3 desiredPos, desiredVelocity, currentNode;
-    RaycastHit hit;
-    
+    RaycastHit hit;    
+
     public override void SetBehaviour(AIManager aiManager)
     {
         if (DetectPlayer(player.transform, transform, captureDistance))
@@ -22,7 +22,7 @@ public class Chase : State
         }
         else
         {
-            aiManager.SetMovement(aiManager.roamingBehavior);
+            aiManager.SetMovement(aiManager.roamingBehavior);            
         }
     }
 
