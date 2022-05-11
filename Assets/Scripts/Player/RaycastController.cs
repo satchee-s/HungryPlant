@@ -26,6 +26,9 @@ public class RaycastController : MonoBehaviour
     bool hitPuzzle;
     bool hitEnvironmental;
 
+    bool firstPickup;
+    public KeyPrompts prompt;
+
     private void Start()
     {
         cam = Camera.main;
@@ -102,6 +105,12 @@ public class RaycastController : MonoBehaviour
                 {
                     item = hit.transform.GetComponent<Item>();
                     inventory.SlotManager(item);
+                    
+                    if (!firstPickup)
+                    {
+                        prompt.DisplayPrompt("Q");
+                        firstPickup = true;
+                    }
                 }                    
             }
             else

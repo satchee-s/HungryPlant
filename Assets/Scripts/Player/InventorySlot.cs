@@ -12,11 +12,32 @@ public class InventorySlot : MonoBehaviour
     [HideInInspector] public bool isFilled;
     [HideInInspector] public Item item;
 
+    public Color filledC, emptyC;
+    Image border;
     Animator animator;
 
     private void Start()
     {
         animator = UIBorder.GetComponent<Animator>();
+        border = UIBorder.GetComponent<Image>();
+    }
+
+    private void Update()
+    {
+        if (isFilled)
+        {
+            if (border.color != filledC)
+            {
+                border.color = filledC;
+            }
+        }
+        else
+        {
+            if (border.color != emptyC)
+            {
+                border.color = emptyC;
+            }
+        }
     }
 
     public void DeleteItem()
