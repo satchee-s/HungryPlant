@@ -14,7 +14,7 @@ public class VineIKSolver : MonoBehaviour
     public float speed = 1;
     public float stepDistance = 4;
     public float stepLength = 4;
-    public AnimationCurve stepHeight;
+    public float stepHeight;
     public Vector3 tipOffset;
     public Color targetColor;
 
@@ -56,7 +56,7 @@ public class VineIKSolver : MonoBehaviour
         transform.position = curPos;
         transform.up = curNormal;
 
-        Ray ray = new Ray(body.position + (body.right * tipSpacing) + tipOffset, Vector3.down);
+        Ray ray = new Ray(raycastPoint.position, Vector3.down);
         if (Physics.Raycast(ray, out RaycastHit hit, 10, levelLayer))
         {
             Vector3 temp = target.position;
@@ -69,8 +69,8 @@ public class VineIKSolver : MonoBehaviour
                 linkedVine.LinkedTrigger();
                 triggerStep = true;
                 lerp = 0;
-                //int dir = body.InverseTransformPoint(target.position).z > body.InverseTransformPoint(newPos).z ? 1 : -1;
-                newPos = target.position /*+ (body.forward * stepLength * dir)*/;
+                int dir = body.InverseTransformPoint(target.position).z > body.InverseTransformPoint(newPos).z ? 1 : -1;
+                newPos = target.position + (body.forward * stepLength * dir);
                 newNormal = hit.normal;
             }
         }
@@ -78,7 +78,7 @@ public class VineIKSolver : MonoBehaviour
         if (lerp < 1)
         {
             Vector3 temp = Vector3.Lerp(oldPos, newPos, lerp);
-            temp.y = stepHeight.Evaluate(lerp);
+            temp.y += Mathf.Sin(lerp * Mathf.PI) * stepHeight;
 
             curPos = temp;
             curNormal = Vector3.Lerp(oldNormal, newNormal, lerp);
@@ -112,8 +112,8 @@ public class VineIKSolver : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, 10, levelLayer))
         {
             lerp = 0;
-            //int dir = body.InverseTransformPoint(target.position).z > body.InverseTransformPoint(newPos).z ? 1 : -1;
-            newPos = target.position /*+ (body.forward * stepLength * dir)*/;
+            int dir = body.InverseTransformPoint(target.position).z > body.InverseTransformPoint(newPos).z ? 1 : -1;
+            newPos = target.position + (body.forward * stepLength * dir);
             newNormal = hit.normal;
         }            
     }
