@@ -22,7 +22,8 @@ public class InteractableLogic : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<PlayerMovement>().gameObject;
-        material = mesh.materials[1];
+        if (mesh.materials.Length > 1)
+            material = mesh.materials[1];
         transparency = 0;
 
         if (startEnabled)

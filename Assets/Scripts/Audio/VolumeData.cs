@@ -102,7 +102,7 @@ public class VolumeData : ScriptableObject
         foreach (VolumeHolder vol in volumes)
         {
             volume = vol.tempVol;
-            //Debug.Log("Saving Values - " + prefPrefix + vol.name + ": " + volume);
+            Debug.Log("Saving Values - " + prefPrefix + vol.name + ": " + volume);
             PlayerPrefs.SetFloat(prefPrefix + vol.name, volume);
             mixer.SetFloat(vol.name, Mathf.Log(vol.volume) * 20f);
             vol.volume = volume;
