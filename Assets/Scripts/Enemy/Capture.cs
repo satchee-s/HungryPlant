@@ -13,7 +13,11 @@ public class Capture : State
     public override void SetBehaviour(AIManager aiManager)
     {
         if (!caught)
-            StartCoroutine(Capturing(aiManager));
+        {
+            //StartCoroutine(Capturing(aiManager));
+            Capturing();
+        }
+        aiManager.SetMovement(aiManager.roamingBehavior);
     }
 
     IEnumerator Capturing(AIManager aiManager)
@@ -32,7 +36,23 @@ public class Capture : State
 
         anim.SetBool("Capture", false);
         transform.position = plantResetPosition.position;
-        aiManager.SetMovement(aiManager.roamingBehavior);
+        //aiManager.SetMovement(aiManager.roamingBehavior);
+        caught = false;
+        //yield return null;
+    }
+
+    void Capturing()
+    {
+        caught = true;
+        eatSound.Play();
+        anim.SetBool("Capture", true);
+        player.GetComponent<CharacterController>().enabled = false;
+        player.position = resetPosition.position;
+        player.GetComponent<CharacterController>().enabled = true;
+
+        anim.SetBool("Capture", false);
+        transform.position = plantResetPosition.position;
+        //aiManager.SetMovement(aiManager.roamingBehavior);
         caught = false;
     }
 }

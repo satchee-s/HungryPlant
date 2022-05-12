@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 public class Chase : State
 {
-    [SerializeField] float maxSpeed, frames, captureDistance, smooth, collisionDist;
+    [SerializeField] float maxSpeed, frames, captureDistance, smooth, collisionDist, avoidanceForce;
     Vector3 finalVelocity = Vector3.zero;
     Vector3 desiredPos, desiredVelocity, currentNode;
     RaycastHit hit;
+    Vector3 avoidanceVector;
     
     public override void SetBehaviour(AIManager aiManager)
     {
@@ -31,10 +32,13 @@ public class Chase : State
         if (Physics.Raycast(transform.position, transform.forward, out hit, collisionDist, ~playerLayer))
         {
             currentNode = pathfinding.FindClosestNode(player.position).Position;
+            avoidanceVector = transform.position - hit.normal;
+            avoidanceVector = avoidanceVector.normalized * avoidanceForce;
         }
         else
         {
             currentNode = player.position;
+            avoidanceVector = Vector3.zero;
         }
 
         desiredPos = currentNode;
@@ -42,10 +46,13 @@ public class Chase : State
         desiredVelocity = (transform.position - desiredPos).normalized * maxSpeed;
         finalVelocity = finalVelocity - desiredVelocity;
         finalVelocity = Vector3.ClampMagnitude(finalVelocity, maxSpeed);
-        transform.position += (finalVelocity) * Time.deltaTime;
+
+        transform.position += (finalVelocity+avoidanceVector) * Time.deltaTime;
 
         Vector3 rotationPos = (transform.position - currentNode).normalized * -1f;
         Quaternion desiredRotation = Quaternion.LookRotation(rotationPos);
+
+
         transform.rotation = Quaternion.Slerp(transform.rotation, desiredRotation, smooth * Time.deltaTime);
     }
 }

@@ -13,7 +13,7 @@ public class Patrol : State
     [SerializeField] float smooth;
     Vector3 finalVelocity = Vector3.zero;
     Vector3 desiredPos;
-    Vector3 desiredVelocity, avoidanceForce;
+    Vector3 desiredVelocity;
 
     bool hasPath = false;
     List<Node> travelPath = new List<Node>();
