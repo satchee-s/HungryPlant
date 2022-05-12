@@ -776,6 +776,18 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1361732742837929478}
         m_TargetAssemblyTypeName: InterogationEvents, Assembly-CSharp
+        m_MethodName: isMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1361732742837929478}
+        m_TargetAssemblyTypeName: InterogationEvents, Assembly-CSharp
         m_MethodName: ToMenu
         m_Mode: 1
         m_Arguments:
@@ -1343,9 +1355,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1432872559}
   - component: {fileID: 1432872558}
+  - component: {fileID: 1432872560}
   m_Layer: 0
   m_Name: games music
-  m_TagString: Untagged
+  m_TagString: Music
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1361,7 +1374,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d367e401411658843adbcb2c959f551f, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
@@ -1460,6 +1473,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1432872560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432872557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4f01668c58799f4aa8863d7c4d9a1ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1461672132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,7 +1797,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1361732742837929478}
         m_TargetAssemblyTypeName: InterogationEvents, Assembly-CSharp
-        m_MethodName: Quit
+        m_MethodName: isQuit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1361732742837929478}
+        m_TargetAssemblyTypeName: InterogationEvents, Assembly-CSharp
+        m_MethodName: ToMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2440,12 +2477,14 @@ MonoBehaviour:
   fadeSpeed: 1
   fadeDuration: 1
   timeToFadeBack: 2
-  menuScene: MainMenu
+  menuScene: _PostCreditsScene
   alphaChange: 0.5
   credits: {fileID: 984047574}
   buttons:
   - {fileID: 1897574086}
   - {fileID: 832450320}
+  audio: {fileID: 1432872560}
+  data: {fileID: 11400000, guid: 2054076a9a1741e4889cdfdc18309869, type: 2}
 --- !u!114 &2080154114911018079
 MonoBehaviour:
   m_ObjectHideFlags: 0

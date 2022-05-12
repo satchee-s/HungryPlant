@@ -13,6 +13,7 @@ TagManager:
   - DoorStayOpen
   - Environmental
   - Waypoint
+  - Music
   layers:
   - Default
   - TransparentFX

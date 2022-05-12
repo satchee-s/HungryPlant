@@ -22,6 +22,10 @@ public class InterogationEvents : MonoBehaviour
     public Text credits;
     public Image[] buttons;
 
+    public PersistenAudio audio;
+    public EndData data;
+    public bool showThanks;
+
     private void Start()
     {
         subtitleSystem = FindObjectOfType<SubtitleSystem>();
@@ -32,6 +36,20 @@ public class InterogationEvents : MonoBehaviour
             Color temp = buttons[i].color;
             buttons[i].color = new Color(temp.r, temp.g, temp.b, 0);
         }
+    }
+
+    public void PostScene()
+    {
+        StartCoroutine(PostSceneTransition());
+    }
+
+    IEnumerator PostSceneTransition()
+    {
+        yield return new WaitForSeconds(1);
+        if (data.toMenu)
+            ToMenu();
+        else if (data.doQuit)
+            Quit();
     }
 
     public void FadeScreen()
@@ -51,7 +69,18 @@ public class InterogationEvents : MonoBehaviour
             fadeToBlack = true;
             StartCoroutine(FadeToBlack());
         }
+    }
 
+    public void isMenu()
+    {
+        data.toMenu = true;
+        data.doQuit = false;
+    }
+
+    public void isQuit()
+    {
+        data.doQuit = true;
+        data.toMenu = false;
     }
 
     public void ShowCredits()
@@ -72,6 +101,8 @@ public class InterogationEvents : MonoBehaviour
             credits.color = new Color(credits.color.r, credits.color.g, credits.color.b, creditA);
             yield return null;
         }
+
+        audio.PlayMusic();
 
         yield return new WaitForSeconds(1);
 
@@ -165,9 +196,13 @@ public class InterogationEvents : MonoBehaviour
                 yield return null;
             }
 
-            subtitleSystem.DisplaySubtitle("Thank you for Playing", 3, .1f, .5f);
-            yield return new WaitUntil(() => subtitleSystem.isPlaying);
-            yield return new WaitWhile(() => subtitleSystem.isPlaying);
+            if (showThanks)
+            {
+                subtitleSystem.DisplaySubtitle("Thank you for Playing", 3, .1f, .5f);
+                yield return new WaitUntil(() => subtitleSystem.isPlaying);
+                yield return new WaitWhile(() => subtitleSystem.isPlaying);
+                audio.StopMusic();
+            }                
 
             if (quit)
             {
@@ -191,9 +226,13 @@ public class InterogationEvents : MonoBehaviour
                 yield return null;
             }
 
-            subtitleSystem.DisplaySubtitle("Thank you for Playing", 3, .1f, .5f);
-            yield return new WaitUntil(() => subtitleSystem.isPlaying);
-            yield return new WaitWhile(() => subtitleSystem.isPlaying);
+            if (showThanks)
+            {
+                subtitleSystem.DisplaySubtitle("Thank you for Playing", 3, .1f, .5f);
+                yield return new WaitUntil(() => subtitleSystem.isPlaying);
+                yield return new WaitWhile(() => subtitleSystem.isPlaying);
+                audio.StopMusic();
+            }
 
             if (changeScene)
             {
